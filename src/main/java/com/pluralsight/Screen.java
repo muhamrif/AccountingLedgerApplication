@@ -109,23 +109,13 @@ public class Screen {
         // The amount should be a positive number.
         // After validating the input, a new `Deposit` object should be created with the entered values.
         // The new deposit should be added to the `transactions` ArrayList.
-        System.out.println("Enter ( D ),  if this Transaction is a DEPOSIT (ADDING MONEY TO YOUR ACCOUNT)");
-        System.out.println("Enter ( P ),  if this Transaction is a PAYMENT (REMOVING MONEY TO YOUR ACCOUNT)");
-        String depositValidation = scanner.next();
-        boolean isDeposit = depositValidation.equalsIgnoreCase("D");
 
 
-        System.out.println("Please enter the Year of your transaction in the YYYY format, you can enter any year from 1900 to 2023:");
-        String year = scanner.next();
-        scanner.nextLine();
+        boolean isDeposit = UserValidation.depositOrPayment().equalsIgnoreCase("D");
+        String year = UserValidation.yearDate();
+        String month = UserValidation.monthDate();
+        String day = UserValidation.dayDate(month);
 
-        System.out.println("Please enter the Month of your transaction in the MM format, you can enter any month from 01 to 12:");
-        String month = scanner.next();
-        scanner.nextLine();
-
-        System.out.println("Please enter the Day of your transaction in the DD format, you can enter any day from 01 to 31:");
-        String day = scanner.next();
-        scanner.nextLine();
 
         LocalDate date = LocalDate.parse(year+"-"+month+"-"+day, DateTimeFormatter.ofPattern(DATE_FORMAT));
         System.out.println("Date of your Transaction: " + date);
