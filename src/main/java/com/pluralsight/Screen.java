@@ -23,12 +23,12 @@ public class Screen {
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern(TIME_FORMAT);
 
     public static void main(String[] args) {
+        System.out.println("Welcome to TransactionApp");
         loadTransactions(FILE_NAME);
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
 
         while (running) {
-            System.out.println("Welcome to TransactionApp");
             System.out.println("Choose an option:");
             System.out.println("D) Add Deposit");
             System.out.println("P) Make Payment (Debit)");
@@ -68,6 +68,16 @@ public class Screen {
         // For example: 2023-04-29,13:45:00,Amazon,PAYMENT,29.99
         // After reading all the transactions, the file should be closed.
         // If any errors occur, an appropriate error message should be displayed.
+        try {
+            File myFile = new File(fileName);
+            if (myFile.createNewFile()){
+                System.out.println("You have no transaction on record!");
+            }else{
+                System.out.println("Loading your transactions!");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         try {
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
