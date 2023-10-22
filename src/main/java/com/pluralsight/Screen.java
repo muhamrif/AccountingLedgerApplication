@@ -38,11 +38,8 @@ public class Screen {
             String input = scanner.nextLine().trim();
 
             switch (input.toUpperCase()) {
-                case "D":
-                    addDeposit(scanner);
-                    break;
-                case "P":
-                    addPayment(scanner);
+                case "D", "P":
+                    addTransaction(scanner);
                     break;
                 case "L":
                     ledgerMenu(scanner);
@@ -60,14 +57,6 @@ public class Screen {
     }
 
     public static void loadTransactions(String fileName) {
-        // This method should load transactions from a file with the given file name.
-        // If the file does not exist, it should be created.
-        // The transactions should be stored in the `transactions` ArrayList.
-        // Each line of the file represents a single transaction in the following format:
-        // <date>,<time>,<vendor>,<type>,<amount>
-        // For example: 2023-04-29,13:45:00,Amazon,PAYMENT,29.99
-        // After reading all the transactions, the file should be closed.
-        // If any errors occur, an appropriate error message should be displayed.
         try {
             File myFile = new File(fileName);
             if (myFile.createNewFile()){
@@ -103,82 +92,49 @@ public class Screen {
 
     }
 
-    private static void addDeposit(Scanner scanner) {
-        // This method should prompt the user to enter the date, time, vendor, and amount of a deposit.
-        // The user should enter the date and time in the following format: yyyy-MM-dd HH:mm:ss
-        // The amount should be a positive number.
-        // After validating the input, a new `Deposit` object should be created with the entered values.
-        // The new deposit should be added to the `transactions` ArrayList.
-
+    private static void addTransaction(Scanner scanner) {
 
         boolean isDeposit = UserValidation.depositOrPayment().equalsIgnoreCase("D");
+
+        // Building Date
         String year = UserValidation.yearDate();
         String month = UserValidation.monthDate();
         String day = UserValidation.dayDate(month);
-
-
         LocalDate date = LocalDate.parse(year+"-"+month+"-"+day, DateTimeFormatter.ofPattern(DATE_FORMAT));
         System.out.println("Date of your Transaction: " + date);
 
-        System.out.println("Please enter the Hour of your transaction in the HH format, you can enter any month from 01 to 24:");
-        String hour = scanner.next();
-        scanner.nextLine();
-
-        System.out.println("Please enter the Minute of your transaction in the MM format, you can enter any month from 00 to 60:");
-        String min = scanner.next();
-        scanner.nextLine();
-
-        System.out.println("Please enter the Seconds of your transaction in the SS format, you can enter any month from 00 to 60:");
-        String sec = scanner.next();
-        scanner.nextLine();
-
+        // Building Time
+        String hour = UserValidation.hourTime();
+        String min = UserValidation.minuteTime();
+        String sec = UserValidation.secondTime();
         LocalTime time = LocalTime.parse(hour+":"+min+":"+sec, DateTimeFormatter.ofPattern(TIME_FORMAT));
         System.out.println("Time of your Transaction: " + time);
 
+        // Get Vendor
+        String vendor = UserValidation.transactionVendor();
 
-        System.out.println("Please enter the vendor for this Transaction:");
-        String vendor = scanner.next();
-        scanner.nextLine();
+        // Get Description
+        String description = UserValidation.transactionDescription();
 
-        System.out.println("Please enter the Description for this Transaction:");
-        String description = scanner.next();
-        scanner.nextLine();
-
-        System.out.println("Please enter the amount for this Transaction:");
-        double amount = scanner.nextDouble();
-        scanner.nextLine();
+        // Get Amount
+        double amount = UserValidation.transactionAmount();
         if (isDeposit && amount<0) amount*=-1;
-
-        Transactions transaction = new Transactions(description, vendor, date, time, isDeposit?amount:amount*-1);
-        transactions.add(transaction);
-//        System.out.println(transactions.get(0));
-
         try{
-            System.out.println("testing");
+            Transactions transaction = new Transactions(description, vendor, date, time, isDeposit?amount:amount*-1);
+            transactions.add(transaction);
             BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME));
             for (Transactions x:transactions){
                 String outputLine = x.getDate() + "|" + x.getTime() + "|" + x.getDescription() + "|" + x.getVendor() + "|" + x.getAmount() + "\n";
                 writer.write(outputLine);
             }
-
             writer.close();
             System.out.println("YOUR TRANSACTION WAS SECURELY RECORDED!");
-
-
         }
         catch(IOException e){
             System.out.println("TRANSACTION WAS NOT RECORDER, TRY AGAIN!");
         }
-
     }
 
-    private static void addPayment(Scanner scanner) {
-        // This method should prompt the user to enter the date, time, vendor, and amount of a payment.
-        // The user should enter the date and time in the following format: yyyy-MM-dd HH:mm:ss
-        // The amount should be a positive number.
-        // After validating the input, a new `Payment` object should be created with the entered values.
-        // The new payment should be added to the `transactions` ArrayList.
-    }
 
     private static void ledgerMenu(Scanner scanner) {
         boolean running = true;

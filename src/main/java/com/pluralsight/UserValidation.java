@@ -84,4 +84,77 @@ public class UserValidation {
     }
 
 
+    public static String hourTime() {
+
+        boolean flag = true;
+        String hour = "";
+        while (flag) {
+            System.out.println("Please enter the Hour of your transaction in the HH format, you can enter any month from 01 to 24:");
+            hour = scanner.next();
+            scanner.nextLine();
+            if((hour.chars().allMatch( Character::isDigit )) && (Integer.parseInt(hour) >= 01 && Integer.parseInt(hour) <= 24)) {
+                    flag = false;
+            }else{
+                System.out.println("INVALID entry, Please enter a VALID HOUR in HH format to continue.");
+            }
+        }
+        return hour;
+    }
+
+    public static String minuteTime() {
+
+        boolean flag = true;
+        String minute = "";
+        while (flag) {
+            System.out.println("Please enter the MINUTE of your transaction in the MM format, you can enter any month from 00 to 59:");
+            minute = scanner.next();
+            scanner.nextLine();
+            if((minute.chars().allMatch( Character::isDigit )) && (Integer.parseInt(minute) >= 00 && Integer.parseInt(minute) <= 59)) {
+                flag = false;
+            }else{
+                System.out.println("INVALID entry, Please enter a VALID MINUTES in MM format to continue.");
+            }
+        }
+        return minute;
+    }
+
+    public static String secondTime() {
+
+        boolean flag = true;
+        String second = "";
+        while (flag) {
+            System.out.println("Please enter the SECONDS of your transaction in the SS format, you can enter any month from 00 to 59:");
+            second = scanner.next();
+            scanner.nextLine();
+            if((second.chars().allMatch( Character::isDigit )) && (Integer.parseInt(second) >= 00 && Integer.parseInt(second) <= 59)) {
+                flag = false;
+            }else{
+                System.out.println("INVALID entry, Please enter a VALID SECONDS in SS format to continue.");
+            }
+        }
+        return second;
+    }
+
+    public static String transactionVendor(){
+        System.out.println("Please enter the vendor for this Transaction:");
+        String vendor = scanner.next();
+        scanner.nextLine();
+        return vendor;
+    }
+
+    public static String transactionDescription(){
+        System.out.println("Please enter the description or item name for this Transaction:");
+        String description = scanner.next();
+        scanner.nextLine();
+        return description;
+    }
+
+    public static double transactionAmount(){
+        System.out.println("Please enter the amount for this Transaction:");
+        double amount = scanner.nextDouble();
+        scanner.nextLine();
+        return amount;
+    }
+
+
 }
