@@ -68,6 +68,29 @@ public class Screen {
         // For example: 2023-04-29,13:45:00,Amazon,PAYMENT,29.99
         // After reading all the transactions, the file should be closed.
         // If any errors occur, an appropriate error message should be displayed.
+
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(fileName));
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                String[] tokens = line.split("\\|");
+                LocalDate date = LocalDate.parse(tokens[0]);
+                LocalTime time = LocalTime.parse(tokens[1]);
+                String description = tokens[2];
+                String vendor = tokens[3];
+                double amount = Double.parseDouble(tokens[4]);
+                Transactions employee = new Transactions(description,vendor,date, time, amount);
+                transactions.add(employee);
+                System.out.println(employee.toString());
+
+            }
+
+        } catch (IOException e) {
+            System.err.println("Error reading file: " + fileName);
+        }
+
+
     }
 
     private static void addDeposit(Scanner scanner) {

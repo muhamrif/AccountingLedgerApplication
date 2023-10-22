@@ -13,7 +13,7 @@ public class Transactions {
     private String vendor;
     private LocalDate date;
     private LocalTime time;
-    private int amount;
+    private double amount;
     private boolean isDeposit;
     private boolean isPayment;
 
@@ -21,14 +21,14 @@ public class Transactions {
 //   Constructors
 //________________________//
 
-    public Transactions(String description, String vendor, LocalDate date, LocalTime time, int amount, boolean isDeposit, boolean isPayment) {
+    public Transactions(String description, String vendor, LocalDate date, LocalTime time, double amount) {
         this.description = description;
         this.vendor = vendor;
         this.date = date;
         this.time = time;
         this.amount = amount;
-        this.isDeposit = isDeposit;
-        this.isPayment = isPayment;
+        this.isDeposit = amount>=0?true:false;
+        this.isPayment = amount<0?true:false;
     }
 
 
@@ -68,11 +68,11 @@ public class Transactions {
         this.time = time;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
