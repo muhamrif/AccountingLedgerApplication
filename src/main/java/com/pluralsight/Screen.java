@@ -71,9 +71,9 @@ public class Screen {
         try {
             File myFile = new File(fileName);
             if (myFile.createNewFile()){
-                System.out.println("You have no transaction on record!");
+                System.out.println("You have no transaction(s) on record!");
             }else{
-                System.out.println("Loading your transactions!");
+                System.out.println("Loading your transaction(s)!");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -90,9 +90,9 @@ public class Screen {
                 String description = tokens[2];
                 String vendor = tokens[3];
                 double amount = Double.parseDouble(tokens[4]);
-                Transactions employee = new Transactions(description,vendor,date, time, amount);
-                transactions.add(employee);
-                System.out.println(employee.toString());
+                Transactions transaction = new Transactions(description,vendor,date, time, amount);
+                transactions.add(transaction);
+                System.out.println(transaction.toString());
 
             }
 
@@ -109,6 +109,77 @@ public class Screen {
         // The amount should be a positive number.
         // After validating the input, a new `Deposit` object should be created with the entered values.
         // The new deposit should be added to the `transactions` ArrayList.
+        System.out.println("Enter ( D ),  if this Transaction is a DEPOSIT (ADDING MONEY TO YOUR ACCOUNT)");
+        System.out.println("Enter ( P ),  if this Transaction is a PAYMENT (REMOVING MONEY TO YOUR ACCOUNT)");
+        String depositValidation = scanner.next();
+        boolean isDeposit = depositValidation.equalsIgnoreCase("D");
+
+
+        System.out.println("Please enter the Year of your transaction in the YYYY format, you can enter any year from 1900 to 2023:");
+        String year = scanner.next();
+        scanner.nextLine();
+
+        System.out.println("Please enter the Month of your transaction in the MM format, you can enter any month from 01 to 12:");
+        String month = scanner.next();
+        scanner.nextLine();
+
+        System.out.println("Please enter the Day of your transaction in the DD format, you can enter any day from 01 to 31:");
+        String day = scanner.next();
+        scanner.nextLine();
+
+        LocalDate date = LocalDate.parse(year+"-"+month+"-"+day, DateTimeFormatter.ofPattern(DATE_FORMAT));
+        System.out.println("Date of your Transaction: " + date);
+
+        System.out.println("Please enter the Hour of your transaction in the HH format, you can enter any month from 01 to 24:");
+        String hour = scanner.next();
+        scanner.nextLine();
+
+        System.out.println("Please enter the Minute of your transaction in the MM format, you can enter any month from 00 to 60:");
+        String min = scanner.next();
+        scanner.nextLine();
+
+        System.out.println("Please enter the Seconds of your transaction in the SS format, you can enter any month from 00 to 60:");
+        String sec = scanner.next();
+        scanner.nextLine();
+
+        LocalTime time = LocalTime.parse(hour+":"+min+":"+sec, DateTimeFormatter.ofPattern(TIME_FORMAT));
+        System.out.println("Time of your Transaction: " + time);
+
+
+        System.out.println("Please enter the vendor for this Transaction:");
+        String vendor = scanner.next();
+        scanner.nextLine();
+
+        System.out.println("Please enter the Description for this Transaction:");
+        String description = scanner.next();
+        scanner.nextLine();
+
+        System.out.println("Please enter the amount for this Transaction:");
+        double amount = scanner.nextDouble();
+        scanner.nextLine();
+        if (isDeposit && amount<0) amount*=-1;
+
+        Transactions transaction = new Transactions(description, vendor, date, time, isDeposit?amount:amount*-1);
+        transactions.add(transaction);
+//        System.out.println(transactions.get(0));
+
+        try{
+            System.out.println("testing");
+            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME));
+            for (Transactions x:transactions){
+                String outputLine = x.getDate() + "|" + x.getTime() + "|" + x.getDescription() + "|" + x.getVendor() + "|" + x.getAmount() + "\n";
+                writer.write(outputLine);
+            }
+
+            writer.close();
+            System.out.println("YOUR TRANSACTION WAS SECURELY RECORDED!");
+
+
+        }
+        catch(IOException e){
+            System.out.println("TRANSACTION WAS NOT RECORDER, TRY AGAIN!");
+        }
+
     }
 
     private static void addPayment(Scanner scanner) {
