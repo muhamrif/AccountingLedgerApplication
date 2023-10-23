@@ -28,7 +28,7 @@ public class UserValidation {
         boolean flag = true;
         String year = "";
         while (flag) {
-            System.out.println("📅📆Please enter the Year of your transaction in the YYYY format, you can enter any year from 1900 to 2023:📅📆");
+            System.out.println("📅📆Please enter the YEAR of your transaction in the YYYY format, you can enter any year from 1900 to 2023:📅📆");
             year = scanner.next();
             scanner.nextLine();
 
@@ -46,7 +46,7 @@ public class UserValidation {
     public static String monthDate() {
         boolean flag = true; String month = "";
         while (flag) {
-            System.out.println("📅📆Please enter the Month of your transaction in the MM format, you can enter any month from 01 to 12:📅📆");
+            System.out.println("📅📆Please enter the MONTH of your transaction in the MM format, you can enter any month from 01 to 12:📅📆");
             month = scanner.next();scanner.nextLine();
             if(month.chars().allMatch( Character::isDigit )) {
                 if (Integer.parseInt(month) >= 01 && Integer.parseInt(month) <= 12) {

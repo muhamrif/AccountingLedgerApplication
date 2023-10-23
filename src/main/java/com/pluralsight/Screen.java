@@ -23,6 +23,9 @@ public class Screen {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        System.out.println(ConsoleColors.GREEN+ConsoleColors.GREEN_BACKGROUND+"--------------------------------------------"+ConsoleColors.RESET);
+        System.out.println(ConsoleColors.GREEN+ConsoleColors.GREEN_BACKGROUND+"--"+ConsoleColors.RESET+ConsoleColors.WHITE_UNDERLINED+ConsoleColors.WHITE_BOLD_BRIGHT+" WELCOME TO MUHAMRIF ACCOUNTING LEDGER! "+ConsoleColors.GREEN+ConsoleColors.GREEN_BACKGROUND+"--"+ConsoleColors.RESET);
+        System.out.println(ConsoleColors.GREEN+ConsoleColors.GREEN_BACKGROUND+"--------------------------------------------"+ConsoleColors.RESET);
         System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT+"Please Enter Your Name To Open Your Accounting Ledger 📝:"+ConsoleColors.RESET );
         String name = scanner.next();
         scanner.nextLine();
@@ -44,15 +47,24 @@ public class Screen {
             switch (input.toUpperCase()) {
                 case "D", "P":
                     addTransaction(scanner, name.toLowerCase());
+                    System.out.println("\n" +"GOING BACK TO HOME MENU!"+"\n");
+                    progressSmall();
                     break;
                 case "L":
+
+                    System.out.println("\n" + "GOING TO LEDGER!"+"\n");
+                    progress();
                     ledgerMenu(scanner);
                     break;
                 case "X":
+                    System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"🚨🛑YOU ARE NOW SIGNING OFF!🛑🚨"+ConsoleColors.RESET);
+                    progressSmall();
+                    System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT+"THANK YOU FOR CHOOSING MUHAMRIF ACCOUNTING LEDGER"+ConsoleColors.RESET);
+                    System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT+"HAVE A WONDERFUL DAY!☀️"+ConsoleColors.RESET);
                     running = false;
                     break;
                 default:
-                    System.out.println("Invalid option");
+//                    System.out.println("🚨🛑Invalid option🛑🚨");
                     break;
             }
         }
@@ -103,14 +115,14 @@ public class Screen {
         String month = UserValidation.monthDate();
         String day = UserValidation.dayDate(month);
         LocalDate date = LocalDate.parse(year+"-"+month+"-"+day, DateTimeFormatter.ofPattern(DATE_FORMAT));
-        System.out.println("Date of your Transaction: " + date);
+        System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"Date of your Transaction(YYYY-MM-DD): " + date + ConsoleColors.RESET +"\n");
 
         // Building Time
         String hour = UserValidation.hourTime();
         String min = UserValidation.minuteTime();
         String sec = UserValidation.secondTime();
         LocalTime time = LocalTime.parse(hour+":"+min+":"+sec, DateTimeFormatter.ofPattern(TIME_FORMAT));
-        System.out.println("Time of your Transaction: " + time);
+        System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"Time of your Transaction(HH:MM:SS): " + time+ConsoleColors.RESET + "\n");
 
         // Get Vendor
         String vendor = UserValidation.transactionVendor();
@@ -124,16 +136,14 @@ public class Screen {
         try{
             Transactions transaction = new Transactions(description, vendor, date, time, isDeposit?amount:amount*-1);
             transactions.add(transaction);
-            BufferedWriter writer = new BufferedWriter(new FileWriter((name+FILE_NAME).toLowerCase()));
-            for (Transactions x:transactions){
-                String outputLine = x.getDate() + "|" + x.getTime() + "|" + x.getDescription() + "|" + x.getVendor() + "|" + x.getAmount() + "\n";
+            BufferedWriter writer = new BufferedWriter(new FileWriter((name+FILE_NAME).toLowerCase(), true));
+            String outputLine = transaction.getDate() + "|" + transaction.getTime() + "|" + transaction.getDescription() + "|" + transaction.getVendor() + "|" + transaction.getAmount() + "\n";
                 writer.write(outputLine);
-            }
             writer.close();
-            System.out.println("YOUR TRANSACTION WAS SECURELY RECORDED!");
+            System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT+"YOUR TRANSACTION WAS SECURELY RECORDED!" +ConsoleColors.RESET);
         }
         catch(IOException e){
-            System.out.println("TRANSACTION WAS NOT RECORDER, TRY AGAIN!");
+            System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"TRANSACTION WAS NOT RECORDER, TRY AGAIN!" + ConsoleColors.RESET);
         }
     }
 
@@ -141,30 +151,48 @@ public class Screen {
     private static void ledgerMenu(Scanner scanner) {
         boolean running = true;
         while (running) {
-            System.out.println("Ledger");
-            System.out.println("Choose an option:");
-            System.out.println("A) All");
-            System.out.println("D) Deposits");
-            System.out.println("P) Payments");
-            System.out.println("R) Reports");
-            System.out.println("H) Home");
+            System.out.println("Here is your Account Ledger:");
+            System.out.println("Choose an option to continue:");
+            System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"A) All📝"+ConsoleColors.RESET);
+            System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT+"D) Deposits💰"+ConsoleColors.RESET);
+            System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"P) Payments💸"+ConsoleColors.RESET);
+            System.out.println(ConsoleColors.BLUE_BOLD_BRIGHT+"R) Reports📘"+ConsoleColors.RESET);
+            System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"H) Home"+ConsoleColors.RESET);
 
             String input = scanner.nextLine().trim();
 
             switch (input.toUpperCase()) {
                 case "A":
+                    System.out.println("\n" + "GETTING YOUR TRANSACTIONS!"+"\n");
+                    progress();
                     displayLedger();
+                    System.out.println("\n" +"GOING BACK TO LEDGER MENU!"+"\n");
+                    progressSmall();
                     break;
                 case "D":
+                    System.out.println("\n" + "GETTING YOUR DEPOSITS!"+"\n");
+                    progress();
                     displayDeposits();
+                    System.out.println("\n" +"GOING BACK TO LEDGER MENU!"+"\n");
+                    progressSmall();
                     break;
                 case "P":
+                    System.out.println("\n" + "GETTING YOUR PAYMENTS!"+"\n");
+                    progress();
                     displayPayments();
+                    System.out.println("\n" +"GOING BACK TO LEDGER MENU!"+"\n");
+                    progressSmall();
                     break;
                 case "R":
+                    System.out.println("\n" + "GOING TO REPORTS!"+"\n");
+                    progress();
                     reportsMenu(scanner);
+                    System.out.println("\n" +"GOING BACK TO LEDGER MENU!"+"\n");
+                    progressSmall();
                     break;
                 case "H":
+                    System.out.println("\n" + "GOING BACK TO HOME!"+"\n");
+                    progress();
                     running = false;
                 default:
                     System.out.println("Invalid option");
@@ -202,15 +230,15 @@ public class Screen {
     private static void reportsMenu(Scanner scanner) {
         boolean running = true;
         while (running) {
-            System.out.println("Reports");
+            System.out.println("📘Reports📓");
             System.out.println("Choose an option:");
-            System.out.println("1) Month To Date");
-            System.out.println("2) Previous Month");
-            System.out.println("3) Year To Date");
-            System.out.println("4) Previous Year");
-            System.out.println("5) Search by Vendor");
-            System.out.println("6) Custom Search");
-            System.out.println("0) Back");
+            System.out.println("1) 🔎Month To Date📅");
+            System.out.println("2) 🔎Previous Month📅");
+            System.out.println("3) 🔎Year To Date⏳");
+            System.out.println("4) 🔎Previous Year⏳");
+            System.out.println("5) 🔎Search by Vendor🚙");
+            System.out.println("6) 🔎Custom Search🔍");
+            System.out.println("0) Back👈🏽");
 
             String input = scanner.nextLine().trim();
 
@@ -301,7 +329,7 @@ public class Screen {
             }
         }
 
-        if (counter == 0) System.out.println("No Reports Available for " + vendor + ":");
+        if (counter == 0) System.out.println("No Reports Available for " + vendor + ": ");
 
     }
 
@@ -331,7 +359,7 @@ public class Screen {
                 System.out.print("\rProcessing "
                         + anim.substring(0, x++ % anim.length())
                         + " ");
-                if (x == 40) {
+                if (x == 20) {
                     showProgress = false;
                     System.out.println("\n");
                 }
@@ -341,4 +369,24 @@ public class Screen {
                 }
             }
             }
+
+    private static void progressSmall() {
+        boolean showProgress = true;
+        String anim = "=====================";
+
+        int x = 0;
+        while (showProgress) {
+            System.out.print("\rProcessing "
+                    + anim.substring(0, x++ % anim.length())
+                    + " ");
+            if (x == 10) {
+                showProgress = false;
+                System.out.println("\n");
+            }
+            try {
+                Thread.sleep(100);
+            } catch (Exception e) {
+            }
+        }
+    }
 }
