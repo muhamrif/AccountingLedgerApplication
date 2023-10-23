@@ -22,14 +22,14 @@ public class Screen {
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern(TIME_FORMAT);
 
     public static void main(String[] args) {
-        System.out.println("Welcome to TransactionApp");
-        loadTransactions(FILE_NAME);
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Please Enter Your Name To Open Your Accounting Ledger:");
+        String name = scanner.next();
+        scanner.nextLine();
+        System.out.println("Welcome "+ name +" to your TransactionApp!");
+        loadTransactions(FILE_NAME, name);
         boolean running = true;
 
-//        LocalDate d1 = LocalDate.parse("2023-07-11");
-//        LocalDate d2 = LocalDate.parse("2023-07-22");
-//        System.out.println("DATETEEETETETETETT" + d1.compareTo(d2) + " " + d1.minusMonths(1));
 
         while (running) {
             System.out.println("Choose an option:");
@@ -42,7 +42,7 @@ public class Screen {
 
             switch (input.toUpperCase()) {
                 case "D", "P":
-                    addTransaction(scanner);
+                    addTransaction(scanner, name);
                     break;
                 case "L":
                     ledgerMenu(scanner);
@@ -59,9 +59,9 @@ public class Screen {
         scanner.close();
     }
 
-    public static void loadTransactions(String fileName) {
+    public static void loadTransactions(String fileName, String name) {
         try {
-            File myFile = new File(fileName);
+            File myFile = new File(name+fileName);
             if (myFile.createNewFile()){
                 System.out.println("You have no transaction(s) on record!");
             }else{
@@ -72,7 +72,7 @@ public class Screen {
         }
 
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(fileName));
+            BufferedReader reader = new BufferedReader(new FileReader(name+fileName));
             String line;
 
             while ((line = reader.readLine()) != null) {
@@ -87,13 +87,13 @@ public class Screen {
             }
 
         } catch (IOException e) {
-            System.err.println("Error reading file: " + fileName);
+            System.err.println("Error reading file: " + name+fileName);
         }
 
 
     }
 
-    private static void addTransaction(Scanner scanner) {
+    private static void addTransaction(Scanner scanner, String name) {
 
         boolean isDeposit = UserValidation.depositOrPayment().equalsIgnoreCase("D");
 
@@ -123,7 +123,7 @@ public class Screen {
         try{
             Transactions transaction = new Transactions(description, vendor, date, time, isDeposit?amount:amount*-1);
             transactions.add(transaction);
-            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(name+FILE_NAME));
             for (Transactions x:transactions){
                 String outputLine = x.getDate() + "|" + x.getTime() + "|" + x.getDescription() + "|" + x.getVendor() + "|" + x.getAmount() + "\n";
                 writer.write(outputLine);
@@ -215,28 +215,18 @@ public class Screen {
 
             switch (input) {
                 case "1":
-                    // Generate a report for all transactions within the current month,
-                    // including the date, vendor, and amount for each transaction.
                     getTransactionMonthToDate();
                     break;
                 case "2":
-                    // Generate a report for all transactions within the previous month,
-                    // including the date, vendor, and amount for each transaction.
                     getTransactionPrevMonth();
                     break;
                 case "3":
-                    // Generate a report for all transactions within the current year,
-                    // including the date, vendor, and amount for each transaction.
                     getTransactionYearToDate();
                     break;
                 case "4":
-                    // Generate a report for all transactions within the previous year,
-                    // including the date, vendor, and amount for each transaction.
                     getTransactionPrevYear();
                     break;
                 case "5":
-                    // Prompt the user to enter a vendor name, then generate a report for all transactions
-                    // with that vendor, including the date, vendor, and amount for each transaction.
                     getTransactionByVendor();
                     break;
                 case "6":
@@ -295,6 +285,22 @@ public class Screen {
     }
 
     private static void getTransactionByVendor(){
+
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("Please Enter the name of the VENDOR for transactions:");
+        String vendor = input.next();
+        input.nextLine();
+        int counter = 0;
+        System.out.println("All available reports for " + vendor+": ");
+        for (Transactions x:transactions){
+            if (x.getVendor().equalsIgnoreCase(vendor)){
+                System.out.println(x);
+                counter++;
+            }
+        }
+
+        if (counter == 0) System.out.println("No Reports Available for " + vendor + ":");
 
     }
 
