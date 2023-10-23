@@ -27,6 +27,10 @@ public class Screen {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
 
+//        LocalDate d1 = LocalDate.parse("2023-07-11");
+//        LocalDate d2 = LocalDate.parse("2023-07-22");
+//        System.out.println("DATETEEETETETETETT" + d1.compareTo(d2) + " " + d1.minusMonths(1));
+
         while (running) {
             System.out.println("Choose an option:");
             System.out.println("D) Add Deposit");
@@ -190,6 +194,8 @@ public class Screen {
             }
 
         }
+
+
     }
 
     private static void reportsMenu(Scanner scanner) {
@@ -202,6 +208,7 @@ public class Screen {
             System.out.println("3) Year To Date");
             System.out.println("4) Previous Year");
             System.out.println("5) Search by Vendor");
+            System.out.println("6) Custom Search");
             System.out.println("0) Back");
 
             String input = scanner.nextLine().trim();
@@ -210,17 +217,29 @@ public class Screen {
                 case "1":
                     // Generate a report for all transactions within the current month,
                     // including the date, vendor, and amount for each transaction.
+                    getTransactionMonthToDate();
+                    break;
                 case "2":
                     // Generate a report for all transactions within the previous month,
                     // including the date, vendor, and amount for each transaction.
+                    getTransactionPrevMonth();
+                    break;
                 case "3":
                     // Generate a report for all transactions within the current year,
                     // including the date, vendor, and amount for each transaction.
-
+                    getTransactionYearToDate();
+                    break;
                 case "4":
                     // Generate a report for all transactions within the previous year,
                     // including the date, vendor, and amount for each transaction.
+                    getTransactionPrevYear();
+                    break;
                 case "5":
+                    // Prompt the user to enter a vendor name, then generate a report for all transactions
+                    // with that vendor, including the date, vendor, and amount for each transaction.
+                    getTransactionByVendor();
+                    break;
+                case "6":
                     // Prompt the user to enter a vendor name, then generate a report for all transactions
                     // with that vendor, including the date, vendor, and amount for each transaction.
                 case "0":
@@ -232,6 +251,52 @@ public class Screen {
         }
     }
 
+
+
+
+    private static void getTransactionMonthToDate(){
+        LocalDate today = LocalDate.now();
+        LocalDate monthToDate = today.minusMonths(1);
+        for (Transactions x:transactions){
+            if (x.getDate().compareTo(monthToDate)>=0) {
+                System.out.println(x);
+            }
+        }
+    }
+    private static void getTransactionPrevMonth(){
+        LocalDate today = LocalDate.now();
+        LocalDate prevMonth = today.minusMonths(1);
+        for (Transactions x:transactions){
+            if ((x.getDate().getMonthValue() == prevMonth.getMonthValue())&&(x.getDate().getYear() == prevMonth.getYear())) {
+                System.out.println(x);
+            }
+        }
+    }
+
+    private static void getTransactionYearToDate(){
+        LocalDate today = LocalDate.now();
+        LocalDate yearToDate = today.minusMonths(12);
+        for (Transactions x:transactions){
+            if (x.getDate().compareTo(yearToDate)>=0) {
+                System.out.println(x);
+            }
+        }
+    }
+
+    private static void getTransactionPrevYear(){
+        LocalDate today = LocalDate.now();
+        LocalDate prevYear = today.minusMonths(12);
+        for (Transactions x:transactions){
+            if (x.getDate().getYear() == prevYear.getYear()) {
+                System.out.println(x);
+            }
+        }
+
+    }
+
+    private static void getTransactionByVendor(){
+
+    }
 
     private static void filterTransactionsByDate(LocalDate startDate, LocalDate endDate) {
         // This method filters the transactions by date and prints a report to the console.
