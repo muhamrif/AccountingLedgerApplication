@@ -27,7 +27,7 @@ public class Screen {
         String name = scanner.next();
         scanner.nextLine();
         System.out.println("Welcome "+ name +" to your TransactionApp!");
-        loadTransactions(FILE_NAME, name);
+        loadTransactions(FILE_NAME.toLowerCase(), name.toLowerCase());
         boolean running = true;
 
 
@@ -42,7 +42,7 @@ public class Screen {
 
             switch (input.toUpperCase()) {
                 case "D", "P":
-                    addTransaction(scanner, name);
+                    addTransaction(scanner, name.toLowerCase());
                     break;
                 case "L":
                     ledgerMenu(scanner);
@@ -61,7 +61,7 @@ public class Screen {
 
     public static void loadTransactions(String fileName, String name) {
         try {
-            File myFile = new File(name+fileName);
+            File myFile = new File((name+fileName).toLowerCase());
             if (myFile.createNewFile()){
                 System.out.println("You have no transaction(s) on record!");
             }else{
@@ -72,7 +72,7 @@ public class Screen {
         }
 
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(name+fileName));
+            BufferedReader reader = new BufferedReader(new FileReader((name+fileName).toLowerCase()));
             String line;
 
             while ((line = reader.readLine()) != null) {
@@ -123,7 +123,7 @@ public class Screen {
         try{
             Transactions transaction = new Transactions(description, vendor, date, time, isDeposit?amount:amount*-1);
             transactions.add(transaction);
-            BufferedWriter writer = new BufferedWriter(new FileWriter(name+FILE_NAME));
+            BufferedWriter writer = new BufferedWriter(new FileWriter((name+FILE_NAME).toLowerCase()));
             for (Transactions x:transactions){
                 String outputLine = x.getDate() + "|" + x.getTime() + "|" + x.getDescription() + "|" + x.getVendor() + "|" + x.getAmount() + "\n";
                 writer.write(outputLine);
