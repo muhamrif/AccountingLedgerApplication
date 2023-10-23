@@ -46,6 +46,9 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/AllTransactions" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="Screen" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">

@@ -47,17 +47,19 @@ public class Screen {
             switch (input.toUpperCase()) {
                 case "D", "P":
                     addTransaction(scanner, name.toLowerCase());
-                    System.out.println("\n" +"GOING BACK TO HOME MENU!"+"\n");
+                    System.out.println("\n" +"👈🏽GOING BACK TO HOME MENU!"+"\n");
                     progressSmall();
                     break;
                 case "L":
 
-                    System.out.println("\n" + "GOING TO LEDGER!"+"\n");
+                    System.out.println("\n" + "GOING TO LEDGER!👉🏽"+"\n");
                     progress();
                     ledgerMenu(scanner);
                     break;
                 case "X":
-                    System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"🚨🛑YOU ARE NOW SIGNING OFF!🛑🚨"+ConsoleColors.RESET);
+                    System.out.println(ConsoleColors.RED+ConsoleColors.RED_BACKGROUND+"-------------------------------------."+ConsoleColors.RESET);
+                    System.out.println(ConsoleColors.RED+ConsoleColors.RED_BACKGROUND+"--"+ConsoleColors.RESET+ConsoleColors.RED_BOLD_BRIGHT+"🚨🛑!YOU ARE NOW SIGNING OFF!🛑🚨"+ConsoleColors.RESET+ConsoleColors.RED+ConsoleColors.RED_BACKGROUND+"--"+ConsoleColors.RESET);
+                    System.out.println(ConsoleColors.RED+ConsoleColors.RED_BACKGROUND+"-------------------------------------."+ConsoleColors.RESET);
                     progressSmall();
                     System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT+"THANK YOU FOR CHOOSING MUHAMRIF ACCOUNTING LEDGER"+ConsoleColors.RESET);
                     System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT+"HAVE A WONDERFUL DAY!☀️"+ConsoleColors.RESET);
@@ -74,7 +76,7 @@ public class Screen {
 
     public static void loadTransactions(String fileName, String name) {
         try {
-            File myFile = new File((name+fileName).toLowerCase());
+            File myFile = new File("AllTransactions/"+(name+fileName).toLowerCase());
             if (myFile.createNewFile()){
                 System.out.println("You have no transaction(s) on record!");
             }else{
@@ -85,7 +87,7 @@ public class Screen {
         }
 
         try {
-            BufferedReader reader = new BufferedReader(new FileReader((name+fileName).toLowerCase()));
+            BufferedReader reader = new BufferedReader(new FileReader( "AllTransactions/"+(name+fileName).toLowerCase()));
             String line;
 
             while ((line = reader.readLine()) != null) {
@@ -136,7 +138,7 @@ public class Screen {
         try{
             Transactions transaction = new Transactions(description, vendor, date, time, isDeposit?amount:amount*-1);
             transactions.add(transaction);
-            BufferedWriter writer = new BufferedWriter(new FileWriter((name+FILE_NAME).toLowerCase(), true));
+            BufferedWriter writer = new BufferedWriter(new FileWriter("AllTransactions/"+(name+FILE_NAME).toLowerCase(), true));
             String outputLine = transaction.getDate() + "|" + transaction.getTime() + "|" + transaction.getDescription() + "|" + transaction.getVendor() + "|" + transaction.getAmount() + "\n";
                 writer.write(outputLine);
             writer.close();
@@ -145,6 +147,7 @@ public class Screen {
         catch(IOException e){
             System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"TRANSACTION WAS NOT RECORDER, TRY AGAIN!" + ConsoleColors.RESET);
         }
+
     }
 
 
@@ -157,41 +160,41 @@ public class Screen {
             System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT+"D) Deposits💰"+ConsoleColors.RESET);
             System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"P) Payments💸"+ConsoleColors.RESET);
             System.out.println(ConsoleColors.BLUE_BOLD_BRIGHT+"R) Reports📘"+ConsoleColors.RESET);
-            System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"H) Home"+ConsoleColors.RESET);
+            System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"H) Home🏠"+ConsoleColors.RESET);
 
             String input = scanner.nextLine().trim();
 
             switch (input.toUpperCase()) {
                 case "A":
-                    System.out.println("\n" + "GETTING YOUR TRANSACTIONS!"+"\n");
+                    System.out.println("\n" + "GETTING YOUR TRANSACTIONS!👉🏽"+"\n");
                     progress();
                     displayLedger();
-                    System.out.println("\n" +"GOING BACK TO LEDGER MENU!"+"\n");
+                    System.out.println("\n" +"👈🏽GOING BACK TO LEDGER MENU!"+"\n");
                     progressSmall();
                     break;
                 case "D":
-                    System.out.println("\n" + "GETTING YOUR DEPOSITS!"+"\n");
+                    System.out.println("\n" + "GETTING YOUR DEPOSITS!👉🏽"+"\n");
                     progress();
                     displayDeposits();
-                    System.out.println("\n" +"GOING BACK TO LEDGER MENU!"+"\n");
+                    System.out.println("\n" +"👈🏽GOING BACK TO LEDGER MENU!"+"\n");
                     progressSmall();
                     break;
                 case "P":
-                    System.out.println("\n" + "GETTING YOUR PAYMENTS!"+"\n");
+                    System.out.println("\n" + "GETTING YOUR PAYMENTS!👉🏽"+"\n");
                     progress();
                     displayPayments();
-                    System.out.println("\n" +"GOING BACK TO LEDGER MENU!"+"\n");
+                    System.out.println("\n" +"👈🏽GOING BACK TO LEDGER MENU!"+"\n");
                     progressSmall();
                     break;
                 case "R":
-                    System.out.println("\n" + "GOING TO REPORTS!"+"\n");
+                    System.out.println("\n" + "GOING TO REPORTS!👉🏽"+"\n");
                     progress();
                     reportsMenu(scanner);
-                    System.out.println("\n" +"GOING BACK TO LEDGER MENU!"+"\n");
+                    System.out.println("\n" +"👈🏽GOING BACK TO LEDGER MENU!"+"\n");
                     progressSmall();
                     break;
                 case "H":
-                    System.out.println("\n" + "GOING BACK TO HOME!"+"\n");
+                    System.out.println("\n" + "👈🏽GOING BACK TO HOME!"+"\n");
                     progress();
                     running = false;
                 default:
@@ -202,27 +205,72 @@ public class Screen {
     }
 
     private static void displayLedger() {
+        int counter = 0;
+        System.out.println(ConsoleColors.WHITE_UNDERLINED+ConsoleColors.WHITE_BOLD_BRIGHT+"DISPLAYING ALL OF YOUR RECORDED TRANSACTIONS: "+ConsoleColors.RESET);
+        System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
         for (Transactions x:transactions){
-            System.out.println(x.getDate() + "|" + x.getTime() + "|" + x.getDescription() + "|" + x.getVendor() + "|" + x.getAmount() + "\n");
+            LocalDate date = x.getDate();
+            LocalTime time = x.getTime();
+            String description = x.getDescription();
+            String vendor = x.getVendor();
+            double amount = x.getAmount();
+            System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
+            System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"Date @ Time :" + date + " @ " +time);
+            System.out.println("Vendor: "+ vendor);
+            System.out.println("Description: " + description);
+            System.out.println("Amount: " +ConsoleColors.RESET + (amount>=0? ConsoleColors.GREEN_BOLD_BRIGHT+amount+ConsoleColors.RESET:ConsoleColors.RED_BOLD_BRIGHT+amount+ConsoleColors.RESET));
+            System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
+            counter++;
         }
+        if (counter==0) System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"🫤NO RECORDED TRANSACTION(S) AVAILABLE🫤"+ConsoleColors.RESET);
     }
 
     private static void displayDeposits() {
+        int counter =0;
+        System.out.println(ConsoleColors.GREEN_UNDERLINED+ConsoleColors.GREEN_BOLD_BRIGHT+"DISPLAYING ALL OF YOUR RECORDED DEPOSITS: "+ConsoleColors.RESET);
+        System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
         for (Transactions x:transactions){
             if(x.isDeposit()){
-                System.out.println(x.getDate() + "|" + x.getTime() + "|" + x.getDescription() + "|" + x.getVendor() + "|" + x.getAmount() + "\n");
+                LocalDate date = x.getDate();
+                LocalTime time = x.getTime();
+                String description = x.getDescription();
+                String vendor = x.getVendor();
+                double amount = x.getAmount();
+                System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
+                System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"Date @ Time :" + date + " @ " +time);
+                System.out.println("Vendor: "+ vendor);
+                System.out.println("Description: " + description);
+                System.out.println("Amount: " +ConsoleColors.RESET + (amount>=0? ConsoleColors.GREEN_BOLD_BRIGHT+amount+ConsoleColors.RESET:ConsoleColors.RED_BOLD_BRIGHT+amount+ConsoleColors.RESET));
+                System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
+                counter++;
             }
 
         }
+        if (counter==0) System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"🫤NO RECORDED DEPOSIT TRANSACTION(S) AVAILABLE🫤"+ConsoleColors.RESET);
     }
 
     private static void displayPayments() {
+        int counter = 0;
+        System.out.println(ConsoleColors.RED_UNDERLINED+ConsoleColors.RED_BOLD_BRIGHT+"DISPLAYING ALL OF YOUR RECORDED PAYMENTS: "+ConsoleColors.RESET);
+        System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
         for (Transactions x:transactions){
             if(x.isPayment()){
-                System.out.println(x.getDate() + "|" + x.getTime() + "|" + x.getDescription() + "|" + x.getVendor() + "|" + x.getAmount() + "\n");
+                LocalDate date = x.getDate();
+                LocalTime time = x.getTime();
+                String description = x.getDescription();
+                String vendor = x.getVendor();
+                double amount = x.getAmount();
+                System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
+                System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"Date @ Time :" + date + " @ " +time);
+                System.out.println("Vendor: "+ vendor);
+                System.out.println("Description: " + description);
+                System.out.println("Amount: " +ConsoleColors.RESET + (amount>=0? ConsoleColors.GREEN_BOLD_BRIGHT+amount+ConsoleColors.RESET:ConsoleColors.RED_BOLD_BRIGHT+amount+ConsoleColors.RESET));
+                System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
+                counter++;
             }
 
         }
+        if (counter==0) System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"🫤NO RECORDED PAYMENT TRANSACTION(S) AVAILABLE🫤"+ConsoleColors.RESET);
 
 
     }
@@ -274,13 +322,19 @@ public class Screen {
 
 
     private static void getTransactionMonthToDate(){
+        System.out.println("\n" + "GETTING ALL TRANSACTIONS MONTH TO DATE👉🏽"+"\n");
+        progress();
+
         LocalDate today = LocalDate.now();
         LocalDate monthToDate = today.minusMonths(1);
         for (Transactions x:transactions){
             if (x.getDate().compareTo(monthToDate)>=0) {
                 System.out.println(x);
+
             }
         }
+        System.out.println("\n" +"👈🏽GOING BACK TO REPORTS MENU!"+"\n");
+        progressSmall();
     }
     private static void getTransactionPrevMonth(){
         LocalDate today = LocalDate.now();
@@ -316,7 +370,6 @@ public class Screen {
     private static void getTransactionByVendor(){
 
         Scanner input = new Scanner(System.in);
-
         System.out.println("Please Enter the name of the VENDOR for transactions:");
         String vendor = input.next();
         input.nextLine();
