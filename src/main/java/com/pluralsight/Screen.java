@@ -1,5 +1,4 @@
 package com.pluralsight;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -81,8 +80,6 @@ public class Screen {
                 double amount = Double.parseDouble(tokens[4]);
                 Transactions transaction = new Transactions(description,vendor,date, time, amount);
                 transactions.add(transaction);
-                System.out.println(transaction.toString());
-
             }
 
         } catch (IOException e) {
@@ -172,18 +169,27 @@ public class Screen {
     }
 
     private static void displayLedger() {
-        // This method should display a table of all transactions in the `transactions` ArrayList.
-        // The table should have columns for date, time, vendor, type, and amount.
+        for (Transactions x:transactions){
+            System.out.println(x.getDate() + "|" + x.getTime() + "|" + x.getDescription() + "|" + x.getVendor() + "|" + x.getAmount() + "\n");
+        }
     }
 
     private static void displayDeposits() {
-        // This method should display a table of all deposits in the `transactions` ArrayList.
-        // The table should have columns for date, time, vendor, and amount.
+        for (Transactions x:transactions){
+            if(x.isDeposit()){
+                System.out.println(x.getDate() + "|" + x.getTime() + "|" + x.getDescription() + "|" + x.getVendor() + "|" + x.getAmount() + "\n");
+            }
+
+        }
     }
 
     private static void displayPayments() {
-        // This method should display a table of all payments in the `transactions` ArrayList.
-        // The table should have columns for date, time, vendor, and amount.
+        for (Transactions x:transactions){
+            if(x.isPayment()){
+                System.out.println(x.getDate() + "|" + x.getTime() + "|" + x.getDescription() + "|" + x.getVendor() + "|" + x.getAmount() + "\n");
+            }
+
+        }
     }
 
     private static void reportsMenu(Scanner scanner) {
