@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class UserValidation {
 
     static Scanner scanner = new Scanner(System.in);
+
     public static String depositOrPayment (){
 
         boolean flag = true;
@@ -35,6 +36,8 @@ public class UserValidation {
             if(year.chars().allMatch( Character::isDigit )) {
                 if (Integer.parseInt(year) >= 1900 && Integer.parseInt(year) <= 2023) {
                     flag = false;
+                }else{
+                    System.out.println("🚨⚠️INVALID entry, Please enter a VALID Year to continue.⚠️🚨");
                 }
             }else{
             System.out.println("🚨⚠️INVALID entry, Please enter a VALID Year to continue.⚠️🚨");

@@ -17,9 +17,11 @@ public class Transactions {
     private boolean isDeposit;
     private boolean isPayment;
 
-//_________________________//
-//   Constructors
-//________________________//
+/*
+________________________
+    Constructors
+________________________
+*/
 
     public Transactions(String description, String vendor, LocalDate date, LocalTime time, double amount) {
         this.description = description;
