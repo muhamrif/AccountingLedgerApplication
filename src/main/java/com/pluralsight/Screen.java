@@ -23,20 +23,21 @@ public class Screen {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Please Enter Your Name To Open Your Accounting Ledger:");
+        System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT+"Please Enter Your Name To Open Your Accounting Ledger 📝:"+ConsoleColors.RESET );
         String name = scanner.next();
         scanner.nextLine();
-        System.out.println("Welcome "+ name +" to your TransactionApp!");
+        progress();
+        System.out.println("Welcome "+ ConsoleColors.BLUE_BOLD_BRIGHT +name.toUpperCase()+ ConsoleColors.RESET  +" to your TransactionApp!");
         loadTransactions(FILE_NAME.toLowerCase(), name.toLowerCase());
         boolean running = true;
 
 
         while (running) {
             System.out.println("Choose an option:");
-            System.out.println("D) Add Deposit");
-            System.out.println("P) Make Payment (Debit)");
-            System.out.println("L) Ledger");
-            System.out.println("X) Exit");
+            System.out.println(ConsoleColors.GREEN_BRIGHT + "D) Add Deposit 🤑" +ConsoleColors.RESET);
+            System.out.println(ConsoleColors.GREEN_BRIGHT + "P) Make Payment (Debit) 💸" +ConsoleColors.RESET);
+            System.out.println(ConsoleColors.BLUE+"L) Ledger 📓"+ConsoleColors.RESET);
+            System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"X) "+ "Exit 🛑"+ConsoleColors.RESET);
 
             String input = scanner.nextLine().trim();
 
@@ -319,4 +320,25 @@ public class Screen {
         // Transactions with a matching vendor name are printed to the console.
         // If no transactions match the specified vendor name, the method prints a message indicating that there are no results.
     }
+
+
+    private static void progress() {
+        boolean showProgress = true;
+            String anim = "=====================";
+
+            int x = 0;
+            while (showProgress) {
+                System.out.print("\rProcessing "
+                        + anim.substring(0, x++ % anim.length())
+                        + " ");
+                if (x == 40) {
+                    showProgress = false;
+                    System.out.println("\n");
+                }
+                try {
+                    Thread.sleep(100);
+                } catch (Exception e) {
+                }
+            }
+            }
 }
