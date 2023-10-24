@@ -51,6 +51,8 @@ public class Screen {
 
 
     public static void main(String[] args) {
+        Progress.bar();
+        System.out.println("\n");
         terminal.flush();
         Scanner scanner = new Scanner(System.in);
         System.out.println(ConsoleColors.GREEN+ConsoleColors.GREEN_BACKGROUND+"--------------------------------------------"+ConsoleColors.RESET);
@@ -198,6 +200,9 @@ public class Screen {
             String outputLine = transaction.getDate()+ "|" + transaction.getTime() + "|" + transaction.getDescription() + "|" + transaction.getVendor() + "|" + transaction.getAmount() + "\n";
                 writer.write(outputLine);
             writer.close();
+            System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"PLEASE WAIT! ADDING TRANSACTION TO THE LEDGER!"+ConsoleColors.RESET+"\n");
+            Progress.dance();
+            System.out.println("\n");
             System.out.println(transaction.getAmount()>=0?ConsoleColors.GREEN_BOLD_BRIGHT+"YOUR TRANSACTION WAS SECURELY RECORDED!" +ConsoleColors.RESET:ConsoleColors.RED_BOLD_BRIGHT+"YOUR TRANSACTION WAS SECURELY RECORDED!" +ConsoleColors.RESET);
         }
         catch(IOException e){
