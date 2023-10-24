@@ -63,6 +63,7 @@ public class Screen {
      * @param args Command-line arguments (not used in this application)
      */
     public static void main(String[] args) {
+
         Progress.bar();
         System.out.println("\n");
         terminal.flush();
@@ -567,10 +568,8 @@ public class Screen {
         System.out.println(ConsoleColors.WHITE_UNDERLINED+ConsoleColors.WHITE_BOLD_BRIGHT+"DISPLAYING TRANSACTION REPORT OF ALL TRANSACTION(S) MONTH TO DATE: "+ConsoleColors.RESET);
         System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
 
-        LocalDate today = LocalDate.now();
-        LocalDate monthToDate = today.minusMonths(1);
         for (Transactions x:transactions){
-            if (x.getDate().compareTo(monthToDate)>=0) {
+            if (((x.getDate().getMonthValue())==LocalDate.now().getMonthValue())&&((x.getDate().getYear())==LocalDate.now().getYear())) {
                 x.print();
                 counter++;
 
@@ -605,10 +604,9 @@ public class Screen {
         int counter = 0;
         System.out.println(ConsoleColors.WHITE_UNDERLINED+ConsoleColors.WHITE_BOLD_BRIGHT+"DISPLAYING TRANSACTION REPORT OF ALL TRANSACTION(S) MADE YEAR TO DATE: "+ConsoleColors.RESET);
         System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
-        LocalDate today = LocalDate.now();
-        LocalDate yearToDate = today.minusMonths(12);
+
         for (Transactions x:transactions){
-            if (x.getDate().compareTo(yearToDate)>=0) {
+            if ((x.getDate().getYear())==LocalDate.now().getYear()) {
                 x.print();
                 counter++;
             }
@@ -623,6 +621,7 @@ public class Screen {
         int counter = 0;
         System.out.println(ConsoleColors.WHITE_UNDERLINED+ConsoleColors.WHITE_BOLD_BRIGHT+"DISPLAYING TRANSACTION REPORT OF ALL TRANSACTION(S) MADE PREVIOUS YEAR: "+ConsoleColors.RESET);
         System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
+
         LocalDate today = LocalDate.now();
         LocalDate prevYear = today.minusMonths(12);
         for (Transactions x:transactions){
