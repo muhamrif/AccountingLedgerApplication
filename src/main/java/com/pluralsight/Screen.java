@@ -173,7 +173,7 @@ public class Screen {
      * @param scanner The Scanner object to read user input.
      * @param name The user's name, used to identify their ledger file.
      */
-    private static void addTransaction(Scanner scanner, String name) {
+    public static void addTransaction(Scanner scanner, String name) {
 
         boolean isDeposit = UserValidation.depositOrPayment().equalsIgnoreCase("D");
 
@@ -233,7 +233,7 @@ public class Screen {
 
 
 
-    private static void ledgerMenu(Scanner scanner) {
+    public static void ledgerMenu(Scanner scanner) {
         boolean running = true;
         while (running) {
             System.out.println("Here is your Account Ledger:");
@@ -291,7 +291,7 @@ public class Screen {
     /**
      * Displays all recorded transactions in the ledger.
      */
-    private static void displayLedger() {
+    public static void displayLedger() {
         int counter = 0;
         System.out.println(ConsoleColors.WHITE_UNDERLINED+ConsoleColors.WHITE_BOLD_BRIGHT+"DISPLAYING ALL OF YOUR RECORDED TRANSACTIONS: "+ConsoleColors.RESET);
         System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
@@ -306,7 +306,7 @@ public class Screen {
     /**
      * Displays all recorded deposit transactions in the ledger.
      */
-    private static void displayDeposits() {
+    public static void displayDeposits() {
         int counter =0;
         System.out.println(ConsoleColors.GREEN_UNDERLINED+ConsoleColors.GREEN_BOLD_BRIGHT+"DISPLAYING ALL OF YOUR RECORDED DEPOSITS: "+ConsoleColors.RESET);
         System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
@@ -323,7 +323,7 @@ public class Screen {
     /**
      * Displays all recorded payment transactions in the ledger.
      */
-    private static void displayPayments() {
+    public static void displayPayments() {
         int counter = 0;
         System.out.println(ConsoleColors.RED_UNDERLINED+ConsoleColors.RED_BOLD_BRIGHT+"DISPLAYING ALL OF YOUR RECORDED PAYMENTS: "+ConsoleColors.RESET);
         System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
@@ -344,7 +344,7 @@ public class Screen {
      * to view reports related to monthly, yearly, or vendor-specific transactions.
      * @param scanner The Scanner object to read user input.
      */
-    private static void reportsMenu(Scanner scanner) {
+    public static void reportsMenu(Scanner scanner) {
         boolean running = true;
         while (running) {
             System.out.println("📘Reports📓");
@@ -416,7 +416,7 @@ public class Screen {
     /**
      * Displays a report of all transactions for the current month.
      */
-    private static void getTransactionMonthToDate(){
+    public static void getTransactionMonthToDate(){
         int counter = 0;
         System.out.println(ConsoleColors.WHITE_UNDERLINED+ConsoleColors.WHITE_BOLD_BRIGHT+"DISPLAYING TRANSACTION REPORT OF ALL TRANSACTION(S) MONTH TO DATE: "+ConsoleColors.RESET);
         System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
@@ -437,7 +437,7 @@ public class Screen {
     /**
      * Displays a report of all transactions for the previous month.
      */
-    private static void getTransactionPrevMonth(){
+    public static void getTransactionPrevMonth(){
         int counter = 0;
         System.out.println(ConsoleColors.WHITE_UNDERLINED+ConsoleColors.WHITE_BOLD_BRIGHT+"DISPLAYING TRANSACTION REPORT OF ALL TRANSACTION(S) MADE LAST MONTH: "+ConsoleColors.RESET);
         System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
@@ -455,7 +455,7 @@ public class Screen {
     /**
      * Displays a report of all transactions for the current year.
      */
-    private static void getTransactionYearToDate(){
+    public static void getTransactionYearToDate(){
         int counter = 0;
         System.out.println(ConsoleColors.WHITE_UNDERLINED+ConsoleColors.WHITE_BOLD_BRIGHT+"DISPLAYING TRANSACTION REPORT OF ALL TRANSACTION(S) MADE YEAR TO DATE: "+ConsoleColors.RESET);
         System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
@@ -473,7 +473,7 @@ public class Screen {
     /**
      * Displays a report of all transactions for the previous year.
      */
-    private static void getTransactionPrevYear(){
+    public static void getTransactionPrevYear(){
         int counter = 0;
         System.out.println(ConsoleColors.WHITE_UNDERLINED+ConsoleColors.WHITE_BOLD_BRIGHT+"DISPLAYING TRANSACTION REPORT OF ALL TRANSACTION(S) MADE PREVIOUS YEAR: "+ConsoleColors.RESET);
         System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
@@ -492,7 +492,7 @@ public class Screen {
     /**
      * Displays a report of transactions associated with a specific vendor.
      */
-    private static void getTransactionByVendor(){
+    public static void getTransactionByVendor(){
 
         Scanner input = new Scanner(System.in);
         System.out.println("Please Enter the name of the VENDOR for transactions:");
@@ -516,7 +516,7 @@ public class Screen {
     /**
      * A helper method to display a progress indicator while processing.
      */
-    private static void progress() {
+    public static void progress() {
         boolean showProgress = true;
             String anim = "=====================";
 
@@ -539,7 +539,7 @@ public class Screen {
     /**
      * A smaller version of the progress indicator for shorter processes.
      */
-    private static void progressSmall() {
+    public static void progressSmall() {
         boolean showProgress = true;
         String anim = "=====================";
 
