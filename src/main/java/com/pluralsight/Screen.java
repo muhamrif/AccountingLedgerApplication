@@ -124,7 +124,12 @@ public class Screen {
 
         scanner.close();
     }
-
+    /**
+     * This method allows users to register by providing a unique username and password. It checks if the
+     * username already exists and, if not, stores the provided username and password in the HashMap.
+     *
+     * @param userCredentials A HashMap used to store username-password pairs.
+     */
     public static void registerUser(HashMap<String, String> userCredentials) {
         Scanner scanner = new Scanner(System.in);
 
@@ -152,6 +157,12 @@ public class Screen {
         NAME = username;
     }
 
+    /**
+     * This method writes user data (username and password) to an external CSV file for persistent storage.
+     *
+     * @param username The username to be written to the CSV file.
+     * @param password The password to be written to the CSV file.
+     */
     public static void writeUserDataToFile(String username, String password) {
         try (FileWriter writer = new FileWriter("AllTransactions/" +CSV_FILE, true)) {
             writer.append(username).append("|").append(password).append("\n");
@@ -159,6 +170,15 @@ public class Screen {
             e.printStackTrace();
         }
     }
+
+    /**
+     * This method allows users to log in by entering their username and password. It checks if the user
+     * exists in the userCredentials HashMap and if the provided password matches. If not, it provides
+     * the option to sign up or log in again.
+     *
+     * @param userCredentials A HashMap used to store username-password pairs.
+     * @param allowSignup   A boolean indicating whether user sign-up is allowed.
+     */
     public static void login(HashMap<String, String> userCredentials, boolean allowSignup) {
         Scanner scanner = new Scanner(System.in);
 
@@ -214,38 +234,12 @@ public class Screen {
             }
         }
     }
-//    public static void login(HashMap<String, String> userCredentials, boolean allowSignup) {
-//        Scanner scanner = new Scanner(System.in);
-//
-//        System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"\n💰Welcome! Let's log in.💰"+ConsoleColors.RESET+"\n");
-//        System.out.print(ConsoleColors.WHITE_BOLD_BRIGHT+"Enter your username:👉🏽 "+ConsoleColors.RESET);
-//        String username = scanner.nextLine();
-//        NAME = username;
-//
-//        if (userCredentials.containsKey(username)) {
-//            System.out.print(ConsoleColors.WHITE_BOLD_BRIGHT+"Enter your password:👉🏽 "+ConsoleColors.RESET);
-//            String password = scanner.nextLine();
-//
-//            if (userCredentials.get(username).equals(password)) {
-//                System.out.println("\n"+"Welcome, " +ConsoleColors.BLUE_BOLD_BRIGHT +username.toUpperCase() +ConsoleColors.RESET+ "!");
-//            } else {
-//                System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"Wrong credentials. Please try again."+ ConsoleColors.RESET);
-//            }
-//        } else {
-//            System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"🫤This user does not exist.🫤"+ConsoleColors.RESET);
-//
-//            if (allowSignup) {
-//                System.out.print(ConsoleColors.WHITE_BOLD_BRIGHT+"Would you like to sign up? Enter ( Y ) for YES OR Enter ( N ) for NO: "+ConsoleColors.RESET);
-//                String signupChoice = scanner.nextLine().toLowerCase();
-//                if (signupChoice.equalsIgnoreCase("yes")) {
-//                    registerUser(userCredentials);
-//                }else if(signupChoice.equalsIgnoreCase("no")){
-//                    running = false;
-//                }
-//            }
-//        }
-//    }
 
+    /**
+     * This method reads user data from an external CSV file and populates the userCredentials HashMap.
+     *
+     * @param userCredentials A HashMap used to store username-password pairs.
+     */
     public static void readUserDataFromFile(HashMap<String, String> userCredentials) {
         try (BufferedReader reader = new BufferedReader(new FileReader("AllTransactions/" +CSV_FILE))) {
             String line;
@@ -260,6 +254,10 @@ public class Screen {
         }
     }
 
+    /**
+     * This method check for users.csv File, if it is created already, this program creates a new users.csv file.
+     *
+     */
     public static void loadUserFile (){
         //USER File
         try {
