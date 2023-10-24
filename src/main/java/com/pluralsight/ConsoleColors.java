@@ -1,5 +1,10 @@
 package com.pluralsight;
 
+/**
+ * The ConsoleColors class defines ANSI escape codes for changing text and background colors
+ * in the console output. These escape codes enable the customization of text and background colors,
+ * text formatting (bold, underline), and high-intensity colors.
+ */
 public class ConsoleColors {
     // Reset
     public static final String RESET = "\033[0m";  // Text Reset

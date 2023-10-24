@@ -6,30 +6,16 @@ import org.jline.terminal.TerminalBuilder;
 
 import java.io.IOException;
 import java.util.Scanner;
-import org.jline.reader.LineReader;
-import org.jline.reader.LineReaderBuilder;
+
 import org.jline.terminal.Terminal;
-import org.jline.terminal.TerminalBuilder;
-import org.jline.reader.*;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Scanner;
-import java.util.*;
 
+/**
+ * @author      Muhammad Hamza <muhammad.hamza6415@gmail.com>
+ * The UserValidation class provides methods for validating user input related to transactions.
+ * It includes methods for validating deposit or payment type, year, month, day, hour, minute, second,
+ * vendor, description, and transaction amount.
+ */
 public class UserValidation {
 
     private static final Terminal terminal;
@@ -48,6 +34,11 @@ public class UserValidation {
             .build();
     static Scanner scanner = new Scanner(System.in);
 
+
+    /**
+     * Validates the user's selection for deposit or payment type.
+     * @return "d" for deposit or "p" for payment
+     */
     public static String depositOrPayment (){
 
         boolean flag = true;
@@ -68,6 +59,11 @@ public class UserValidation {
         return depositValidation;
     }
 
+
+    /**
+     * Validates the user's input for the transaction's year.
+     * @return A valid year in the format "yyyy"
+     */
     public static String yearDate() {
 
         boolean flag = true;
@@ -92,6 +88,10 @@ public class UserValidation {
         return year;
     }
 
+    /**
+     * Validates the user's input for the transaction's month.
+     * @return A valid month in the format "MM"
+     */
     public static String monthDate() {
         boolean flag = true; String month = "";
         while (flag) {
@@ -112,6 +112,11 @@ public class UserValidation {
         }return month;
     }
 
+    /**
+     * Validates the user's input for the transaction's day based on the selected month.
+     * @param month The transaction's month in the format "MM"
+     * @return A valid day in the format "dd"
+     */
     public static String dayDate(String month) {
         boolean flag = true; String day = "";
         while (flag) {
@@ -139,6 +144,10 @@ public class UserValidation {
     }
 
 
+    /**
+     * Validates the user's input for the transaction's hour.
+     * @return A valid hour in the format "HH"
+     */
     public static String hourTime() {
 
         boolean flag = true;
@@ -158,6 +167,10 @@ public class UserValidation {
         return hour;
     }
 
+    /**
+     * Validates the user's input for the transaction's minute.
+     * @return A valid minute in the format "MM"
+     */
     public static String minuteTime() {
 
         boolean flag = true;
@@ -177,6 +190,10 @@ public class UserValidation {
         return minute;
     }
 
+    /**
+     * Validates the user's input for the transaction's second.
+     * @return A valid second in the format "SS"
+     */
     public static String secondTime() {
 
         boolean flag = true;
@@ -196,6 +213,10 @@ public class UserValidation {
         return second;
     }
 
+    /**
+     * Validates the user's input for the transaction's vendor.
+     * @return The vendor for the transaction
+     */
     public static String transactionVendor(){
         System.out.println("Please enter the vendor for this Transaction🚙:");
         terminal.writer().write("Vendor For Your Transaction 👉🏽");
@@ -205,6 +226,10 @@ public class UserValidation {
         return vendor;
     }
 
+    /**
+     * Validates the user's input for the transaction's description or item name.
+     * @return The description or item name for the transaction
+     */
     public static String transactionDescription(){
         System.out.println("Please enter the description or item name for this Transaction📝:");
         terminal.writer().write("Description Or Item Name For Your Transaction 👉🏽");
@@ -214,11 +239,12 @@ public class UserValidation {
         return description;
     }
 
+    /**
+     * Validates the user's input for the transaction amount.
+     * @return The transaction amount in USD
+     */
     public static double transactionAmount(){
-//        System.out.println("Please enter the amount for this Transaction 💰:");
-//        double amount = Double.parseDouble(reader.readLine("Amount in USD For Your Transaction 👉🏽$"));
-//        scanner.nextLine();
-//        return amount;
+
         boolean flag = true;
         double amount= 0;
         while (flag) {

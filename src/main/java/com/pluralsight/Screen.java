@@ -23,6 +23,11 @@ import java.util.Collections;
 import java.util.Scanner;
 import java.util.*;
 
+/**
+ * @author      Muhammad Hamza <muhammad.hamza6415@gmail.com>
+ * The Screen class is the main class of the Accounting Ledger application. It provides a command-line interface
+ * for users to record financial transactions and generate various reports related to their financial activity.
+ */
 public class Screen {
 
 
@@ -49,7 +54,11 @@ public class Screen {
             .build();
 
 
-
+    /**
+     * The main method is the entry point of the Accounting Ledger application. It initializes the user interface,
+     * processes user inputs, and performs various actions related to recording transactions and generating reports.
+     * @param args Command-line arguments (not used in this application)
+     */
     public static void main(String[] args) {
         Progress.bar();
         System.out.println("\n");
@@ -76,7 +85,6 @@ public class Screen {
             System.out.println(ConsoleColors.GREEN_BRIGHT + "P) Make Payment (Debit) 💸" +ConsoleColors.RESET);
             System.out.println(ConsoleColors.BLUE+"L) Ledger 📓"+ConsoleColors.RESET);
             System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"X) "+ "Exit 🛑"+ConsoleColors.RESET);
-
 
 
             terminal.writer().write("Your Selection \uD83D\uDC49\uD83C\uDFFD");
@@ -116,6 +124,12 @@ public class Screen {
         scanner.close();
     }
 
+
+    /**
+     * Loads the user's transactions from a CSV file.
+     * @param fileName The name of the CSV file where transactions are stored.
+     * @param name The user's name, used to identify their ledger file.
+     */
     public static void loadTransactions(String fileName, String name) {
         try {
             File myFile = new File("AllTransactions/"+(name+fileName).toLowerCase());
@@ -153,6 +167,12 @@ public class Screen {
 
     }
 
+    /**
+     * Adds a financial transaction to the ledger. It prompts the user for transaction details like date, time,
+     * vendor, description, and amount, and records the transaction in a CSV file.
+     * @param scanner The Scanner object to read user input.
+     * @param name The user's name, used to identify their ledger file.
+     */
     private static void addTransaction(Scanner scanner, String name) {
 
         boolean isDeposit = UserValidation.depositOrPayment().equalsIgnoreCase("D");
@@ -160,7 +180,7 @@ public class Screen {
         LocalDate date = LocalDate.parse(LocalDate.now().format(DateTimeFormatter.ofPattern(DATE_FORMAT)));
         LocalTime time = LocalTime.parse(LocalTime.now().format(DateTimeFormatter.ofPattern(TIME_FORMAT)));
 
-        System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"⏳📅IF YOU WANT TO ENTER A TRANSACTION THAT HAPPENED NOW ENTER ( N ): "+ConsoleColors.RESET);
+        System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"⏳📅IF YOU WANT TO ENTER A TRANSACTION THAT HAPPENED NOW ENTER ( Y ) OR ENTER ( N ) FOR MANUAL DATE/TIME ENTRY: "+ConsoleColors.RESET);
         terminal.writer().write("Your Selection 👉🏽");
         terminal.flush();
         String dateNow = scanner.next();
@@ -210,6 +230,7 @@ public class Screen {
         }
 
     }
+
 
 
     private static void ledgerMenu(Scanner scanner) {
@@ -267,44 +288,31 @@ public class Screen {
         }
     }
 
+    /**
+     * Displays all recorded transactions in the ledger.
+     */
     private static void displayLedger() {
         int counter = 0;
         System.out.println(ConsoleColors.WHITE_UNDERLINED+ConsoleColors.WHITE_BOLD_BRIGHT+"DISPLAYING ALL OF YOUR RECORDED TRANSACTIONS: "+ConsoleColors.RESET);
         System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
         for (Transactions x:transactions){
-            LocalDate date = x.getDate();
-            LocalTime time = x.getTime();
-            String description = x.getDescription();
-            String vendor = x.getVendor();
-            double amount = x.getAmount();
-            System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
-            System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"Date @ Time :" + date + " @ " +time);
-            System.out.println("Vendor: "+ vendor);
-            System.out.println("Description: " + description);
-            System.out.println("Amount: " +ConsoleColors.RESET + (amount>=0? ConsoleColors.GREEN_BOLD_BRIGHT+amount+ConsoleColors.RESET:ConsoleColors.RED_BOLD_BRIGHT+amount+ConsoleColors.RESET));
-            System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
+            x.print();
             counter++;
         }
         if (counter==0) System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"🫤NO RECORDED TRANSACTION(S) AVAILABLE🫤"+ConsoleColors.RESET);
     }
 
+
+    /**
+     * Displays all recorded deposit transactions in the ledger.
+     */
     private static void displayDeposits() {
         int counter =0;
         System.out.println(ConsoleColors.GREEN_UNDERLINED+ConsoleColors.GREEN_BOLD_BRIGHT+"DISPLAYING ALL OF YOUR RECORDED DEPOSITS: "+ConsoleColors.RESET);
         System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
         for (Transactions x:transactions){
             if(x.isDeposit()){
-                LocalDate date = x.getDate();
-                LocalTime time = x.getTime();
-                String description = x.getDescription();
-                String vendor = x.getVendor();
-                double amount = x.getAmount();
-                System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
-                System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"Date @ Time :" + date + " @ " +time);
-                System.out.println("Vendor: "+ vendor);
-                System.out.println("Description: " + description);
-                System.out.println("Amount: " +ConsoleColors.RESET + (amount>=0? ConsoleColors.GREEN_BOLD_BRIGHT+amount+ConsoleColors.RESET:ConsoleColors.RED_BOLD_BRIGHT+amount+ConsoleColors.RESET));
-                System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
+                x.print();
                 counter++;
             }
 
@@ -312,23 +320,16 @@ public class Screen {
         if (counter==0) System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"🫤NO RECORDED DEPOSIT TRANSACTION(S) AVAILABLE🫤"+ConsoleColors.RESET);
     }
 
+    /**
+     * Displays all recorded payment transactions in the ledger.
+     */
     private static void displayPayments() {
         int counter = 0;
         System.out.println(ConsoleColors.RED_UNDERLINED+ConsoleColors.RED_BOLD_BRIGHT+"DISPLAYING ALL OF YOUR RECORDED PAYMENTS: "+ConsoleColors.RESET);
         System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
         for (Transactions x:transactions){
             if(x.isPayment()){
-                LocalDate date = x.getDate();
-                LocalTime time = x.getTime();
-                String description = x.getDescription();
-                String vendor = x.getVendor();
-                double amount = x.getAmount();
-                System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
-                System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"Date @ Time :" + date + " @ " +time);
-                System.out.println("Vendor: "+ vendor);
-                System.out.println("Description: " + description);
-                System.out.println("Amount: " +ConsoleColors.RESET + (amount>=0? ConsoleColors.GREEN_BOLD_BRIGHT+amount+ConsoleColors.RESET:ConsoleColors.RED_BOLD_BRIGHT+amount+ConsoleColors.RESET));
-                System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
+                x.print();
                 counter++;
             }
 
@@ -338,6 +339,11 @@ public class Screen {
 
     }
 
+    /**
+     * Provides a menu for generating various financial reports based on user input. Users can select options
+     * to view reports related to monthly, yearly, or vendor-specific transactions.
+     * @param scanner The Scanner object to read user input.
+     */
     private static void reportsMenu(Scanner scanner) {
         boolean running = true;
         while (running) {
@@ -407,7 +413,9 @@ public class Screen {
 
 
 
-
+    /**
+     * Displays a report of all transactions for the current month.
+     */
     private static void getTransactionMonthToDate(){
         int counter = 0;
         System.out.println(ConsoleColors.WHITE_UNDERLINED+ConsoleColors.WHITE_BOLD_BRIGHT+"DISPLAYING TRANSACTION REPORT OF ALL TRANSACTION(S) MONTH TO DATE: "+ConsoleColors.RESET);
@@ -417,17 +425,7 @@ public class Screen {
         LocalDate monthToDate = today.minusMonths(1);
         for (Transactions x:transactions){
             if (x.getDate().compareTo(monthToDate)>=0) {
-                LocalDate date = x.getDate();
-                LocalTime time = x.getTime();
-                String description = x.getDescription();
-                String vendor = x.getVendor();
-                double amount = x.getAmount();
-                System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
-                System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"Date @ Time :" + date + " @ " +time);
-                System.out.println("Vendor: "+ vendor);
-                System.out.println("Description: " + description);
-                System.out.println("Amount: " +ConsoleColors.RESET + (amount>=0? ConsoleColors.GREEN_BOLD_BRIGHT+amount+ConsoleColors.RESET:ConsoleColors.RED_BOLD_BRIGHT+amount+ConsoleColors.RESET));
-                System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
+                x.print();
                 counter++;
 
             }
@@ -435,6 +433,10 @@ public class Screen {
         if (counter==0) System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"🫤NO TRANSACTION REPORT AVAILABLE🫤"+ConsoleColors.RESET);
 
     }
+
+    /**
+     * Displays a report of all transactions for the previous month.
+     */
     private static void getTransactionPrevMonth(){
         int counter = 0;
         System.out.println(ConsoleColors.WHITE_UNDERLINED+ConsoleColors.WHITE_BOLD_BRIGHT+"DISPLAYING TRANSACTION REPORT OF ALL TRANSACTION(S) MADE LAST MONTH: "+ConsoleColors.RESET);
@@ -443,23 +445,16 @@ public class Screen {
         LocalDate prevMonth = today.minusMonths(1);
         for (Transactions x:transactions){
             if ((x.getDate().getMonthValue() == prevMonth.getMonthValue())&&(x.getDate().getYear() == prevMonth.getYear())) {
-                LocalDate date = x.getDate();
-                LocalTime time = x.getTime();
-                String description = x.getDescription();
-                String vendor = x.getVendor();
-                double amount = x.getAmount();
-                System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
-                System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"Date @ Time :" + date + " @ " +time);
-                System.out.println("Vendor: "+ vendor);
-                System.out.println("Description: " + description);
-                System.out.println("Amount: " +ConsoleColors.RESET + (amount>=0? ConsoleColors.GREEN_BOLD_BRIGHT+amount+ConsoleColors.RESET:ConsoleColors.RED_BOLD_BRIGHT+amount+ConsoleColors.RESET));
-                System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
+                x.print();
                 counter++;
             }
         }
         if (counter==0) System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"🫤NO TRANSACTION REPORT AVAILABLE🫤"+ConsoleColors.RESET);
     }
 
+    /**
+     * Displays a report of all transactions for the current year.
+     */
     private static void getTransactionYearToDate(){
         int counter = 0;
         System.out.println(ConsoleColors.WHITE_UNDERLINED+ConsoleColors.WHITE_BOLD_BRIGHT+"DISPLAYING TRANSACTION REPORT OF ALL TRANSACTION(S) MADE YEAR TO DATE: "+ConsoleColors.RESET);
@@ -468,23 +463,16 @@ public class Screen {
         LocalDate yearToDate = today.minusMonths(12);
         for (Transactions x:transactions){
             if (x.getDate().compareTo(yearToDate)>=0) {
-                LocalDate date = x.getDate();
-                LocalTime time = x.getTime();
-                String description = x.getDescription();
-                String vendor = x.getVendor();
-                double amount = x.getAmount();
-                System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
-                System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"Date @ Time :" + date + " @ " +time);
-                System.out.println("Vendor: "+ vendor);
-                System.out.println("Description: " + description);
-                System.out.println("Amount: " +ConsoleColors.RESET + (amount>=0? ConsoleColors.GREEN_BOLD_BRIGHT+amount+ConsoleColors.RESET:ConsoleColors.RED_BOLD_BRIGHT+amount+ConsoleColors.RESET));
-                System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
+                x.print();
                 counter++;
             }
         }
         if (counter==0) System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"🫤NO TRANSACTION REPORT AVAILABLE🫤"+ConsoleColors.RESET);
     }
 
+    /**
+     * Displays a report of all transactions for the previous year.
+     */
     private static void getTransactionPrevYear(){
         int counter = 0;
         System.out.println(ConsoleColors.WHITE_UNDERLINED+ConsoleColors.WHITE_BOLD_BRIGHT+"DISPLAYING TRANSACTION REPORT OF ALL TRANSACTION(S) MADE PREVIOUS YEAR: "+ConsoleColors.RESET);
@@ -493,17 +481,7 @@ public class Screen {
         LocalDate prevYear = today.minusMonths(12);
         for (Transactions x:transactions){
             if (x.getDate().getYear() == prevYear.getYear()) {
-                LocalDate date = x.getDate();
-                LocalTime time = x.getTime();
-                String description = x.getDescription();
-                String vendor = x.getVendor();
-                double amount = x.getAmount();
-                System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
-                System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"Date @ Time :" + date + " @ " +time);
-                System.out.println("Vendor: "+ vendor);
-                System.out.println("Description: " + description);
-                System.out.println("Amount: " +ConsoleColors.RESET + (amount>=0? ConsoleColors.GREEN_BOLD_BRIGHT+amount+ConsoleColors.RESET:ConsoleColors.RED_BOLD_BRIGHT+amount+ConsoleColors.RESET));
-                System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
+                x.print();
                 counter++;
             }
         }
@@ -511,6 +489,9 @@ public class Screen {
 
     }
 
+    /**
+     * Displays a report of transactions associated with a specific vendor.
+     */
     private static void getTransactionByVendor(){
 
         Scanner input = new Scanner(System.in);
@@ -519,21 +500,11 @@ public class Screen {
         input.nextLine();
 
         int counter = 0;
-        System.out.println(ConsoleColors.WHITE_UNDERLINED+ConsoleColors.WHITE_BOLD_BRIGHT+"DISPLAYING TRANSACTION REPORT OF ALL TRANSACTION(S) MADE PREVIOUS YEAR: "+ConsoleColors.RESET);
+        System.out.println(ConsoleColors.WHITE_UNDERLINED+ConsoleColors.WHITE_BOLD_BRIGHT+"DISPLAYING TRANSACTION REPORT OF ALL TRANSACTION(S) FOR "+vendor.toUpperCase()+": "+ConsoleColors.RESET);
         System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
         for (Transactions x:transactions){
             if (x.getVendor().equalsIgnoreCase(vendor)){
-                LocalDate date = x.getDate();
-                LocalTime time = x.getTime();
-                String description = x.getDescription();
-                String vendorObj = x.getVendor();
-                double amount = x.getAmount();
-                System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
-                System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"Date @ Time :" + date + " @ " +time);
-                System.out.println("Vendor: "+ vendorObj);
-                System.out.println("Description: " + description);
-                System.out.println("Amount: " +ConsoleColors.RESET + (amount>=0? ConsoleColors.GREEN_BOLD_BRIGHT+amount+ConsoleColors.RESET:ConsoleColors.RED_BOLD_BRIGHT+amount+ConsoleColors.RESET));
-                System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
+                x.print();
                 counter++;
             }
         }
@@ -542,7 +513,9 @@ public class Screen {
     }
 
 
-
+    /**
+     * A helper method to display a progress indicator while processing.
+     */
     private static void progress() {
         boolean showProgress = true;
             String anim = "=====================";
@@ -563,6 +536,9 @@ public class Screen {
             }
             }
 
+    /**
+     * A smaller version of the progress indicator for shorter processes.
+     */
     private static void progressSmall() {
         boolean showProgress = true;
         String anim = "=====================";

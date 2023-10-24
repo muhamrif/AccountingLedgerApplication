@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9620cc8b-2058-42d5-9863-f13ded89e907" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/pluralsight/Progress.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AllTransactions/hamzatransactions.csv" beforeDir="false" afterPath="$PROJECT_DIR$/AllTransactions/hamzatransactions.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/pluralsight/Screen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pluralsight/Screen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pluralsight/Transactions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pluralsight/Transactions.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

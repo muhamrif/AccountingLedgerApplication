@@ -1,14 +1,27 @@
 package com.pluralsight;
 
 import java.util.Random;
-
+/**
+ * @author      Muhammad Hamza <muhammad.hamza6415@gmail.com>
+ * The Progress class provides methods to display progress indicators in the console, such as loading bars, spinners,
+ * and dancing characters.
+ */
 public class Progress {
+    /**
+     * Main method for testing the progress indicators. Mainly for testing purposes.
+     * @param args Command-line arguments (not used in this application)
+     */
     public static void main(String[] args) {
         dance();
         bar();
         spin();
 
     }
+
+    /**
+     * Displays a loading bar with a visual representation of progress. The loading bar is updated in real-time to show
+     * the percentage of completion.
+     */
     public static void bar() {
         int totalSteps = 100;
         for (int i = 0; i <= totalSteps; i++) {
@@ -23,6 +36,9 @@ public class Progress {
         }
     }
 
+    /**
+     * Displays a spinning progress indicator, often used to indicate ongoing activity without showing specific progress.
+     */
     public static void spin() {
         String[] spinnerFrames = {"|", "/", "-", "\\"};
         int currentFrame = 0;
@@ -34,6 +50,9 @@ public class Progress {
         }
     }
 
+    /**
+     * Displays a dancing character animation in the console, providing a playful and visually appealing progress indicator.
+     */
         public static void dance(){
             String[] dancingCharacter = {"(>^.^)>", "(^.^<)", "<(^.^<)", "^(^.^)^"};
             int currentCharacter = 0;
