@@ -35,9 +35,11 @@ For this Project I used:
 ![Legder Flow Chart.png](graphics%2FLegder%20Flow%20Chart.png)
 ## Demo
 
-#### First Time Signingup And Logging In:
-![FirstTimeSignupAndLogin.gif](graphics%2FFirstTimeSignupAndLogin.gif)
+#### Initial Loading
+![InitialLoading.gif](graphics%2FInitialLoading.gif)
 
+#### First Time Signingup And Logging In:
+![FirstTimeSigningUpAndLogginIn.gif](graphics%2FFirstTimeSigningUpAndLogginIn.gif)
 
 ## Screenshots
 
