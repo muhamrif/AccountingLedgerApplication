@@ -292,19 +292,41 @@ public class Screen {
 
             switch (input) {
                 case "1":
+                    System.out.println("\n" + "GOING TO MONTH TO DATE REPORT!👉🏽"+"\n");
+                    progress();
                     getTransactionMonthToDate();
+                    System.out.println("\n" +"👈🏽GOING BACK TO REPORTS MENU!"+"\n");
+                    progressSmall();
+
                     break;
                 case "2":
+                    System.out.println("\n" + "GOING TO PREVIOUS MONTH REPORT!👉🏽"+"\n");
+                    progress();
                     getTransactionPrevMonth();
+                    System.out.println("\n" +"👈🏽GOING BACK TO REPORTS MENU!"+"\n");
+                    progressSmall();
                     break;
                 case "3":
+                    System.out.println("\n" + "GOING TO YEAR TO DATE REPORT!👉🏽"+"\n");
+                    progress();
                     getTransactionYearToDate();
+                    System.out.println("\n" +"👈🏽GOING BACK TO REPORTS MENU!"+"\n");
+                    progressSmall();
+
                     break;
                 case "4":
+                    System.out.println("\n" + "GOING TO PREVIOUS YEAR REPORT!👉🏽"+"\n");
+                    progress();
                     getTransactionPrevYear();
+                    System.out.println("\n" +"👈🏽GOING BACK TO REPORTS MENU!"+"\n");
+                    progressSmall();
                     break;
                 case "5":
+                    System.out.println("\n" + "GOING TO VENDOR REPORT!👉🏽"+"\n");
+                    progress();
                     getTransactionByVendor();
+                    System.out.println("\n" +"👈🏽GOING BACK TO REPORTS MENU!"+"\n");
+                    progressSmall();
                     break;
                 case "6":
                     // Prompt the user to enter a vendor name, then generate a report for all transactions
@@ -322,48 +344,105 @@ public class Screen {
 
 
     private static void getTransactionMonthToDate(){
-        System.out.println("\n" + "GETTING ALL TRANSACTIONS MONTH TO DATE👉🏽"+"\n");
-        progress();
+        int counter = 0;
+        System.out.println(ConsoleColors.WHITE_UNDERLINED+ConsoleColors.WHITE_BOLD_BRIGHT+"DISPLAYING TRANSACTION REPORT OF ALL TRANSACTION(S) MONTH TO DATE: "+ConsoleColors.RESET);
+        System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
 
         LocalDate today = LocalDate.now();
         LocalDate monthToDate = today.minusMonths(1);
         for (Transactions x:transactions){
             if (x.getDate().compareTo(monthToDate)>=0) {
-                System.out.println(x);
+                LocalDate date = x.getDate();
+                LocalTime time = x.getTime();
+                String description = x.getDescription();
+                String vendor = x.getVendor();
+                double amount = x.getAmount();
+                System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
+                System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"Date @ Time :" + date + " @ " +time);
+                System.out.println("Vendor: "+ vendor);
+                System.out.println("Description: " + description);
+                System.out.println("Amount: " +ConsoleColors.RESET + (amount>=0? ConsoleColors.GREEN_BOLD_BRIGHT+amount+ConsoleColors.RESET:ConsoleColors.RED_BOLD_BRIGHT+amount+ConsoleColors.RESET));
+                System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
+                counter++;
 
             }
         }
-        System.out.println("\n" +"👈🏽GOING BACK TO REPORTS MENU!"+"\n");
-        progressSmall();
+        if (counter==0) System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"🫤NO TRANSACTION REPORT AVAILABLE🫤"+ConsoleColors.RESET);
+
     }
     private static void getTransactionPrevMonth(){
+        int counter = 0;
+        System.out.println(ConsoleColors.WHITE_UNDERLINED+ConsoleColors.WHITE_BOLD_BRIGHT+"DISPLAYING TRANSACTION REPORT OF ALL TRANSACTION(S) MADE LAST MONTH: "+ConsoleColors.RESET);
+        System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
         LocalDate today = LocalDate.now();
         LocalDate prevMonth = today.minusMonths(1);
         for (Transactions x:transactions){
             if ((x.getDate().getMonthValue() == prevMonth.getMonthValue())&&(x.getDate().getYear() == prevMonth.getYear())) {
-                System.out.println(x);
+                LocalDate date = x.getDate();
+                LocalTime time = x.getTime();
+                String description = x.getDescription();
+                String vendor = x.getVendor();
+                double amount = x.getAmount();
+                System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
+                System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"Date @ Time :" + date + " @ " +time);
+                System.out.println("Vendor: "+ vendor);
+                System.out.println("Description: " + description);
+                System.out.println("Amount: " +ConsoleColors.RESET + (amount>=0? ConsoleColors.GREEN_BOLD_BRIGHT+amount+ConsoleColors.RESET:ConsoleColors.RED_BOLD_BRIGHT+amount+ConsoleColors.RESET));
+                System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
+                counter++;
             }
         }
+        if (counter==0) System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"🫤NO TRANSACTION REPORT AVAILABLE🫤"+ConsoleColors.RESET);
     }
 
     private static void getTransactionYearToDate(){
+        int counter = 0;
+        System.out.println(ConsoleColors.WHITE_UNDERLINED+ConsoleColors.WHITE_BOLD_BRIGHT+"DISPLAYING TRANSACTION REPORT OF ALL TRANSACTION(S) MADE YEAR TO DATE: "+ConsoleColors.RESET);
+        System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
         LocalDate today = LocalDate.now();
         LocalDate yearToDate = today.minusMonths(12);
         for (Transactions x:transactions){
             if (x.getDate().compareTo(yearToDate)>=0) {
-                System.out.println(x);
+                LocalDate date = x.getDate();
+                LocalTime time = x.getTime();
+                String description = x.getDescription();
+                String vendor = x.getVendor();
+                double amount = x.getAmount();
+                System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
+                System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"Date @ Time :" + date + " @ " +time);
+                System.out.println("Vendor: "+ vendor);
+                System.out.println("Description: " + description);
+                System.out.println("Amount: " +ConsoleColors.RESET + (amount>=0? ConsoleColors.GREEN_BOLD_BRIGHT+amount+ConsoleColors.RESET:ConsoleColors.RED_BOLD_BRIGHT+amount+ConsoleColors.RESET));
+                System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
+                counter++;
             }
         }
+        if (counter==0) System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"🫤NO TRANSACTION REPORT AVAILABLE🫤"+ConsoleColors.RESET);
     }
 
     private static void getTransactionPrevYear(){
+        int counter = 0;
+        System.out.println(ConsoleColors.WHITE_UNDERLINED+ConsoleColors.WHITE_BOLD_BRIGHT+"DISPLAYING TRANSACTION REPORT OF ALL TRANSACTION(S) MADE PREVIOUS YEAR: "+ConsoleColors.RESET);
+        System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
         LocalDate today = LocalDate.now();
         LocalDate prevYear = today.minusMonths(12);
         for (Transactions x:transactions){
             if (x.getDate().getYear() == prevYear.getYear()) {
-                System.out.println(x);
+                LocalDate date = x.getDate();
+                LocalTime time = x.getTime();
+                String description = x.getDescription();
+                String vendor = x.getVendor();
+                double amount = x.getAmount();
+                System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
+                System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"Date @ Time :" + date + " @ " +time);
+                System.out.println("Vendor: "+ vendor);
+                System.out.println("Description: " + description);
+                System.out.println("Amount: " +ConsoleColors.RESET + (amount>=0? ConsoleColors.GREEN_BOLD_BRIGHT+amount+ConsoleColors.RESET:ConsoleColors.RED_BOLD_BRIGHT+amount+ConsoleColors.RESET));
+                System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
+                counter++;
             }
         }
+        if (counter==0) System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"🫤NO TRANSACTION REPORT AVAILABLE🫤"+ConsoleColors.RESET);
 
     }
 
@@ -373,16 +452,27 @@ public class Screen {
         System.out.println("Please Enter the name of the VENDOR for transactions:");
         String vendor = input.next();
         input.nextLine();
+
         int counter = 0;
-        System.out.println("All available reports for " + vendor+": ");
+        System.out.println(ConsoleColors.WHITE_UNDERLINED+ConsoleColors.WHITE_BOLD_BRIGHT+"DISPLAYING TRANSACTION REPORT OF ALL TRANSACTION(S) MADE PREVIOUS YEAR: "+ConsoleColors.RESET);
+        System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
         for (Transactions x:transactions){
             if (x.getVendor().equalsIgnoreCase(vendor)){
-                System.out.println(x);
+                LocalDate date = x.getDate();
+                LocalTime time = x.getTime();
+                String description = x.getDescription();
+                String vendorObj = x.getVendor();
+                double amount = x.getAmount();
+                System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
+                System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"Date @ Time :" + date + " @ " +time);
+                System.out.println("Vendor: "+ vendorObj);
+                System.out.println("Description: " + description);
+                System.out.println("Amount: " +ConsoleColors.RESET + (amount>=0? ConsoleColors.GREEN_BOLD_BRIGHT+amount+ConsoleColors.RESET:ConsoleColors.RED_BOLD_BRIGHT+amount+ConsoleColors.RESET));
+                System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
                 counter++;
             }
         }
-
-        if (counter == 0) System.out.println("No Reports Available for " + vendor + ": ");
+        if (counter==0) System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"🫤NO TRANSACTION REPORT AVAILABLE FOR:" +vendor+ConsoleColors.RESET);
 
     }
 
