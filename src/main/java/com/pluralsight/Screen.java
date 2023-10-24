@@ -1,4 +1,13 @@
 package com.pluralsight;
+import org.jline.reader.LineReader;
+import org.jline.reader.LineReaderBuilder;
+import org.jline.terminal.Terminal;
+import org.jline.terminal.TerminalBuilder;
+import org.jline.reader.*;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -6,13 +15,16 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
+import java.util.*;
 
 public class Screen {
+
 
     private static ArrayList<Transactions> transactions = new ArrayList<Transactions>();
     private static final String FILE_NAME = "transactions.csv";
@@ -20,33 +32,61 @@ public class Screen {
     private static final String TIME_FORMAT = "HH:mm:ss";
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT);
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern(TIME_FORMAT);
+    private static final Terminal terminal;
+
+    static {
+        try {
+            terminal = TerminalBuilder.builder()
+                    .system(true)
+                    .build();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static final LineReader reader = LineReaderBuilder.builder()
+            .terminal(terminal)
+            .build();
+
+
 
     public static void main(String[] args) {
+        terminal.flush();
         Scanner scanner = new Scanner(System.in);
         System.out.println(ConsoleColors.GREEN+ConsoleColors.GREEN_BACKGROUND+"--------------------------------------------"+ConsoleColors.RESET);
         System.out.println(ConsoleColors.GREEN+ConsoleColors.GREEN_BACKGROUND+"--"+ConsoleColors.RESET+ConsoleColors.WHITE_UNDERLINED+ConsoleColors.WHITE_BOLD_BRIGHT+" WELCOME TO MUHAMRIF ACCOUNTING LEDGER! "+ConsoleColors.GREEN+ConsoleColors.GREEN_BACKGROUND+"--"+ConsoleColors.RESET);
         System.out.println(ConsoleColors.GREEN+ConsoleColors.GREEN_BACKGROUND+"--------------------------------------------"+ConsoleColors.RESET);
         System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT+"Please Enter Your Name To Open Your Accounting Ledger 📝:"+ConsoleColors.RESET );
-        String name = scanner.next();
-        scanner.nextLine();
+        String name = reader.readLine("Your Name 👉🏽");
+        terminal.flush();
         progress();
         System.out.println("Welcome "+ ConsoleColors.BLUE_BOLD_BRIGHT +name.toUpperCase()+ ConsoleColors.RESET  +" to your TransactionApp!");
         loadTransactions(FILE_NAME.toLowerCase(), name.toLowerCase());
         boolean running = true;
 
 
+
         while (running) {
+            double sum = transactions.stream().mapToDouble(x -> (x.getAmount())).reduce(0, Double::sum);
+            System.out.println("YOUR CURRENT TOTAL LEDGER VALUE:" + sum);
             System.out.println("Choose an option:");
             System.out.println(ConsoleColors.GREEN_BRIGHT + "D) Add Deposit 🤑" +ConsoleColors.RESET);
             System.out.println(ConsoleColors.GREEN_BRIGHT + "P) Make Payment (Debit) 💸" +ConsoleColors.RESET);
             System.out.println(ConsoleColors.BLUE+"L) Ledger 📓"+ConsoleColors.RESET);
             System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"X) "+ "Exit 🛑"+ConsoleColors.RESET);
 
-            String input = scanner.nextLine().trim();
+
+
+            terminal.writer().write("Your Selection \uD83D\uDC49\uD83C\uDFFD");
+            terminal.flush();
+            String input = scanner.next().trim();
+
 
             switch (input.toUpperCase()) {
                 case "D", "P":
+                    System.out.println("\n");
                     addTransaction(scanner, name.toLowerCase());
+
                     System.out.println("\n" +"👈🏽GOING BACK TO HOME MENU!"+"\n");
                     progressSmall();
                     break;
@@ -99,7 +139,10 @@ public class Screen {
                 double amount = Double.parseDouble(tokens[4]);
                 Transactions transaction = new Transactions(description,vendor,date, time, amount);
                 transactions.add(transaction);
+
+
             }
+
 
         } catch (IOException e) {
             System.err.println("Error reading file: " + name+fileName);
@@ -112,20 +155,33 @@ public class Screen {
 
         boolean isDeposit = UserValidation.depositOrPayment().equalsIgnoreCase("D");
 
-        // Building Date
-        String year = UserValidation.yearDate();
-        String month = UserValidation.monthDate();
-        String day = UserValidation.dayDate(month);
-        LocalDate date = LocalDate.parse(year+"-"+month+"-"+day, DateTimeFormatter.ofPattern(DATE_FORMAT));
-        System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"Date of your Transaction(YYYY-MM-DD): " + date + ConsoleColors.RESET +"\n");
+        LocalDate date = LocalDate.parse(LocalDate.now().format(DateTimeFormatter.ofPattern(DATE_FORMAT)));
+        LocalTime time = LocalTime.parse(LocalTime.now().format(DateTimeFormatter.ofPattern(TIME_FORMAT)));
 
-        // Building Time
-        String hour = UserValidation.hourTime();
-        String min = UserValidation.minuteTime();
-        String sec = UserValidation.secondTime();
-        LocalTime time = LocalTime.parse(hour+":"+min+":"+sec, DateTimeFormatter.ofPattern(TIME_FORMAT));
-        System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"Time of your Transaction(HH:MM:SS): " + time+ConsoleColors.RESET + "\n");
+        System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"⏳📅IF YOU WANT TO ENTER A TRANSACTION THAT HAPPENED NOW ENTER ( N ): "+ConsoleColors.RESET);
+        terminal.writer().write("Your Selection 👉🏽");
+        terminal.flush();
+        String dateNow = scanner.next();
 
+        if (!dateNow.equalsIgnoreCase("N")) {
+            System.out.println("SORRY! UNKNOWN SELECTION, PLEASE ENTER THE DATE AND THE TIME FOR YOUR TRANSACTION:");
+            // Building Date
+            String year = UserValidation.yearDate();
+            String month = UserValidation.monthDate();
+            String day = UserValidation.dayDate(month);
+            date = LocalDate.parse(year + "-" + month + "-" + day, DateTimeFormatter.ofPattern(DATE_FORMAT));
+            System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT + "Date of your Transaction(YYYY-MM-DD): " + date + ConsoleColors.RESET + "\n");
+
+            // Building Time
+            String hour = UserValidation.hourTime();
+            String min = UserValidation.minuteTime();
+            String sec = UserValidation.secondTime();
+            time = LocalTime.parse(hour + ":" + min + ":" + sec, DateTimeFormatter.ofPattern(TIME_FORMAT));
+            System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT + "Time of your Transaction(HH:MM:SS): " + time + ConsoleColors.RESET + "\n");
+        }else{
+            System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT + "Date of your Transaction(YYYY-MM-DD): " + date + ConsoleColors.RESET + "\n");
+            System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT + "Time of your Transaction(HH:MM:SS): " + time + ConsoleColors.RESET + "\n");
+        }
         // Get Vendor
         String vendor = UserValidation.transactionVendor();
 
@@ -142,7 +198,7 @@ public class Screen {
             String outputLine = transaction.getDate()+ "|" + transaction.getTime() + "|" + transaction.getDescription() + "|" + transaction.getVendor() + "|" + transaction.getAmount() + "\n";
                 writer.write(outputLine);
             writer.close();
-            System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT+"YOUR TRANSACTION WAS SECURELY RECORDED!" +ConsoleColors.RESET);
+            System.out.println(transaction.getAmount()>=0?ConsoleColors.GREEN_BOLD_BRIGHT+"YOUR TRANSACTION WAS SECURELY RECORDED!" +ConsoleColors.RESET:ConsoleColors.RED_BOLD_BRIGHT+"YOUR TRANSACTION WAS SECURELY RECORDED!" +ConsoleColors.RESET);
         }
         catch(IOException e){
             System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"TRANSACTION WAS NOT RECORDER, TRY AGAIN!" + ConsoleColors.RESET);
@@ -334,7 +390,7 @@ public class Screen {
                 case "0":
                     running = false;
                 default:
-                    System.out.println("Invalid option");
+//                    System.out.println("Invalid option");
                     break;
             }
         }

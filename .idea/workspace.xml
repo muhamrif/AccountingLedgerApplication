@@ -6,10 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="9620cc8b-2058-42d5-9863-f13ded89e907" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AllTransactions/hamzatransactions.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AllTransactions/kerrytransactions.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/pluralsight/Screen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pluralsight/Screen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/pluralsight/Transactions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pluralsight/Transactions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/pluralsight/UserValidation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pluralsight/UserValidation.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -20,6 +18,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="JUnit5 Test Class" />
         <option value="Class" />
       </list>
     </option>
@@ -43,7 +42,10 @@
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/Users/muhamrif/Desktop/programming/YearUp/pluralsight/Capstones/AccountingLedgerApplication"
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "last_opened_file_path": "/Users/muhamrif/Desktop/programming/YearUp/pluralsight/Capstones/AccountingLedgerApplication",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -53,10 +55,42 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/AllTransactions" />
     </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.pluralsight" />
+    </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Screen">
+    <configuration name="InteractiveMenu" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.pluralsight.InteractiveMenu" />
+      <module name="AccountingLedgerApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.pluralsight.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Screen" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.pluralsight.Screen" />
+      <module name="AccountingLedgerApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.pluralsight.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="testMenu" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.pluralsight.testMenu" />
       <module name="AccountingLedgerApplication" />
       <extension name="coverage">
         <pattern>
@@ -71,6 +105,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Screen" />
+        <item itemvalue="Application.InteractiveMenu" />
+        <item itemvalue="Application.testMenu" />
       </list>
     </recent_temporary>
   </component>
