@@ -218,7 +218,9 @@ public class Screen {
             System.out.println(ConsoleColors.BLUE_BOLD_BRIGHT+"R) Reports📘"+ConsoleColors.RESET);
             System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"H) Home🏠"+ConsoleColors.RESET);
 
-            String input = scanner.nextLine().trim();
+            terminal.writer().write("Your Selection \uD83D\uDC49\uD83C\uDFFD");
+            terminal.flush();
+            String input = scanner.next().trim();
 
             switch (input.toUpperCase()) {
                 case "A":
@@ -344,7 +346,9 @@ public class Screen {
             System.out.println("6) 🔎Custom Search🔍");
             System.out.println("0) Back👈🏽");
 
-            String input = scanner.nextLine().trim();
+            terminal.writer().write("Your Selection \uD83D\uDC49\uD83C\uDFFD");
+            terminal.flush();
+            String input = scanner.next().trim();
 
             switch (input) {
                 case "1":
