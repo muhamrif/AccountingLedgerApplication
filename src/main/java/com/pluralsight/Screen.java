@@ -24,7 +24,7 @@ import java.util.Scanner;
 import java.util.*;
 
 /**
- * @author      Muhammad Hamza <muhammad.hamza6415@gmail.com>
+ *
  * The Screen class is the main class of the Accounting Ledger application. It provides a command-line interface
  * for users to record financial transactions and generate various reports related to their financial activity.
  */

@@ -2,7 +2,7 @@ package com.pluralsight;
 
 import java.util.Random;
 /**
- * @author      Muhammad Hamza <muhammad.hamza6415@gmail.com>
+ *
  * The Progress class provides methods to display progress indicators in the console, such as loading bars, spinners,
  * and dancing characters.
  */
@@ -29,7 +29,7 @@ public class Progress {
             String progressBar = "[" + ConsoleColors.GREEN+ConsoleColors.GREEN_BACKGROUND+"=".repeat(progress)+ConsoleColors.RESET +" ".repeat(100 - progress) +  "]";
             System.out.print("\rLOADING MUHAMRIF LEGDER: " + progressBar + " " + progress + "%");
             try {
-                Thread.sleep(20); // Simulate work
+                Thread.sleep(20);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -61,11 +61,10 @@ public class Progress {
             while (flag) {
                 System.out.print("\r" + dancingCharacter[currentCharacter]);
                 currentCharacter = (currentCharacter + 1) % dancingCharacter.length;
-                // Update progress logic here
                 if (acc==10) flag=false;
                 try {
                     Thread.sleep(500);
-                    acc++;// Adjust animation speed
+                    acc++;
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }

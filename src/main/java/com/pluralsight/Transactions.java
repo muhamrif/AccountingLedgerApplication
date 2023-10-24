@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 /**
- * @author      Muhammad Hamza <muhammad.hamza6415@gmail.com>
+ *
  * The Transactions class represents a financial transaction with attributes including
  * description, vendor, date, time, amount, and transaction type (deposit or payment).
  */

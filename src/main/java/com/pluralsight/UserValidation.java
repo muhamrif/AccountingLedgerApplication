@@ -11,7 +11,7 @@ import org.jline.terminal.Terminal;
 
 
 /**
- * @author      Muhammad Hamza <muhammad.hamza6415@gmail.com>
+ *
  * The UserValidation class provides methods for validating user input related to transactions.
  * It includes methods for validating deposit or payment type, year, month, day, hour, minute, second,
  * vendor, description, and transaction amount.
