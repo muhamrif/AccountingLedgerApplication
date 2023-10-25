@@ -1,13 +1,7 @@
 package com.pluralsight;
-
-import org.jline.reader.LineReader;
-import org.jline.reader.LineReaderBuilder;
-import org.jline.terminal.TerminalBuilder;
-
 import java.io.IOException;
 import java.util.Scanner;
 
-import org.jline.terminal.Terminal;
 
 
 /**
@@ -18,20 +12,6 @@ import org.jline.terminal.Terminal;
  */
 public class UserValidation {
 
-    private static final Terminal terminal;
-    static {
-        try {
-            terminal = TerminalBuilder.builder()
-                    .system(true)
-                    .build();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private static final LineReader reader = LineReaderBuilder.builder()
-            .terminal(terminal)
-            .build();
     static Scanner scanner = new Scanner(System.in);
 
 
@@ -46,8 +26,7 @@ public class UserValidation {
         while(flag) {
             System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT+"Enter ( D ),  if this Transaction is a DEPOSIT (ADDING MONEY TO YOUR ACCOUNT)"+ConsoleColors.RESET);
             System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"Enter ( P ),  if this Transaction is a PAYMENT (REMOVING MONEY TO YOUR ACCOUNT)"+ConsoleColors.RESET);
-            terminal.writer().write("Your Selection 👉🏽");
-            terminal.flush();
+            System.out.println("Your Selection 👉🏽");
             depositValidation = scanner.next();
             System.out.println("\n");
             if(depositValidation.equalsIgnoreCase("d") || depositValidation.equalsIgnoreCase("p")){
@@ -70,8 +49,7 @@ public class UserValidation {
         String year = "";
         while (flag) {
             System.out.println("📅📆Please enter the YEAR of your transaction in the YYYY format, you can enter any year from 1900 to 2023:📅📆");
-            terminal.writer().write("Your Transaction's YEAR (yyyy) 👉🏽");
-            terminal.flush();
+            System.out.println("Your Transaction's YEAR (yyyy) 👉🏽");
             year = scanner.next();
             System.out.println("\n");
 
@@ -96,8 +74,7 @@ public class UserValidation {
         boolean flag = true; String month = "";
         while (flag) {
             System.out.println("📅📆Please enter the MONTH of your transaction in the MM format, you can enter any month from 01 to 12:📅📆");
-            terminal.writer().write("Your Transaction's Month (MM) 👉🏽");
-            terminal.flush();
+            System.out.println("Your Transaction's Month (MM) 👉🏽");
             month = scanner.next();
             System.out.println("\n");
             if(month.chars().allMatch( Character::isDigit )) {
@@ -121,8 +98,7 @@ public class UserValidation {
         boolean flag = true; String day = "";
         while (flag) {
             System.out.println("📅📆Please enter the DAY of your transaction in the DD format, you can enter any month from 01 to 31:📅📆");
-            terminal.writer().write("Your Transaction's Day (dd) 👉🏽");
-            terminal.flush();
+            System.out.println("Your Transaction's Day (dd) 👉🏽");
             day = scanner.next();
             System.out.println("\n");
             if(day.chars().allMatch( Character::isDigit )) {
@@ -156,8 +132,7 @@ public class UserValidation {
         String hour = "";
         while (flag) {
             System.out.println("⏳⏳Please enter the Hour of your transaction in the HH format, you can enter any month from 01 to 24⏳⏳:");
-            terminal.writer().write("Your Transaction's Hour (HH) 👉🏽");
-            terminal.flush();
+            System.out.println("Your Transaction's Hour (HH) 👉🏽");
             hour = scanner.next();
             System.out.println("\n");
             //checks if user entered numbers only and its between 01 and 24
@@ -180,8 +155,7 @@ public class UserValidation {
         String minute = "";
         while (flag) {
             System.out.println("⏳⏳Please enter the MINUTE of your transaction in the MM format, you can enter any month from 00 to 59⏳⏳:");
-            terminal.writer().write("Your Transaction's Minutes (MM) 👉🏽");
-            terminal.flush();
+            System.out.println("Your Transaction's Minutes (MM) 👉🏽");
             minute = scanner.next();
             System.out.println("\n");
             if((minute.chars().allMatch( Character::isDigit )) && (Integer.parseInt(minute) >= 00 && Integer.parseInt(minute) <= 59)) {
@@ -203,8 +177,7 @@ public class UserValidation {
         String second = "";
         while (flag) {
             System.out.println("⏳⏳Please enter the SECONDS of your transaction in the SS format, you can enter any month from 00 to 59⏳⏳:");
-            terminal.writer().write("Your Transaction's Seconds (SS) 👉🏽");
-            terminal.flush();
+            System.out.println("Your Transaction's Seconds (SS) 👉🏽");
             second = scanner.next();
             System.out.println("\n");
             if((second.chars().allMatch( Character::isDigit )) && (Integer.parseInt(second) >= 00 && Integer.parseInt(second) <= 59)) {
@@ -222,8 +195,7 @@ public class UserValidation {
      */
     public static String transactionVendor(){
         System.out.println("Please enter the vendor for this Transaction🚙:");
-        terminal.writer().write("Vendor For Your Transaction 👉🏽");
-        terminal.flush();
+        System.out.println("Vendor For Your Transaction 👉🏽");
         String vendor = scanner.next();
         System.out.println("\n");
         return vendor;
@@ -235,8 +207,7 @@ public class UserValidation {
      */
     public static String transactionDescription(){
         System.out.println("Please enter the description or item name for this Transaction📝:");
-        terminal.writer().write("Description Or Item Name For Your Transaction 👉🏽");
-        terminal.flush();
+        System.out.println("Description Or Item Name For Your Transaction 👉🏽");
         String description = scanner.next();
         System.out.println("\n");
         return description;
@@ -252,8 +223,7 @@ public class UserValidation {
         double amount= 0;
         while (flag) {
             System.out.println("Please enter the amount for this Transaction 💰:");
-            terminal.writer().write("Amount in USD For Your Transaction 👉🏽$");
-            terminal.flush();
+            System.out.println("Amount in USD For Your Transaction 👉🏽$");
             String amountStr = scanner.next();
             System.out.println("\n");
             if((amountStr.chars().allMatch( Character::isDigit ))) {

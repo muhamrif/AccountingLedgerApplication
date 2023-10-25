@@ -1,8 +1,4 @@
 package com.pluralsight;
-import org.jline.reader.LineReader;
-import org.jline.reader.LineReaderBuilder;
-import org.jline.terminal.Terminal;
-import org.jline.terminal.TerminalBuilder;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -27,31 +23,17 @@ public class Screen {
     private static final ArrayList<Transactions> transactions = new ArrayList<Transactions>();
     private static final HashMap<String, String> userCredentials = new HashMap<>();
 
-    private static String NAME = "";
+    public static String NAME = "";
 
-    private static boolean running = true;
+    public static boolean running = true;
     private static final String FILE_NAME = "transactions.csv";
-    private static final String CSV_FILE = "users.csv";
+
     private static final String DATE_FORMAT = "yyyy-MM-dd";
     private static final String TIME_FORMAT = "HH:mm:ss";
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT);
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern(TIME_FORMAT);
-    private static final Terminal terminal;
 
 
-    static {
-        try {
-            terminal = TerminalBuilder.builder()
-                    .system(true)
-                    .build();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private static final LineReader reader = LineReaderBuilder.builder()
-            .terminal(terminal)
-            .build();
 
 
     /**
@@ -62,29 +44,31 @@ public class Screen {
     public static void main(String[] args) {
         Progress.bar();
         System.out.println("\n");
-        terminal.flush();
         Scanner scanner = new Scanner(System.in);
         System.out.println(ConsoleColors.GREEN+ConsoleColors.GREEN_BACKGROUND+"--------------------------------------------"+ConsoleColors.RESET);
         System.out.println(ConsoleColors.GREEN+ConsoleColors.GREEN_BACKGROUND+"--"+ConsoleColors.RESET+ConsoleColors.WHITE_UNDERLINED+ConsoleColors.WHITE_BOLD_BRIGHT+" WELCOME TO MUHAMRIF ACCOUNTING LEDGER! "+ConsoleColors.GREEN+ConsoleColors.GREEN_BACKGROUND+"--"+ConsoleColors.RESET);
         System.out.println(ConsoleColors.GREEN+ConsoleColors.GREEN_BACKGROUND+"--------------------------------------------"+ConsoleColors.RESET);
-        loadUserFile();
-        readUserDataFromFile(userCredentials);
-        login(userCredentials, true);
+
+        UserLogin.USER_LOGIN();
+
+        //loads the transactions from a file, or creates a file if it does not exist
         loadTransactions(FILE_NAME.toLowerCase(), NAME.toLowerCase());
 
 
 
         while (running) {
+            //Stream method to get running total of the ledger account (amounts of deposits and payments).
             double sum = transactions.stream().mapToDouble(x -> (x.getAmount())).reduce(0, Double::sum);
             System.out.printf("YOUR CURRENT TOTAL LEDGER VALUE: %.2f \n",sum);
+
+
             System.out.println("Choose an option:");
             System.out.println(ConsoleColors.GREEN_BRIGHT + "T) Add A Transaction 🤑" +ConsoleColors.RESET);
             System.out.println(ConsoleColors.BLUE+"L) Ledger 📓"+ConsoleColors.RESET);
             System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"X) "+ "Exit 🛑"+ConsoleColors.RESET);
 
 
-            terminal.writer().write("Your Selection \uD83D\uDC49\uD83C\uDFFD");
-            terminal.flush();
+            System.out.println("Your Selection \uD83D\uDC49\uD83C\uDFFD");
             String input = scanner.next().trim();
 
 
@@ -119,154 +103,160 @@ public class Screen {
 
         scanner.close();
     }
+
+
     /**
      * This method allows users to register by providing a unique username and password. It checks if the
      * username already exists and, if not, stores the provided username and password in the HashMap.
      *
      * @param userCredentials A HashMap used to store username-password pairs.
      */
-    public static void registerUser(HashMap<String, String> userCredentials) {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println(ConsoleColors.WHITE_UNDERLINED+"Welcome! Let's register your username and password."+ ConsoleColors.RESET);
-        System.out.print("Enter your username:👉🏽 ");
-        String username = scanner.next();
-
-        // Check if the username already exists.
-        if (userCredentials.containsKey(username)) {
-            System.out.println(ConsoleColors.RED+"Username already exists. Please choose a different username."+ConsoleColors.RESET);
-            registerUser(userCredentials);
-            return;
-        }
-
-        System.out.print("Enter your password:👉🏽 ");
-        String password = scanner.next();
-
-        // Store the username and password in the HashMap.
-        userCredentials.put(username, password);
-
-        // Write the user data to the CSV file.
-        writeUserDataToFile(username, password);
-
-        System.out.println("\n" + ConsoleColors.GREEN_BOLD_BRIGHT+"Registration successful!" +ConsoleColors.RESET+ "\n");
-        NAME = username;
-    }
-
-    /**
-     * This method writes user data (username and password) to an external CSV file for persistent storage.
-     *
-     * @param username The username to be written to the CSV file.
-     * @param password The password to be written to the CSV file.
-     */
-    public static void writeUserDataToFile(String username, String password) {
-        try (FileWriter writer = new FileWriter("AllTransactions/" +CSV_FILE, true)) {
-            writer.append(username).append("|").append(password).append("\n");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * This method allows users to log in by entering their username and password. It checks if the user
-     * exists in the userCredentials HashMap and if the provided password matches. If not, it provides
-     * the option to sign up or log in again.
-     *
-     * @param userCredentials A HashMap used to store username-password pairs.
-     * @param allowSignup   A boolean indicating whether user sign-up is allowed.
-     */
-    public static void login(HashMap<String, String> userCredentials, boolean allowSignup) {
-        Scanner scanner = new Scanner(System.in);
-
-        while (true) {
-            System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"\n💰Welcome! Let's log in.💰"+ConsoleColors.RESET+"\n");
-            System.out.print(ConsoleColors.WHITE_BOLD_BRIGHT+"Enter your username:👉🏽 "+ConsoleColors.RESET);
-            String username = scanner.nextLine();
-            NAME = username;
-
-            if (userCredentials.containsKey(username)) {
-                System.out.print(ConsoleColors.WHITE_BOLD_BRIGHT+"Enter your password:👉🏽 "+ConsoleColors.RESET);
-                String password = scanner.nextLine();
-
-                // Check if the entered password matches the stored password.
-                if (userCredentials.get(username).equals(password)) {
-                    System.out.println("\n"+"Welcome, " +ConsoleColors.BLUE_BOLD_BRIGHT +username.toUpperCase() +ConsoleColors.RESET+ "!");
-                    break; // Successful login, exit the loop.
-                } else {
-                    System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"Wrong credentials. Please try again."+ ConsoleColors.RESET);
-
-                }
-            } else {
-                System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"🫤This user does not exist.🫤"+ConsoleColors.RESET);
-
-
-                if (allowSignup) {
-                    System.out.print(ConsoleColors.WHITE_BOLD_BRIGHT+"Would you like to sign up? Enter ( Y ) for YES OR Enter ( N ) for NO: "+ConsoleColors.RESET);
-                    String signupChoice = scanner.nextLine().toLowerCase();
-                    if (signupChoice.equalsIgnoreCase("y")) {
-                        registerUser(userCredentials);
-                    } else {
-                        System.out.print(ConsoleColors.WHITE_BOLD_BRIGHT+"Would You Like To Login Again? Enter ( Y ) for YES OR Enter ( N ) for NO:: "+ConsoleColors.RESET);
-                        String loginChoice = scanner.nextLine().toLowerCase();
-                        if (!loginChoice.equalsIgnoreCase("y")) {
-                            Progress.progressSmall();
-                            System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT+"THANK YOU FOR CHOOSING MUHAMRIF ACCOUNTING LEDGER"+ConsoleColors.RESET);
-                            System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT+"HAVE A WONDERFUL DAY!☀️"+ConsoleColors.RESET);
-                            running=false;
-                            break; // Exit the loop if the user chooses not to log in.
-                        }
-                    }
-                } else {
-                    System.out.print("Login again? (yes/no): ");
-                    String loginChoice = scanner.nextLine().toLowerCase();
-                    if (!loginChoice.equals("yes")) {
-                        Progress.progressSmall();
-                        System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT+"THANK YOU FOR CHOOSING MUHAMRIF ACCOUNTING LEDGER"+ConsoleColors.RESET);
-                        System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT+"HAVE A WONDERFUL DAY!☀️"+ConsoleColors.RESET);
-                        running = false;
-                        break; // Exit the loop if the user chooses not to log in.
-                    }
-                }
-            }
-        }
-    }
-
-    /**
-     * This method reads user data from an external CSV file and populates the userCredentials HashMap.
-     *
-     * @param userCredentials A HashMap used to store username-password pairs.
-     */
-    public static void readUserDataFromFile(HashMap<String, String> userCredentials) {
-        try (BufferedReader reader = new BufferedReader(new FileReader("AllTransactions/" +CSV_FILE))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] data = line.split("\\|");
-                if (data.length == 2) {
-                    userCredentials.put(data[0], data[1]);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * This method check for users.csv File, if it is created already, this program creates a new users.csv file.
-     *
-     */
-    public static void loadUserFile (){
-        //USER File
-        try {
-            File myFile = new File("AllTransactions/" + CSV_FILE);
-            myFile.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    public static void registerUser(HashMap<String, String> userCredentials) {
+//        Scanner scanner = new Scanner(System.in);
+//
+//        System.out.println(ConsoleColors.WHITE_UNDERLINED+"Welcome! Let's register your username and password."+ ConsoleColors.RESET);
+//        System.out.print("Enter your username:👉🏽 ");
+//        String username = scanner.next();
+//
+//        // check if the username already exists
+//        if (userCredentials.containsKey(username)) {
+//            System.out.println(ConsoleColors.RED+"Username already exists. Please choose a different username."+ConsoleColors.RESET);
+//            registerUser(userCredentials);
+//            return;
+//        }
+//
+//        System.out.print("Enter your password:👉🏽 ");
+//        String password = scanner.next();
+//
+//        // stores the username and password in the hashmap
+//        userCredentials.put(username, password);
+//
+//        // write the user data to the CSV file
+//        writeUserDataToFile(username, password);
+//
+//        System.out.println("\n" + ConsoleColors.GREEN_BOLD_BRIGHT+"Registration successful!" +ConsoleColors.RESET+ "\n");
+//        NAME = username;
+//    }
+//
+//    /**
+//     * This method writes user data (username and password) to an external CSV file for persistent storage.
+//     *
+//     * @param username The username to be written to the CSV file.
+//     * @param password The password to be written to the CSV file.
+//     */
+//    public static void writeUserDataToFile(String username, String password) {
+//        try (FileWriter writer = new FileWriter("AllTransactions/" +CSV_FILE, true)) {
+//            writer.append(username).append("|").append(password).append("\n");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    /**
+//     * This method allows users to log in by entering their username and password. It checks if the user
+//     * exists in the userCredentials HashMap and if the provided password matches. If not, it provides
+//     * the option to sign up or log in again.
+//     *
+//     * @param userCredentials A HashMap used to store username-password pairs.
+//     * @param allowSignup   A boolean indicating whether user sign-up is allowed.
+//     */
+//    public static void login(HashMap<String, String> userCredentials, boolean allowSignup) {
+//        Scanner scanner = new Scanner(System.in);
+//
+//        while (true) {
+//            System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"\n💰Welcome! Let's log in.💰"+ConsoleColors.RESET+"\n");
+//            System.out.print(ConsoleColors.WHITE_BOLD_BRIGHT+"Enter your username:👉🏽 "+ConsoleColors.RESET);
+//            String username = scanner.nextLine();
+//            NAME = username;
+//
+//            if (userCredentials.containsKey(username)) {
+//                System.out.print(ConsoleColors.WHITE_BOLD_BRIGHT+"Enter your password:👉🏽 "+ConsoleColors.RESET);
+//                String password = scanner.nextLine();
+//
+//                // Check if the entered password matches the stored password
+//                if (userCredentials.get(username).equals(password)) {
+//                    System.out.println("\n"+"Welcome, " +ConsoleColors.BLUE_BOLD_BRIGHT +username.toUpperCase() +ConsoleColors.RESET+ "!");
+//                    break;
+//                    // Successful login breaks the loop.
+//                } else {
+//                    System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"Wrong credentials. Please try again."+ ConsoleColors.RESET);
+//
+//                }
+//            } else {
+//                System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"🫤This user does not exist.🫤"+ConsoleColors.RESET);
+//
+//
+//                if (allowSignup) {
+//                    System.out.print(ConsoleColors.WHITE_BOLD_BRIGHT+"Would you like to sign up? Enter ( Y ) for YES OR Enter ( N ) for NO: "+ConsoleColors.RESET);
+//                    String signupChoice = scanner.nextLine().toLowerCase();
+//                    if (signupChoice.equalsIgnoreCase("y")) {
+//                        registerUser(userCredentials);
+//                    } else {
+//                        System.out.print(ConsoleColors.WHITE_BOLD_BRIGHT+"Would You Like To Login Again? Enter ( Y ) for YES OR Enter ( N ) for NO:: "+ConsoleColors.RESET);
+//                        String loginChoice = scanner.nextLine().toLowerCase();
+//                        if (!loginChoice.equalsIgnoreCase("y")) {
+//                            Progress.progressSmall();
+//                            System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT+"THANK YOU FOR CHOOSING MUHAMRIF ACCOUNTING LEDGER"+ConsoleColors.RESET);
+//                            System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT+"HAVE A WONDERFUL DAY!☀️"+ConsoleColors.RESET);
+//                            running=false;
+//                            break; // Exit the loop if the user chooses not to log in.
+//                        }
+//                    }
+//                } else {
+//                    System.out.print("Login again? (yes/no): ");
+//                    String loginChoice = scanner.nextLine().toLowerCase();
+//                    if (!loginChoice.equals("yes")) {
+//                        Progress.progressSmall();
+//                        System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT+"THANK YOU FOR CHOOSING MUHAMRIF ACCOUNTING LEDGER"+ConsoleColors.RESET);
+//                        System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT+"HAVE A WONDERFUL DAY!☀️"+ConsoleColors.RESET);
+//                        running = false;
+//                        break; // Exit the loop if the user chooses not to log in.
+//                    }
+//                }
+//            }
+//        }
+//    }
+//
+//    /**
+//     * This method reads user data from an external CSV file and populates the userCredentials HashMap.
+//     *
+//     * @param userCredentials A HashMap used to store username-password pairs.
+//     */
+//    public static void readUserDataFromFile(HashMap<String, String> userCredentials) {
+//        try (BufferedReader reader = new BufferedReader(new FileReader("AllTransactions/" +CSV_FILE))) {
+//            String line;
+//            while ((line = reader.readLine()) != null) {
+//                String[] data = line.split("\\|");
+//                if (data.length == 2) {
+//                    userCredentials.put(data[0], data[1]);
+//                }
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    /**
+//     * This method check for users.csv File, if it is created already, this program creates a new users.csv file.
+//     *
+//     */
+//    public static void loadUserFile (){
+//        //USER File
+//        try {
+//            File myFile = new File("AllTransactions/" + CSV_FILE);
+//            myFile.createNewFile();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
     /**
      * Loads the user's transactions from a CSV file.
      * @param fileName The name of the CSV file where transactions are stored.
      * @param name The user's name, used to identify their ledger file.
      */
+
+
+
     public static void loadTransactions(String fileName, String name) {
 
 
@@ -322,8 +312,7 @@ public class Screen {
         LocalTime time = LocalTime.parse(LocalTime.now().format(DateTimeFormatter.ofPattern(TIME_FORMAT)));
 
         System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"⏳📅IF YOU WANT TO ENTER A TRANSACTION THAT HAPPENED NOW ENTER ( Y ) OR ENTER ( N ) FOR MANUAL DATE/TIME ENTRY: "+ConsoleColors.RESET);
-        terminal.writer().write("Your Selection 👉🏽");
-        terminal.flush();
+        System.out.println("Your Selection 👉🏽");
         String dateNow = scanner.next();
 
         if (!dateNow.equalsIgnoreCase("Y")) {
@@ -386,8 +375,7 @@ public class Screen {
             System.out.println(ConsoleColors.BLUE_BOLD_BRIGHT+"R) Reports📘"+ConsoleColors.RESET);
             System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"H) Home🏠"+ConsoleColors.RESET);
 
-            terminal.writer().write("Your Selection \uD83D\uDC49\uD83C\uDFFD");
-            terminal.flush();
+            System.out.println("Your Selection \uD83D\uDC49\uD83C\uDFFD");
             String input = scanner.next().trim();
 
             switch (input.toUpperCase()) {
@@ -499,8 +487,7 @@ public class Screen {
             System.out.println("6) 🔎Custom Search🔍");
             System.out.println("0) Back👈🏽");
 
-            terminal.writer().write("Your Selection \uD83D\uDC49\uD83C\uDFFD");
-            terminal.flush();
+            System.out.println("Your Selection \uD83D\uDC49\uD83C\uDFFD");
             String input = scanner.next().trim();
 
             switch (input) {
