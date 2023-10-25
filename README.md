@@ -1,7 +1,7 @@
 
 # Accounting Ledger Application
 
-A Java based CLI application, where users can signup and login to securely record their transactions in a Ledger, Deposits and Payments. Along with the keeping the record, users can filter be date and by vendors. After recording their transactions, users can view and filter the transactions by Deposits and Payments.
+A Java based CLI application, where users can signup and login to securely record their transactions,including Deposits and Payments, in a Ledger. Along with the keeping the record, users can filter by specific dates and by vendors. After recording their transactions, users can view and filter the transactions by Deposits and/or Payments.
 
 
 ## Tech Stack
@@ -55,8 +55,25 @@ For this Project I used:
 
 ## Screenshots
 
+### Adding Transaction Date/Time Manually
+![AddingTransactionManually1.png](graphics%2FAddingTransactionManually1.png)
+![AddingTransactionManually2.png](graphics%2FAddingTransactionManually2.png)
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+## In Ledger: Showing Deposits Only
+![OnlyDeposits.png](graphics%2FOnlyDeposits.png)
+
+### In Ledger: Showing Payments Only
+![OnlyPayments.png](graphics%2FOnlyPayments.png)
+
+### In Reports: All Reports For Month To Date 
+![ReportsMonthToDate.png](graphics%2FReportsMonthToDate.png)
+
+### In Reports: All Reports For Year To Date
+![ReportsYearToDate.png](graphics%2FReportsYearToDate.png)
+
+### In Reports: All Reports For A User Selected Vendor
+![ReportsByVendor.png](graphics%2FReportsByVendor.png)
+
 
 
 ## Roadmap-Coming Months
