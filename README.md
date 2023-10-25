@@ -59,10 +59,6 @@ For this Project I used:
 
 ## Screenshots
 
-### Adding Transaction Date/Time Manually
-![AddingTransactionManually1.png](graphics%2FAddingTransactionManually1.png)
-![AddingTransactionManually2.png](graphics%2FAddingTransactionManually2.png)
-
 ## In Ledger: Showing Deposits Only
 ![OnlyDeposits.png](graphics%2FOnlyDeposits.png)
 
