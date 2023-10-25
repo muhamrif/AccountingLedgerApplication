@@ -11,12 +11,20 @@ For this Project I used:
 - CLI: Mac Terminal
 - IDE: Intellij IDEA
 - Language: Java
+- JAVADOC: documentation
 - JDK: 17SE
+- Git/GitHub: for version control and to manage source code
+- Maven: to manage Java project building process
+- Buffered Writer: writing to file
+- Buffered Reader: reading from file
+- LocalDate: to handle date and it's formatting
+- LocalTime: to handle time and it's formatting
+
 
 
 ## Features
 
-- Login
+- [Login](####First Time Signing up And Logging In)
 - Sign up
 - Ability to view the Total of the Ledger account in $USD
 - Ability to record a Deposit Transaction
