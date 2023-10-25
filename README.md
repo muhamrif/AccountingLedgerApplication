@@ -112,6 +112,8 @@ Start the CLI program
 ```
 ## JavaDoc 
 [MUHAMRIF-AccountingLedgerApplication JavaDoc ](JavaDoc%2Findex.html)
+![JavaDoc1.png](graphics%2FJavaDoc1.png)
+![JavaDoc2.png](graphics%2FJavaDoc2.png)
 
 ## Authors
 
