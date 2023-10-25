@@ -49,6 +49,7 @@ public class Screen {
         System.out.println(ConsoleColors.GREEN+ConsoleColors.GREEN_BACKGROUND+"--"+ConsoleColors.RESET+ConsoleColors.WHITE_UNDERLINED+ConsoleColors.WHITE_BOLD_BRIGHT+" WELCOME TO MUHAMRIF ACCOUNTING LEDGER! "+ConsoleColors.GREEN+ConsoleColors.GREEN_BACKGROUND+"--"+ConsoleColors.RESET);
         System.out.println(ConsoleColors.GREEN+ConsoleColors.GREEN_BACKGROUND+"--------------------------------------------"+ConsoleColors.RESET);
 
+        //gets user info and logs in if correct creds are entered, or asks the user to signup.
         UserLogin.USER_LOGIN();
 
         //loads the transactions from a file, or creates a file if it does not exist
@@ -106,10 +107,6 @@ public class Screen {
 
 
     public static void loadTransactions(String fileName, String name) {
-
-
-
-        //Transaction File
         try {
             File myFile = new File("AllTransactions/"+(name+fileName).toLowerCase());
             if (myFile.createNewFile()){

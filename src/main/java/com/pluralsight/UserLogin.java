@@ -35,10 +35,10 @@ public class UserLogin {
         String password = scanner.next();
 
         // stores the username and password in the hashmap
-        userCredentials.put(username, password);
+        userCredentials.put(username, PasswordHashing.passwordHashPigLatin(password));
 
         // write the user data to the CSV file
-        writeUserDataToFile(username, password);
+        writeUserDataToFile(username, PasswordHashing.passwordHashPigLatin(password));
 
         System.out.println("\n" + ConsoleColors.GREEN_BOLD_BRIGHT+"Registration successful!" +ConsoleColors.RESET+ "\n");
         Screen.NAME = username;
@@ -80,7 +80,7 @@ public class UserLogin {
                 String password = scanner.nextLine();
 
                 // Check if the entered password matches the stored password
-                if (userCredentials.get(username).equals(password)) {
+                if (userCredentials.get(username).equals(PasswordHashing.passwordHashPigLatin(password))) {
                     System.out.println("\n"+"Welcome, " +ConsoleColors.BLUE_BOLD_BRIGHT +username.toUpperCase() +ConsoleColors.RESET+ "!");
                     break;
                     // Successful login breaks the loop.
