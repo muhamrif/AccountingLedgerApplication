@@ -47,6 +47,11 @@ For this Project I used:
 #### Viewing Ledger
 ![ViewingLedger.gif](graphics%2FViewingLedger.gif)
 
+#### Viewing Reports
+![CheckingReports.gif](graphics%2FCheckingReports.gif)
+
+#### Signing Off
+![SigningOff.gif](graphics%2FSigningOff.gif)
 
 ## Screenshots
 
