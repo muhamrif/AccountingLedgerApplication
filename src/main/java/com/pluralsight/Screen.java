@@ -3,8 +3,6 @@ import org.jline.reader.LineReader;
 import org.jline.reader.LineReaderBuilder;
 import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
-import org.jline.reader.*;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -12,11 +10,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Scanner;
 import java.util.*;
 
@@ -28,8 +24,8 @@ import java.util.*;
 public class Screen {
 
 
-    private static ArrayList<Transactions> transactions = new ArrayList<Transactions>();
-    private static HashMap<String, String> userCredentials = new HashMap<>();
+    private static final ArrayList<Transactions> transactions = new ArrayList<Transactions>();
+    private static final HashMap<String, String> userCredentials = new HashMap<>();
 
     private static String NAME = "";
 
@@ -41,6 +37,7 @@ public class Screen {
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT);
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern(TIME_FORMAT);
     private static final Terminal terminal;
+
 
     static {
         try {
@@ -97,19 +94,19 @@ public class Screen {
                     addTransaction(scanner, NAME.toLowerCase());
 
                     System.out.println("\n" +"👈🏽GOING BACK TO HOME MENU!"+"\n");
-                    progressSmall();
+                    Progress.progressSmall();
                     break;
                 case "L":
 
                     System.out.println("\n" + "GOING TO LEDGER!👉🏽"+"\n");
-                    progress();
+                    Progress.progressLong();
                     ledgerMenu(scanner);
                     break;
                 case "X":
                     System.out.println(ConsoleColors.RED+ConsoleColors.RED_BACKGROUND+"-------------------------------------."+ConsoleColors.RESET);
                     System.out.println(ConsoleColors.RED+ConsoleColors.RED_BACKGROUND+"--"+ConsoleColors.RESET+ConsoleColors.RED_BOLD_BRIGHT+"🚨🛑!YOU ARE NOW SIGNING OFF!🛑🚨"+ConsoleColors.RESET+ConsoleColors.RED+ConsoleColors.RED_BACKGROUND+"--"+ConsoleColors.RESET);
                     System.out.println(ConsoleColors.RED+ConsoleColors.RED_BACKGROUND+"-------------------------------------."+ConsoleColors.RESET);
-                    progressSmall();
+                    Progress.progressSmall();
                     System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT+"THANK YOU FOR CHOOSING MUHAMRIF ACCOUNTING LEDGER"+ConsoleColors.RESET);
                     System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT+"HAVE A WONDERFUL DAY!☀️"+ConsoleColors.RESET);
                     running = false;
@@ -211,7 +208,7 @@ public class Screen {
                         System.out.print(ConsoleColors.WHITE_BOLD_BRIGHT+"Would You Like To Login Again? Enter ( Y ) for YES OR Enter ( N ) for NO:: "+ConsoleColors.RESET);
                         String loginChoice = scanner.nextLine().toLowerCase();
                         if (!loginChoice.equalsIgnoreCase("y")) {
-                            progressSmall();
+                            Progress.progressSmall();
                             System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT+"THANK YOU FOR CHOOSING MUHAMRIF ACCOUNTING LEDGER"+ConsoleColors.RESET);
                             System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT+"HAVE A WONDERFUL DAY!☀️"+ConsoleColors.RESET);
                             running=false;
@@ -222,7 +219,7 @@ public class Screen {
                     System.out.print("Login again? (yes/no): ");
                     String loginChoice = scanner.nextLine().toLowerCase();
                     if (!loginChoice.equals("yes")) {
-                        progressSmall();
+                        Progress.progressSmall();
                         System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT+"THANK YOU FOR CHOOSING MUHAMRIF ACCOUNTING LEDGER"+ConsoleColors.RESET);
                         System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT+"HAVE A WONDERFUL DAY!☀️"+ConsoleColors.RESET);
                         running = false;
@@ -396,35 +393,35 @@ public class Screen {
             switch (input.toUpperCase()) {
                 case "A":
                     System.out.println("\n" + "GETTING YOUR TRANSACTIONS!👉🏽"+"\n");
-                    progress();
+                    Progress.progressLong();
                     displayLedger();
                     System.out.println("\n" +"👈🏽GOING BACK TO LEDGER MENU!"+"\n");
-                    progressSmall();
+                    Progress.progressSmall();
                     break;
                 case "D":
                     System.out.println("\n" + "GETTING YOUR DEPOSITS!👉🏽"+"\n");
-                    progress();
+                    Progress.progressLong();
                     displayDeposits();
                     System.out.println("\n" +"👈🏽GOING BACK TO LEDGER MENU!"+"\n");
-                    progressSmall();
+                    Progress.progressSmall();
                     break;
                 case "P":
                     System.out.println("\n" + "GETTING YOUR PAYMENTS!👉🏽"+"\n");
-                    progress();
+                    Progress.progressLong();
                     displayPayments();
                     System.out.println("\n" +"👈🏽GOING BACK TO LEDGER MENU!"+"\n");
-                    progressSmall();
+                    Progress.progressSmall();
                     break;
                 case "R":
                     System.out.println("\n" + "GOING TO REPORTS!👉🏽"+"\n");
-                    progress();
+                    Progress.progressLong();
                     reportsMenu(scanner);
                     System.out.println("\n" +"👈🏽GOING BACK TO LEDGER MENU!"+"\n");
-                    progressSmall();
+                    Progress.progressSmall();
                     break;
                 case "H":
                     System.out.println("\n" + "👈🏽GOING BACK TO HOME!"+"\n");
-                    progress();
+                    Progress.progressLong();
                     running = false;
                 default:
                     System.out.println("Invalid option");
@@ -509,40 +506,40 @@ public class Screen {
             switch (input) {
                 case "1":
                     System.out.println("\n" + "GOING TO MONTH TO DATE REPORT!👉🏽"+"\n");
-                    progress();
+                    Progress.progressLong();
                     getTransactionMonthToDate();
                     System.out.println("\n" +"👈🏽GOING BACK TO REPORTS MENU!"+"\n");
-                    progressSmall();
+                    Progress.progressSmall();
 
                     break;
                 case "2":
                     System.out.println("\n" + "GOING TO PREVIOUS MONTH REPORT!👉🏽"+"\n");
-                    progress();
+                    Progress.progressLong();
                     getTransactionPrevMonth();
                     System.out.println("\n" +"👈🏽GOING BACK TO REPORTS MENU!"+"\n");
-                    progressSmall();
+                    Progress.progressSmall();
                     break;
                 case "3":
                     System.out.println("\n" + "GOING TO YEAR TO DATE REPORT!👉🏽"+"\n");
-                    progress();
+                    Progress.progressLong();
                     getTransactionYearToDate();
                     System.out.println("\n" +"👈🏽GOING BACK TO REPORTS MENU!"+"\n");
-                    progressSmall();
+                    Progress.progressSmall();
 
                     break;
                 case "4":
                     System.out.println("\n" + "GOING TO PREVIOUS YEAR REPORT!👉🏽"+"\n");
-                    progress();
+                    Progress.progressLong();
                     getTransactionPrevYear();
                     System.out.println("\n" +"👈🏽GOING BACK TO REPORTS MENU!"+"\n");
-                    progressSmall();
+                    Progress.progressSmall();
                     break;
                 case "5":
                     System.out.println("\n" + "GOING TO VENDOR REPORT!👉🏽"+"\n");
-                    progress();
+                    Progress.progressLong();
                     getTransactionByVendor();
                     System.out.println("\n" +"👈🏽GOING BACK TO REPORTS MENU!"+"\n");
-                    progressSmall();
+                    Progress.progressSmall();
                     break;
                 case "6":
                     // Prompt the user to enter a vendor name, then generate a report for all transactions
@@ -657,49 +654,4 @@ public class Screen {
     }
 
 
-    /**
-     * A helper method to display a progress indicator while processing.
-     */
-    public static void progress() {
-        boolean showProgress = true;
-            String anim = "=====================";
-
-            int x = 0;
-            while (showProgress) {
-                System.out.print("\rProcessing "
-                        + anim.substring(0, x++ % anim.length())
-                        + " ");
-                if (x == 20) {
-                    showProgress = false;
-                    System.out.println("\n");
-                }
-                try {
-                    Thread.sleep(100);
-                } catch (Exception e) {
-                }
-            }
-            }
-
-    /**
-     * A smaller version of the progress indicator for shorter processes.
-     */
-    public static void progressSmall() {
-        boolean showProgress = true;
-        String anim = "=====================";
-
-        int x = 0;
-        while (showProgress) {
-            System.out.print("\rProcessing "
-                    + anim.substring(0, x++ % anim.length())
-                    + " ");
-            if (x == 10) {
-                showProgress = false;
-                System.out.println("\n");
-            }
-            try {
-                Thread.sleep(100);
-            } catch (Exception e) {
-            }
-        }
-    }
 }

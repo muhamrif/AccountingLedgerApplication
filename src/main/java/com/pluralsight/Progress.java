@@ -71,4 +71,50 @@ public class Progress {
             }
         }
 
+    /**
+     * A helper method to display a progress indicator while processing.
+     */
+    public static void progressLong() {
+        boolean showProgress = true;
+        String anim = "=====================";
+
+        int x = 0;
+        while (showProgress) {
+            System.out.print("\rProcessing "
+                    + anim.substring(0, x++ % anim.length())
+                    + " ");
+            if (x == 20) {
+                showProgress = false;
+                System.out.println("\n");
+            }
+            try {
+                Thread.sleep(100);
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    /**
+     * A smaller version of the progress indicator for shorter processes.
+     */
+    public static void progressSmall() {
+        boolean showProgress = true;
+        String anim = "=====================";
+
+        int x = 0;
+        while (showProgress) {
+            System.out.print("\rProcessing "
+                    + anim.substring(0, x++ % anim.length())
+                    + " ");
+            if (x == 10) {
+                showProgress = false;
+                System.out.println("\n");
+            }
+            try {
+                Thread.sleep(100);
+            } catch (Exception e) {
+            }
+        }
+    }
+
 }
