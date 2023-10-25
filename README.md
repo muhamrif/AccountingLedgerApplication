@@ -38,8 +38,15 @@ For this Project I used:
 #### Initial Loading
 ![InitialLoading.gif](graphics%2FInitialLoading.gif)
 
-#### First Time Signingup And Logging In:
+#### First Time Signing up And Logging In
 ![FirstTimeSigningUpAndLogginIn.gif](graphics%2FFirstTimeSigningUpAndLogginIn.gif)
+
+#### Adding A Transaction
+![AddingATransaction.gif](graphics%2FAddingATransaction.gif)
+
+#### Viewing Ledger
+![ViewingLedger.gif](graphics%2FViewingLedger.gif)
+
 
 ## Screenshots
 
