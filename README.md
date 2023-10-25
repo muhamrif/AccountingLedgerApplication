@@ -118,8 +118,7 @@ Start the CLI program
 ```bash
   java Screen.Class
 ```
-## JavaDoc 
-[MUHAMRIF-AccountingLedgerApplication JavaDoc ](JavaDoc%2Findex.html)
+## JavaDoc
 ![JavaDoc1.png](graphics%2FJavaDoc1.png)
 ![JavaDoc2.png](graphics%2FJavaDoc2.png)
 

@@ -63,7 +63,6 @@ public class Screen {
      * @param args Command-line arguments (not used in this application)
      */
     public static void main(String[] args) {
-
         Progress.bar();
         System.out.println("\n");
         terminal.flush();
@@ -82,7 +81,7 @@ public class Screen {
             double sum = transactions.stream().mapToDouble(x -> (x.getAmount())).reduce(0, Double::sum);
             System.out.printf("YOUR CURRENT TOTAL LEDGER VALUE: %.2f \n",sum);
             System.out.println("Choose an option:");
-            System.out.println(ConsoleColors.GREEN_BRIGHT + "T) Add A Transaction 🤑" +ConsoleColors.RESET);`
+            System.out.println(ConsoleColors.GREEN_BRIGHT + "T) Add A Transaction 🤑" +ConsoleColors.RESET);
             System.out.println(ConsoleColors.BLUE+"L) Ledger 📓"+ConsoleColors.RESET);
             System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"X) "+ "Exit 🛑"+ConsoleColors.RESET);
 
@@ -93,7 +92,7 @@ public class Screen {
 
 
             switch (input.toUpperCase()) {
-                case "t":
+                case "T":
                     System.out.println("\n");
                     addTransaction(scanner, NAME.toLowerCase());
 
@@ -368,6 +367,7 @@ public class Screen {
             System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"PLEASE WAIT! ADDING TRANSACTION TO THE LEDGER!"+ConsoleColors.RESET+"\n");
             Progress.dance();
             System.out.println("\n");
+            transaction.print();
             System.out.println(transaction.getAmount()>=0?ConsoleColors.GREEN_BOLD_BRIGHT+"YOUR TRANSACTION WAS SECURELY RECORDED!" +ConsoleColors.RESET:ConsoleColors.RED_BOLD_BRIGHT+"YOUR TRANSACTION WAS SECURELY RECORDED!" +ConsoleColors.RESET);
         }
         catch(IOException e){

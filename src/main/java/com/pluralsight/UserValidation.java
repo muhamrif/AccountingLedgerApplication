@@ -126,7 +126,9 @@ public class UserValidation {
             day = scanner.next();
             System.out.println("\n");
             if(day.chars().allMatch( Character::isDigit )) {
+                //checks for if day is between 1 and 31
                 if (Integer.parseInt(day) >= 01 && Integer.parseInt(day) <= 31) {
+                    //checks the cross-reference for months and the number of their correct days
                     if((Integer.parseInt(month) == 01 ||Integer.parseInt(month) == 03 ||Integer.parseInt(month) == 05 ||Integer.parseInt(month) == 07 ||Integer.parseInt(month) == 8 ||Integer.parseInt(month) == 10 ||Integer.parseInt(month) == 12)&& Integer.parseInt(day) <= 31) {
                         flag = false;
                     }else if ((Integer.parseInt(month) == 04 ||Integer.parseInt(month) == 06 ||Integer.parseInt(month) == 9 ||Integer.parseInt(month) == 11 )&& Integer.parseInt(day) < 31) {
@@ -158,6 +160,7 @@ public class UserValidation {
             terminal.flush();
             hour = scanner.next();
             System.out.println("\n");
+            //checks if user entered numbers only and its between 01 and 24
             if((hour.chars().allMatch( Character::isDigit )) && (Integer.parseInt(hour) >= 01 && Integer.parseInt(hour) <= 24)) {
                     flag = false;
             }else{
