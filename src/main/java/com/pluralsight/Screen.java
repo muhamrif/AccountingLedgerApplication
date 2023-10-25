@@ -79,12 +79,10 @@ public class Screen {
 
 
         while (running) {
-//            loadTransactions(FILE_NAME.toLowerCase(), NAME.toLowerCase());
             double sum = transactions.stream().mapToDouble(x -> (x.getAmount())).reduce(0, Double::sum);
             System.out.printf("YOUR CURRENT TOTAL LEDGER VALUE: %.2f \n",sum);
             System.out.println("Choose an option:");
-            System.out.println(ConsoleColors.GREEN_BRIGHT + "D) Add Deposit 🤑" +ConsoleColors.RESET);
-            System.out.println(ConsoleColors.GREEN_BRIGHT + "P) Make Payment (Debit) 💸" +ConsoleColors.RESET);
+            System.out.println(ConsoleColors.GREEN_BRIGHT + "T) Add A Transaction 🤑" +ConsoleColors.RESET);`
             System.out.println(ConsoleColors.BLUE+"L) Ledger 📓"+ConsoleColors.RESET);
             System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"X) "+ "Exit 🛑"+ConsoleColors.RESET);
 
@@ -95,7 +93,7 @@ public class Screen {
 
 
             switch (input.toUpperCase()) {
-                case "D", "P":
+                case "t":
                     System.out.println("\n");
                     addTransaction(scanner, NAME.toLowerCase());
 
@@ -569,7 +567,8 @@ public class Screen {
         System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
 
         for (Transactions x:transactions){
-            if (((x.getDate().getMonthValue())==LocalDate.now().getMonthValue())&&((x.getDate().getYear())==LocalDate.now().getYear())) {
+            if (((x.getDate().getMonthValue())==LocalDate.now().getMonthValue())&&((x.getDate().getYear())== LocalDate.now().getYear())) {
+
                 x.print();
                 counter++;
 

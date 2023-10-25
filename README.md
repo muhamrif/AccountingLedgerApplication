@@ -24,19 +24,19 @@ For this Project I used:
 
 ## Features
 
-- [Login](####First Time Signing up And Logging In)
-- Sign up
-- Ability to view the Total of the Ledger account in $USD
-- Ability to record a Deposit Transaction
-- Ability to record a Payment Transaction
-- Ability to view Ledger and all Transactions
-- Ability to view Deposits Only
-- Ability to view Payments
-- Ability to filter Transactions BY Month to Date
-- Ability to filter Transactions BY Previous Month
-- Ability to filter Transactions BY Year to Date
-- Ability to filter Transactions BY Previous Year
-- Ability to filter Transactions BY Vendor
+- [Login](#first-time-signing-up-and-logging-in)
+- [Sign up](#first-time-signing-up-and-logging-in)
+- [Ability to view the Total of the Ledger account in $USD](#adding-transaction-datetime-manually)
+- [Ability to record a Deposit Transaction](#adding-a-transaction)
+- [Ability to record a Payment Transaction](#adding-a-transaction)
+- [Ability to view Ledger and all Transactions](#in-ledger-showing-deposits-only)
+- [Ability to view Deposits Only](#in-ledger-showing-deposits-only)
+- [Ability to view Payments](#in-ledger-showing-payments-only)
+- [Ability to filter Transactions BY Month to Date](#in-reports-all-reports-for-month-to-date-)
+- [Ability to filter Transactions BY Previous Month](#in-reports-all-reports-for-month-to-date-)
+- [Ability to filter Transactions BY Year to Date](#in-reports-all-reports-for-year-to-date)
+- [Ability to filter Transactions BY Previous Year](#in-reports-all-reports-for-year-to-date)
+- [Ability to filter Transactions BY Vendor](#in-reports-all-reports-for-a-user-selected-vendor)
 - Ability to filter Transactions BY a custom user provided values.
 
 ## Flow Of Order
