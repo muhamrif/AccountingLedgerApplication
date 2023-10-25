@@ -15,10 +15,6 @@ For this Project I used:
 - JDK: 17SE
 - Git/GitHub: for version control and to manage source code
 - Maven: to manage Java project building process
-- Buffered Writer: writing to file
-- Buffered Reader: reading from file
-- LocalDate: to handle date and it's formatting
-- LocalTime: to handle time and it's formatting
 
 
 
@@ -125,7 +121,7 @@ Start the CLI program
 ## Authors
 
 - [@muhmarif](https://www.github.com/muhamrif)
-
+- [@RayMaroun](https://github.com/RayMaroun) (Project Skeleton)
 
 ## Feedback
 
