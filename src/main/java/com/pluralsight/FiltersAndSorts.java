@@ -37,7 +37,7 @@ public class FiltersAndSorts {
         int counter = 0;
         System.out.println(ConsoleColors.WHITE_UNDERLINED+ConsoleColors.WHITE_BOLD_BRIGHT+"DISPLAYING TRANSACTION REPORT OF ALL TRANSACTION(S) MADE LAST MONTH: "+ConsoleColors.RESET);
         System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
-        LocalDate today = LocalDate.now().;
+        LocalDate today = LocalDate.now();
         LocalDate prevMonth = today.minusMonths(1);
         for (Transactions x:Screen.transactions){
             if(x.getDate().isAfter(prevMonth.withDayOfMonth(1).minusDays(1)) &&
