@@ -38,6 +38,10 @@ For this Project I used:
 
 ## Flow Of Order
 ![Legder Flow Chart.png](graphics%2FLegder%20Flow%20Chart.png)
+
+## Code BreakDown
+![CodeBreakdown with darkgraybg.png](graphics%2FCodeBreakdown%20with%20darkgraybg.png)
+
 ## Demo
 
 #### Initial Loading
