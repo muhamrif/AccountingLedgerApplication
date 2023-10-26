@@ -12,7 +12,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.*;
-
+/**
+ * The FileManager Class contains all the methods will be used Read AND Write from/to files.
+ */
 public class FileManager {
 
     /**

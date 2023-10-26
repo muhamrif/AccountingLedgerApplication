@@ -3,6 +3,9 @@ package com.pluralsight;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The Menus Class contains all the methods will be used to display Menus.
+ */
 public class Menus {
 
 

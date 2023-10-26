@@ -1,5 +1,8 @@
 package com.pluralsight;
 
+/**
+ * The DisplayMethods Class contains all the methods will be used to loop and display transactions.
+ */
 public class DisplayMethods {
 
     /**

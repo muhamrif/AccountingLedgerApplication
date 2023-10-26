@@ -6,6 +6,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Scanner;
 
+/**
+ * The FilterAndSorts Class contains all the methods will be used to Filter And Sort transactions.
+ */
 public class FiltersAndSorts {
 
     /**

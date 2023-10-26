@@ -4,6 +4,9 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Scanner;
 
+/**
+ * The UserLog Class contains all the methods will be used to facilitate the User Login and Signup process.
+ */
 public class UserLogin {
     private static final HashMap<String, String> userCredentials = new HashMap<>();
     private static final String CSV_FILE = "users.csv";

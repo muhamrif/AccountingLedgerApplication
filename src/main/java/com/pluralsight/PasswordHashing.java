@@ -1,5 +1,8 @@
 package com.pluralsight;
 
+/**
+ * The PasswordHashing Class contains the method that will be used to Hash the User Password.
+ */
 public class PasswordHashing {
 
     //https://www.codewars.com/kata/520b9d2ad5c005041100000f/java
