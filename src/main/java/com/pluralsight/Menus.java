@@ -186,7 +186,7 @@ public class Menus {
                     Progress.progressSmall();
                     break;
                 case "6":
-                    System.out.println("\n" + "GOING TO VENDOR REPORT!👉🏽"+"\n");
+                    System.out.println("\n" + "GOING TO CUSTOM REPORT!👉🏽"+"\n");
                     Progress.progressLong();
                     FiltersAndSorts.customSearch();
                     System.out.println("\n" +"👈🏽GOING BACK TO REPORTS MENU!"+"\n");
@@ -206,9 +206,9 @@ public class Menus {
      * Users can choose to sort the list by date, amount, or vendor alphabetically, or choose not to sort.
      * After sorting, the sorted transactions are displayed.
      *
-     * @param listToBeShorted The list of transactions to be sorted based on user selection.
+     * @param listToBeSorted The list of transactions to be sorted based on user selection.
      */
-    public static void sortMenu(ArrayList listToBeShorted){
+    public static void sortMenu(ArrayList listToBeSorted){
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
         while (running) {
@@ -225,32 +225,21 @@ public class Menus {
 
             switch (input) {
                 case "1":
-                    System.out.println("\n" + "SORTING BY DATE!👉🏽"+"\n");
-                    Progress.progressLong();
-                    FiltersAndSorts.sortByDate(listToBeShorted);
-                    System.out.println("\n" +"👈🏽GOING BACK TO REPORTS MENU!"+"\n");
-                    Progress.progressSmall();
+                    FiltersAndSorts.sortByDate(listToBeSorted);
                     running=false;
                     break;
                 case "2":
-                    System.out.println("\n" + "SORTING BY AMOUNT!👉🏽"+"\n");
-                    Progress.progressLong();
-                    FiltersAndSorts.sortByPrice(listToBeShorted);
-                    System.out.println("\n" +"👈🏽GOING BACK TO REPORTS MENU!"+"\n");
-                    Progress.progressSmall();
+                    FiltersAndSorts.sortByPrice(listToBeSorted);
                     running=false;
                     break;
                 case "3":
-                    System.out.println("\n" + "SORTING BY VENDOR!👉🏽"+"\n");
-                    Progress.progressLong();
-                    FiltersAndSorts.sortByVendor(listToBeShorted);
-                    System.out.println("\n" +"👈🏽GOING BACK TO REPORTS MENU!"+"\n");
-                    Progress.progressSmall();
+                    FiltersAndSorts.sortByVendor(listToBeSorted);
                     running=false;
                     break;
 
                 case "0":
                     System.out.println("PRINTING YOUR SEARCH REPORT NOW!");
+                    FiltersAndSorts.noSort(listToBeSorted);
                     running=false;
                     break;
             }

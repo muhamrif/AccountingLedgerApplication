@@ -240,4 +240,10 @@ public class FiltersAndSorts {
         }
     }
 
+    public static void noSort(ArrayList<Transactions> listToBeSorted){
+        for (Transactions transaction : listToBeSorted) {
+            transaction.print();
+        }
+    }
+
 }
