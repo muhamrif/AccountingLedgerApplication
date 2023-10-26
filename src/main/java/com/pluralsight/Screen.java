@@ -23,19 +23,13 @@ public class Screen {
 
     private static final ArrayList<Transactions> transactions = new ArrayList<Transactions>();
     private static final HashMap<String, String> userCredentials = new HashMap<>();
-
     public static String NAME = "";
-
     public static boolean running = true;
     private static final String FILE_NAME = "transactions.csv";
-
     private static final String DATE_FORMAT = "yyyy-MM-dd";
     private static final String TIME_FORMAT = "HH:mm:ss";
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT);
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern(TIME_FORMAT);
-
-
-
 
     /**
      * The main method is the entry point of the Accounting Ledger application. It initializes the user interface,
@@ -105,8 +99,6 @@ public class Screen {
 
         scanner.close();
     }
-
-
     public static void loadTransactions(String fileName, String name) {
         try {
             File myFile = new File("AllTransactions/"+(name+fileName).toLowerCase());
@@ -143,7 +135,6 @@ public class Screen {
 
 
     }
-
     /**
      * Adds a financial transaction to the ledger. It prompts the user for transaction details like date, time,
      * vendor, description, and amount, and records the transaction in a CSV file.
@@ -207,9 +198,6 @@ public class Screen {
         }
 
     }
-
-
-
     public static void ledgerMenu(Scanner scanner) {
         boolean running = true;
         while (running) {
@@ -263,7 +251,6 @@ public class Screen {
             }
         }
     }
-
     /**
      * Displays all recorded transactions in the ledger.
      */
@@ -277,7 +264,6 @@ public class Screen {
         }
         if (counter==0) System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"🫤NO RECORDED TRANSACTION(S) AVAILABLE🫤"+ConsoleColors.RESET);
     }
-
 
     /**
      * Displays all recorded deposit transactions in the ledger.
@@ -388,8 +374,6 @@ public class Screen {
         }
     }
 
-
-
     /**
      * Displays a report of all transactions for the current month.
      */
@@ -487,9 +471,6 @@ public class Screen {
 
     }
 
-
-
-
     public static void customSearch(){
         //https://salesforce.stackexchange.com/questions/8456/how-to-get-the-smallest-earliest-possible-date-value
         ArrayList<Transactions> ListToBeSorted = new ArrayList<Transactions>();
@@ -576,9 +557,6 @@ public class Screen {
         }
         sortMenu(ListToBeSorted);
     }
-
-
-
 
     public static void sortMenu(ArrayList listToBeShorted){
         Scanner scanner = new Scanner(System.in);
