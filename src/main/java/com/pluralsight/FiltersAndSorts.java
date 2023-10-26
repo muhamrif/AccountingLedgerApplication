@@ -21,7 +21,7 @@ public class FiltersAndSorts {
 
         LocalDate firstOfMonth= LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), 1);
         for (Transactions x:Screen.transactions){
-            if (x.getDate().isAfter(firstOfMonth)&&(x.getDate().isBefore(LocalDate.now()))) {
+            if (x.getDate().isAfter(firstOfMonth.minusDays(1))&&(x.getDate().isBefore(LocalDate.now().plusDays(1)))) {
                 x.print();
                 counter++;
             }
@@ -37,10 +37,12 @@ public class FiltersAndSorts {
         int counter = 0;
         System.out.println(ConsoleColors.WHITE_UNDERLINED+ConsoleColors.WHITE_BOLD_BRIGHT+"DISPLAYING TRANSACTION REPORT OF ALL TRANSACTION(S) MADE LAST MONTH: "+ConsoleColors.RESET);
         System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.now().;
         LocalDate prevMonth = today.minusMonths(1);
         for (Transactions x:Screen.transactions){
-            if ((x.getDate().getMonthValue() == prevMonth.getMonthValue())&&(x.getDate().getYear() == prevMonth.getYear())) {
+            if(x.getDate().isAfter(prevMonth.withDayOfMonth(1).minusDays(1)) &&
+                    x.getDate().isBefore(x.getDate().withDayOfMonth(1).minusDays(1)))
+            {
                 x.print();
                 counter++;
             }
@@ -57,7 +59,7 @@ public class FiltersAndSorts {
         System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
 
         for (Transactions x:Screen.transactions){
-            if ((x.getDate().getYear())==LocalDate.now().getYear() && x.getDate().isBefore(LocalDate.now())) {
+            if ((x.getDate().getYear())==LocalDate.now().getYear() && x.getDate().isBefore(LocalDate.now().plusDays(1))) {
                 x.print();
                 counter++;
             }
@@ -99,7 +101,7 @@ public class FiltersAndSorts {
         System.out.println(ConsoleColors.WHITE_UNDERLINED+ConsoleColors.WHITE_BOLD_BRIGHT+"DISPLAYING TRANSACTION REPORT OF ALL TRANSACTION(S) FOR "+vendor.toUpperCase()+": "+ConsoleColors.RESET);
         System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
         for (Transactions x:Screen.transactions){
-            if (x.getVendor().contains(vendor)){
+            if (x.getVendor().equalsIgnoreCase(vendor)){
                 x.print();
                 counter++;
             }
@@ -185,6 +187,7 @@ public class FiltersAndSorts {
             LocalDate xdate = x.getDate();
             String xdescription = x.getDescription().toLowerCase();
             String xvendor = x.getVendor().toLowerCase();
+
             if (    xdate.isAfter(startDate) &&
                     xdate.isBefore(endDate) &&
                     xamount>=minAmount &&
