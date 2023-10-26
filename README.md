@@ -27,13 +27,14 @@ For this Project I used:
 - [Ability to record a Payment Transaction](#adding-a-transaction)
 - [Ability to view Ledger and all Transactions](#in-ledger-showing-deposits-only)
 - [Ability to view Deposits Only](#in-ledger-showing-deposits-only)
-- [Ability to view Payments](#in-ledger-showing-payments-only)
+- [Ability to view Payments](#in-ledger-showing-deposits-only)
 - [Ability to filter Transactions BY Month to Date](#in-reports-all-reports-for-month-to-date-)
 - [Ability to filter Transactions BY Previous Month](#in-reports-all-reports-for-month-to-date-)
-- [Ability to filter Transactions BY Year to Date](#in-reports-all-reports-for-year-to-date)
-- [Ability to filter Transactions BY Previous Year](#in-reports-all-reports-for-year-to-date)
+- [Ability to filter Transactions BY Year to Date](#in-reports-all-reports-for-month-to-date-)
+- [Ability to filter Transactions BY Previous Year](#in-reports-all-reports-for-month-to-date-)
 - [Ability to filter Transactions BY Vendor](#in-reports-all-reports-for-a-user-selected-vendor)
-- Ability to filter Transactions BY a custom user provided values.
+- [Ability to filter Transactions BY a custom user provided values.](#in-reports-custom-search)
+- [Ability to Sort By: Date, Price, Vendor(Alphabetically)](#in-reports-custom-search)
 
 ## Flow Of Order
 ![Legder Flow Chart.png](graphics%2FLegder%20Flow%20Chart.png)
@@ -62,17 +63,17 @@ For this Project I used:
 ## In Ledger: Showing Deposits Only
 ![OnlyDeposits.png](graphics%2FOnlyDeposits.png)
 
-### In Ledger: Showing Payments Only
-![OnlyPayments.png](graphics%2FOnlyPayments.png)
-
 ### In Reports: All Reports For Month To Date 
 ![ReportsMonthToDate.png](graphics%2FReportsMonthToDate.png)
 
-### In Reports: All Reports For Year To Date
-![ReportsYearToDate.png](graphics%2FReportsYearToDate.png)
-
 ### In Reports: All Reports For A User Selected Vendor
 ![ReportsByVendor.png](graphics%2FReportsByVendor.png)
+
+### In Reports: Custom Search
+![Custom Search1.png](graphics%2FCustom%20Search1.png)
+
+### In Reports: Sorts
+![SortSearch.png](graphics%2FSortSearch.png)
 
 ## Special Feature
 [CodeWars:Pig Latin Hash](https://www.codewars.com/kata/520b9d2ad5c005041100000f/java)
@@ -144,9 +145,8 @@ Start the CLI program
   java Screen.Class
 ```
 ## JavaDoc
-[JavaDoc for AccountingLedgerApplication](https://muhamrif.github.io/JavaDocAccountingLedgerApplication/com/pluralsight/package-summary.html)
-![JavaDoc1.png](graphics%2FJavaDoc1.png)
-![JavaDoc2.png](graphics%2FJavaDoc2.png)
+[👉🏽JavaDoc for Muhamrif AccountingLedgerApplication👈🏽](https://muhamrif.github.io/JavaDocAccountingLedgerApplication/com/pluralsight/package-summary.html)
+
 
 ## Authors
 

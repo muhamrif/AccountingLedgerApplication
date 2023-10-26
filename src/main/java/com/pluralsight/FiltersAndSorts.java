@@ -91,7 +91,7 @@ public class FiltersAndSorts {
     public static void getTransactionByVendor(){
 
         Scanner input = new Scanner(System.in);
-        System.out.println("Please Enter the name of the VENDOR for transactions:👉🏽");
+        System.out.print("Please Enter the name of the VENDOR for transactions:👉🏽");
         String vendor = input.next();
         input.nextLine();
 
