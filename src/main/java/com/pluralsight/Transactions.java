@@ -114,28 +114,39 @@ ________________________
 //     additional Methods
 //________________________//
 
+public void print(){
+    System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
+    System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"Date @ Time :" + date + " @ " +time);
+    System.out.println("Vendor: "+ vendor);
+    System.out.println("Description: " + description);
+    System.out.println("Amount: " +ConsoleColors.RESET + (amount>=0? ConsoleColors.GREEN_BOLD_BRIGHT+amount+ConsoleColors.RESET:ConsoleColors.RED_BOLD_BRIGHT+amount+ConsoleColors.RESET));
+    System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
+
+}
+
+
     /**
      * Prints the details of the transaction, including date, time, vendor, description, and amount.
      */
-    public void print(){
-
-        String formattedText = ConsoleColors.WHITE_UNDERLINED + "                    " + ConsoleColors.RESET + "\n" +
-                ConsoleColors.WHITE_BOLD_BRIGHT + "Date @ Time: " + date + " @ " + time + "\n" +
-                "Vendor: " + vendor + "\n" +
-                "Description: " + description + "\n" +
-                "Amount: " + ConsoleColors.RESET + (amount >= 0 ? ConsoleColors.GREEN_BOLD_BRIGHT + amount + ConsoleColors.RESET : ConsoleColors.RED_BOLD_BRIGHT + amount + ConsoleColors.RESET) + "\n" +
-                ConsoleColors.WHITE_UNDERLINED + "                    " + ConsoleColors.RESET;
-
-        for (char c : formattedText.toCharArray()) {
-            System.out.print(c);
-            try {
-                Thread.sleep(5);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        System.out.println();
-    }
+//    public void print(){
+//
+//        String formattedText = ConsoleColors.WHITE_UNDERLINED + "                    " + ConsoleColors.RESET + "\n" +
+//                ConsoleColors.WHITE_BOLD_BRIGHT + "Date @ Time: " + date + " @ " + time + "\n" +
+//                "Vendor: " + vendor + "\n" +
+//                "Description: " + description + "\n" +
+//                "Amount: " + ConsoleColors.RESET + (amount >= 0 ? ConsoleColors.GREEN_BOLD_BRIGHT + amount + ConsoleColors.RESET : ConsoleColors.RED_BOLD_BRIGHT + amount + ConsoleColors.RESET) + "\n" +
+//                ConsoleColors.WHITE_UNDERLINED + "                    " + ConsoleColors.RESET;
+//
+//        for (char c : formattedText.toCharArray()) {
+//            System.out.print(c);
+//            try {
+//                Thread.sleep(5);
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
+//        System.out.println();
+//    }
     public void printSlow(){
 
         String formattedText = ConsoleColors.WHITE_UNDERLINED + "                    " + ConsoleColors.RESET + "\n" +

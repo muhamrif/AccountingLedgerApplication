@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -69,7 +70,7 @@ public class Screen {
             System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"X) "+ "Exit 🛑"+ConsoleColors.RESET);
 
 
-            System.out.println("Your Selection \uD83D\uDC49\uD83C\uDFFD");
+            System.out.print("Your Selection \uD83D\uDC49\uD83C\uDFFD");
             String input = scanner.next().trim();
 
 
@@ -132,7 +133,7 @@ public class Screen {
                 Transactions transaction = new Transactions(description,vendor,date, time, amount);
                 transactions.add(transaction);
 
-
+                reader.close();
             }
 
 
@@ -220,7 +221,7 @@ public class Screen {
             System.out.println(ConsoleColors.BLUE_BOLD_BRIGHT+"R) Reports📘"+ConsoleColors.RESET);
             System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"H) Home🏠"+ConsoleColors.RESET);
 
-            System.out.println("Your Selection \uD83D\uDC49\uD83C\uDFFD");
+            System.out.print("Your Selection \uD83D\uDC49\uD83C\uDFFD");
             String input = scanner.next().trim();
 
             switch (input.toUpperCase()) {
@@ -374,6 +375,8 @@ public class Screen {
                     Progress.progressSmall();
                     break;
                 case "6":
+//                    sortByPrice();
+                    customSearch();
                     // Prompt the user to enter a vendor name, then generate a report for all transactions
                     // with that vendor, including the date, vendor, and amount for each transaction.
                 case "0":
@@ -395,12 +398,11 @@ public class Screen {
         System.out.println(ConsoleColors.WHITE_UNDERLINED+ConsoleColors.WHITE_BOLD_BRIGHT+"DISPLAYING TRANSACTION REPORT OF ALL TRANSACTION(S) MONTH TO DATE: "+ConsoleColors.RESET);
         System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
 
+        LocalDate firstOfMonth= LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), 1);
         for (Transactions x:transactions){
-            if (((x.getDate().getMonthValue())==LocalDate.now().getMonthValue())&&((x.getDate().getYear())== LocalDate.now().getYear())) {
-
+            if (x.getDate().isAfter(firstOfMonth)&&(x.getDate().isBefore(LocalDate.now()))) {
                 x.print();
                 counter++;
-
             }
         }
         if (counter==0) System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"🫤NO TRANSACTION REPORT AVAILABLE🫤"+ConsoleColors.RESET);
@@ -434,7 +436,7 @@ public class Screen {
         System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
 
         for (Transactions x:transactions){
-            if ((x.getDate().getYear())==LocalDate.now().getYear()) {
+            if ((x.getDate().getYear())==LocalDate.now().getYear() && x.getDate().isBefore(LocalDate.now())) {
                 x.print();
                 counter++;
             }
@@ -476,13 +478,180 @@ public class Screen {
         System.out.println(ConsoleColors.WHITE_UNDERLINED+ConsoleColors.WHITE_BOLD_BRIGHT+"DISPLAYING TRANSACTION REPORT OF ALL TRANSACTION(S) FOR "+vendor.toUpperCase()+": "+ConsoleColors.RESET);
         System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
         for (Transactions x:transactions){
-            if (x.getVendor().equalsIgnoreCase(vendor)){
+            if (x.getVendor().contains(vendor)){
                 x.print();
                 counter++;
             }
         }
         if (counter==0) System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"🫤NO TRANSACTION REPORT AVAILABLE FOR:" +vendor+ConsoleColors.RESET);
 
+    }
+
+
+
+
+    public static void customSearch(){
+        //https://salesforce.stackexchange.com/questions/8456/how-to-get-the-smallest-earliest-possible-date-value
+        ArrayList<Transactions> ListToBeSorted = new ArrayList<Transactions>();
+        Scanner scanner = new Scanner(System.in);
+
+        String earliestDateInJava = "1700-01-01";
+        String latestDateInJava = "4000-12-31";
+
+
+        LocalDate startDate;
+        while (true){
+            try {
+                System.out.print(ConsoleColors.WHITE_BOLD_BRIGHT+"Please Enter the start date for your search (yyyy-MM-dd):👉🏽 "+ConsoleColors.RESET);
+                String startDateInput = scanner.nextLine();
+                startDate = startDateInput.isEmpty() ? LocalDate.parse(earliestDateInJava, DATE_FORMATTER) : LocalDate.parse(startDateInput, DATE_FORMATTER);
+                break;
+            } catch (Exception e) {
+                System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"🚨⚠️INVALID entry, Please enter a VALID DATE to continue.⚠️🚨"+ConsoleColors.RESET);
+            }
+        }
+
+        LocalDate endDate;
+        while (true){
+            try {
+                System.out.print(ConsoleColors.WHITE_BOLD_BRIGHT+"Please Enter the end date for your search (yyyy-MM-dd):👉🏽 "+ConsoleColors.RESET);
+                String endDateInput = scanner.nextLine();
+                endDate = endDateInput.isEmpty()?LocalDate.parse(latestDateInJava, DATE_FORMATTER):LocalDate.parse(endDateInput, DATE_FORMATTER);
+                break;
+            } catch (Exception e) {
+                System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"🚨⚠️INVALID entry, Please enter a VALID DATE to continue.⚠️🚨"+ConsoleColors.RESET);
+            }
+        }
+
+        System.out.print(ConsoleColors.WHITE_BOLD_BRIGHT+"Please Enter PART OR WHOLE of description/item name for your search:👉🏽 "+ConsoleColors.RESET);
+        String description = scanner.nextLine().toLowerCase();
+        description = description.isEmpty()?"":description;
+
+        System.out.print(ConsoleColors.WHITE_BOLD_BRIGHT+"Please Enter PART OR WHOLE of the vendor name for your search:👉🏽 "+ConsoleColors.RESET);
+        String vendor = scanner.nextLine().toLowerCase();
+        vendor = vendor.isEmpty()?"":vendor;
+
+
+        double minAmount;
+        while (true){
+            try {
+                System.out.print(ConsoleColors.WHITE_BOLD_BRIGHT+"Please Enter MIN USD amount for your search in USD (NEGATIVE NUMBERS ALLOWED) :$"+ConsoleColors.RESET);
+                String minAmountEntry = scanner.nextLine();
+                minAmount = minAmountEntry.isEmpty()? Double.NEGATIVE_INFINITY: Double.parseDouble(minAmountEntry);
+                break;
+            } catch (Exception e) {
+                System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"🚨⚠️INVALID entry, Please enter a VALID AMOUNT (numbers only) to continue.⚠️🚨"+ConsoleColors.RESET);
+            }
+        }
+
+        double maxAmount;
+        while (true){
+            try {
+                System.out.print(ConsoleColors.WHITE_BOLD_BRIGHT+"Please Enter MAX USD amount for your search in USD (NEGATIVE NUMBERS ALLOWED) :$"+ConsoleColors.RESET);
+                String maxAmountEntry = scanner.nextLine();
+                maxAmount = maxAmountEntry.isEmpty()? Double.POSITIVE_INFINITY: Double.parseDouble(maxAmountEntry);
+                break;
+            } catch (Exception e) {
+                System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"🚨⚠️INVALID entry, Please enter a VALID AMOUNT (numbers only) to continue.⚠️🚨"+ConsoleColors.RESET);
+            }
+        }
+
+
+
+        for (Transactions x:transactions){
+            double xamount = x.getAmount();
+            LocalDate xdate = x.getDate();
+            String xdescription = x.getDescription().toLowerCase();
+            String xvendor = x.getVendor().toLowerCase();
+
+            if (    xdate.isAfter(startDate) &&
+                    xdate.isBefore(endDate) &&
+                    xamount>=minAmount &&
+                    xamount<=maxAmount &&
+                    xdescription.contains(description) &&
+                    xvendor.contains(vendor)                ){
+
+              ListToBeSorted.add(x);
+            }
+        }
+        sortMenu(ListToBeSorted);
+    }
+
+
+
+
+    public static void sortMenu(ArrayList listToBeShorted){
+        Scanner scanner = new Scanner(System.in);
+        boolean running = true;
+        while (running) {
+            System.out.println("WOULD YOU LIKE TO SORT YOUR SEARCH?");
+            System.out.println("Choose an option:");
+            System.out.println("1) Sort By Date(Chronologically)");
+            System.out.println("2) Sort By Amount");
+            System.out.println("3) Sort By Vendor(Alphabetically)");
+            System.out.println("0) NO SORT NEEDED RIGHT NOW");
+
+
+            System.out.print("Your Selection \uD83D\uDC49\uD83C\uDFFD");
+            String input = scanner.next().trim();
+
+            switch (input) {
+                case "1":
+                    System.out.println("\n" + "SORTING BY DATE!👉🏽"+"\n");
+                    Progress.progressLong();
+                    sortByDate(listToBeShorted);
+                    System.out.println("\n" +"👈🏽GOING BACK TO REPORTS MENU!"+"\n");
+                    Progress.progressSmall();
+                    running=false;
+                    break;
+                case "2":
+                    System.out.println("\n" + "SORTING BY AMOUNT!👉🏽"+"\n");
+                    Progress.progressLong();
+                    sortByPrice(listToBeShorted);
+                    System.out.println("\n" +"👈🏽GOING BACK TO REPORTS MENU!"+"\n");
+                    Progress.progressSmall();
+                    running=false;
+                    break;
+                case "3":
+                    System.out.println("\n" + "SORTING BY VENDOR!👉🏽"+"\n");
+                    Progress.progressLong();
+                    sortByVendor(listToBeShorted);
+                    System.out.println("\n" +"👈🏽GOING BACK TO REPORTS MENU!"+"\n");
+                    Progress.progressSmall();
+                    running=false;
+                    break;
+
+                case "0":
+                    System.out.println("PRINTING YOUR SEARCH REPORT NOW!");
+                    running=false;
+                    break;
+            }
+        }
+    }
+
+    public static void sortByPrice(ArrayList listToBeShorted){
+        ArrayList<Transactions> sortedList = new ArrayList<>(listToBeShorted);
+        Comparator<Transactions> absAmountComparator = Comparator.comparingDouble(obj -> Math.abs(obj.getAmount()));
+        sortedList.sort(absAmountComparator);
+        for (Transactions x : sortedList) {
+            x.print();
+        }
+    }
+    public static void sortByDate(ArrayList<Transactions> listToBeSorted) {
+        ArrayList<Transactions> sortedList = new ArrayList<>(listToBeSorted);
+        Comparator<Transactions> dateComparator = Comparator.comparing(Transactions::getDate);
+        sortedList.sort(dateComparator);
+        for (Transactions transaction : sortedList) {
+            transaction.print();
+        }
+    }
+    public static void sortByVendor(ArrayList<Transactions> listToBeSorted) {
+        ArrayList<Transactions> sortedList = new ArrayList<>(listToBeSorted);
+        Comparator<Transactions> vendorComparator = Comparator.comparing(Transactions::getVendor);
+        sortedList.sort(vendorComparator);
+        for (Transactions transaction : sortedList) {
+            transaction.print();
+        }
     }
 
 
