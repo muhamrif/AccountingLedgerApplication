@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9620cc8b-2058-42d5-9863-f13ded89e907" name="Changes" comment="" />
+    <list default="true" id="9620cc8b-2058-42d5-9863-f13ded89e907" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AllTransactions/users.csv" beforeDir="false" afterPath="$PROJECT_DIR$/AllTransactions/users.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/pluralsight/UserLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/pluralsight/UserLogin.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
