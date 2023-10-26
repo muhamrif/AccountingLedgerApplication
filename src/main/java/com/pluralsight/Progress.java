@@ -7,14 +7,18 @@ import java.util.Random;
  * and dancing characters.
  */
 public class Progress {
+
     /**
-     * Main method for testing the progress indicators. Mainly for testing purposes.
-     * @param args Command-line arguments (not used in this application)
+     * Displays a welcome message for the Accounting Ledger in the console.
+     * This method prints a colored banner with the program's name.
+     * It also calls the "bar" method to create a progress bar.
      */
-    public static void main(String[] args) {
-        dance();
+    public static void onLoadUpWelcome(){
         bar();
-        spin();
+        System.out.println("\n");
+        System.out.println(ConsoleColors.GREEN+ConsoleColors.GREEN_BACKGROUND+"--------------------------------------------"+ConsoleColors.RESET);
+        System.out.println(ConsoleColors.GREEN+ConsoleColors.GREEN_BACKGROUND+"--"+ConsoleColors.RESET+ConsoleColors.WHITE_UNDERLINED+ConsoleColors.WHITE_BOLD_BRIGHT+" WELCOME TO MUHAMRIF ACCOUNTING LEDGER! "+ConsoleColors.GREEN+ConsoleColors.GREEN_BACKGROUND+"--"+ConsoleColors.RESET);
+        System.out.println(ConsoleColors.GREEN+ConsoleColors.GREEN_BACKGROUND+"--------------------------------------------"+ConsoleColors.RESET);
 
     }
 

@@ -3,7 +3,15 @@ package com.pluralsight;
 public class PasswordHashing {
 
     //https://www.codewars.com/kata/520b9d2ad5c005041100000f/java
-    //Pig Latin Hash
+    //Pig Latin Hash ('Hamza' -> 'amzaHay')
+
+
+    /**
+     * Converts a given password into Pig Latin Hash format by applying the Pig Latin transformation rules.
+     *
+     * @param password The input password to be converted to Pig Latin.
+     * @return The password in Pig Latin format ('Hamza' -> 'amzaHay').
+     */
     public static String passwordHashPigLatin(String password){
         // Split the input sentence into words array
         String[] words = password.split(" ");

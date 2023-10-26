@@ -8,6 +8,11 @@ public class UserLogin {
     private static final HashMap<String, String> userCredentials = new HashMap<>();
     private static final String CSV_FILE = "users.csv";
 
+    /**
+     * Handles user login functionality. This method loads user credentials from a file,
+     * checks if the user provided correct credentials, and logs the user in.
+     * If the user credentials file does not exist, it will be created.
+     */
     public static void USER_LOGIN (){
         //makes a user creds file if it does not exist
         loadUserFile();
@@ -17,6 +22,15 @@ public class UserLogin {
         login(userCredentials, true);
     }
 
+
+    /**
+     * Allows a user to register by providing a username and password.
+     * If the provided username is already in use, the method prompts the user to choose a different username.
+     * After successful registration, the user's data is stored in the userCredentials HashMap,
+     * and the user data is written to the users.csv file.
+     *
+     * @param userCredentials
+     */
     public static void registerUser(HashMap<String, String> userCredentials) {
         Scanner scanner = new Scanner(System.in);
 
