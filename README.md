@@ -144,6 +144,7 @@ Start the CLI program
   java Screen.Class
 ```
 ## JavaDoc
+[JavaDoc for AccountingLedgerApplication](https://muhamrif.github.io/JavaDocAccountingLedgerApplication/com/pluralsight/package-summary.html)
 ![JavaDoc1.png](graphics%2FJavaDoc1.png)
 ![JavaDoc2.png](graphics%2FJavaDoc2.png)
 
