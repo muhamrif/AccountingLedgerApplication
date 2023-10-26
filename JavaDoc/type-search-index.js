@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"com.pluralsight","l":"ConsoleColors"},{"p":"com.pluralsight","l":"Progress"},{"p":"com.pluralsight","l":"Screen"},{"p":"com.pluralsight","l":"Transactions"},{"p":"com.pluralsight","l":"UserValidation"}];updateSearchResults();
