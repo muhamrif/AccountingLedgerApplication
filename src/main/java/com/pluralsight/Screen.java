@@ -29,6 +29,8 @@ public class Screen {
         Progress.onLoadUpWelcome();
         //gets user info and logs in if correct creds are entered, or asks the user to signup.
         UserLogin.USER_LOGIN();
+        //clears the reports file for the new login session
+        FileManager.clearReportFile();
         //loads the transactions from a file, or creates a file if it does not exist
         FileManager.loadTransactions(FILE_NAME.toLowerCase(), NAME.toLowerCase());
         //gets and displays the home menu from Menus class

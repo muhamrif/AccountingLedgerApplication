@@ -48,6 +48,7 @@ public class Menus {
                     ledgerMenu(scanner);
                     break;
                 case "X":
+                    FileManager.concludingReport();
                     System.out.println(ConsoleColors.RED + ConsoleColors.RED_BACKGROUND + "-------------------------------------." + ConsoleColors.RESET);
                     System.out.println(ConsoleColors.RED + ConsoleColors.RED_BACKGROUND + "--" + ConsoleColors.RESET + ConsoleColors.RED_BOLD_BRIGHT + "🚨🛑!YOU ARE NOW SIGNING OFF!🛑🚨" + ConsoleColors.RESET + ConsoleColors.RED + ConsoleColors.RED_BACKGROUND + "--" + ConsoleColors.RESET);
                     System.out.println(ConsoleColors.RED + ConsoleColors.RED_BACKGROUND + "-------------------------------------." + ConsoleColors.RESET);

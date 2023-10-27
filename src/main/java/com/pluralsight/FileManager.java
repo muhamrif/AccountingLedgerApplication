@@ -81,6 +81,78 @@ public class FileManager {
 
     }
 
+    public static void printToReportFile(String reportName){
+        try{
+            BufferedWriter writer = new BufferedWriter(new FileWriter("Reports/Report.txt",true));
+            String extraLine = "\n";
+            String outputLine = LocalDate.now() +" @ "+LocalTime.now()+" " +reportName+" For "+Screen.NAME.toUpperCase() +": "+ "\n";
+            String headings="""
+                    +-----------+--------+-------------------------+--------------------+---------+
+                    |   DATE    |  TIME  │       DESCRIPTION       |       VENDOR       |  PRICE  |
+                    +-----------+--------+-------------------------+--------------------+---------+""";
+            writer.write(extraLine);
+            writer.write(extraLine);
+            writer.write(extraLine);
+            writer.write(outputLine);
+            writer.write(headings);
+            writer.close();
+        }
+        catch(IOException e){
+            System.out.print(true);
+        }
+
+    }
+
+    public static void printToReportFile(Transactions transaction){
+        try{
+            BufferedWriter writer = new BufferedWriter(new FileWriter("Reports/Report.txt",true));
+            String formattedDate = String.format("%-10.10s", transaction.getDate());
+            String formattedDesc = String.format("%-25.25s",transaction.getDescription());
+            String formattedVendor = String.format("%-20.20s",transaction.getVendor());
+            String formattedTime = String.format("%-8.8s", transaction.getTime());
+            String formattedPrice = String.format("%6.2f", transaction.getAmount());
+            formattedPrice = String.format("$%8.8s", formattedPrice);
+            String output = String.format(" \n |%s|%s|%s|%s|%s| \n", formattedDate,formattedTime,formattedDesc,formattedVendor,formattedPrice);
+            writer.write(output);
+            writer.close();
+        }
+        catch(IOException e){
+            System.out.print(true);
+        }
+
+    }
+
+    public static void concludingReport(){
+        try{
+            BufferedWriter writer = new BufferedWriter(new FileWriter("Reports/Report.txt", true));
+            String extraLine = "\n";
+            String outputLine ="******************************---"+ "END OF SESSION FOR" +Screen.NAME.toUpperCase()+"---******************************";
+            writer.write(extraLine);
+            writer.write(extraLine);
+            writer.write(extraLine);
+            writer.write(outputLine);
+            writer.close();
+        }
+        catch(IOException e){
+            System.out.print(true);
+        }
+
+    }
+
+    public static void clearReportFile(){
+        try{
+            BufferedWriter writer = new BufferedWriter(new FileWriter("Reports/Report.txt"));
+            String outputLine = "";
+            writer.write(outputLine);
+            writer.close();
+        }
+        catch(IOException e){
+            System.out.print(true);
+        }
+
+    }
+
+
     /**
      * Loads transaction data from a file and populates the list of transactions.
      *

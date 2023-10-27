@@ -20,8 +20,10 @@ public class FiltersAndSorts {
         System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
 
         LocalDate firstOfMonth= LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonthValue(), 1);
+        FileManager.printToReportFile("Month To Date Transactions");
         for (Transactions x:Screen.transactions){
             if (x.getDate().isAfter(firstOfMonth.minusDays(1))&&(x.getDate().isBefore(LocalDate.now().plusDays(1)))) {
+                FileManager.printToReportFile(x);
                 x.print();
                 counter++;
             }
@@ -39,10 +41,12 @@ public class FiltersAndSorts {
         System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
         LocalDate today = LocalDate.now();
         LocalDate prevMonth = today.minusMonths(1);
+        FileManager.printToReportFile("Previous Month Transactions");
         for (Transactions x:Screen.transactions){
             if(x.getDate().isAfter(prevMonth.withDayOfMonth(1).minusDays(1)) &&
                     x.getDate().isBefore(x.getDate().withDayOfMonth(1).minusDays(1)))
             {
+                FileManager.printToReportFile(x);
                 x.print();
                 counter++;
             }
@@ -57,9 +61,10 @@ public class FiltersAndSorts {
         int counter = 0;
         System.out.println(ConsoleColors.WHITE_UNDERLINED+ConsoleColors.WHITE_BOLD_BRIGHT+"DISPLAYING TRANSACTION REPORT OF ALL TRANSACTION(S) MADE YEAR TO DATE: "+ConsoleColors.RESET);
         System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
-
+        FileManager.printToReportFile("Year To Date Transactions");
         for (Transactions x:Screen.transactions){
             if ((x.getDate().getYear())==LocalDate.now().getYear() && x.getDate().isBefore(LocalDate.now().plusDays(1))) {
+                FileManager.printToReportFile(x);
                 x.print();
                 counter++;
             }
@@ -77,8 +82,10 @@ public class FiltersAndSorts {
 
         LocalDate today = LocalDate.now();
         LocalDate prevYear = today.minusMonths(12);
+        FileManager.printToReportFile("Previous Year Transactions");
         for (Transactions x:Screen.transactions){
             if (x.getDate().getYear() == prevYear.getYear()) {
+                FileManager.printToReportFile(x);
                 x.print();
                 counter++;
             }
@@ -100,8 +107,10 @@ public class FiltersAndSorts {
         int counter = 0;
         System.out.println(ConsoleColors.WHITE_UNDERLINED+ConsoleColors.WHITE_BOLD_BRIGHT+"DISPLAYING TRANSACTION REPORT OF ALL TRANSACTION(S) FOR "+vendor.toUpperCase()+": "+ConsoleColors.RESET);
         System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
+        FileManager.printToReportFile("Transactions For "+vendor.toUpperCase() );
         for (Transactions x:Screen.transactions){
             if (x.getVendor().equalsIgnoreCase(vendor)){
+                FileManager.printToReportFile(x);
                 x.print();
                 counter++;
             }
@@ -210,7 +219,9 @@ public class FiltersAndSorts {
         ArrayList<Transactions> sortedList = new ArrayList<>(listToBeShorted);
         Comparator<Transactions> amountComparator = Comparator.comparingDouble(obj -> Math.abs(obj.getAmount()));
         sortedList.sort(amountComparator);
+        FileManager.printToReportFile("Custom Search Transactions Sorted By Price");
         for (Transactions x : sortedList) {
+            FileManager.printToReportFile(x);
             x.print();
         }
     }
@@ -224,8 +235,10 @@ public class FiltersAndSorts {
         ArrayList<Transactions> sortedList = new ArrayList<>(listToBeSorted);
         Comparator<Transactions> dateComparator = Comparator.comparing(Transactions::getDate);
         Collections.sort(sortedList, dateComparator.reversed());//reversing will show latest transaction first
-        for (Transactions transaction : sortedList) {
-            transaction.print();
+        FileManager.printToReportFile("Custom Search Transactions Sorted By Date");
+        for (Transactions x : sortedList) {
+            FileManager.printToReportFile(x);
+            x.print();
         }
     }
 
@@ -238,14 +251,18 @@ public class FiltersAndSorts {
         ArrayList<Transactions> sortedList = new ArrayList<>(listToBeSorted);
         Comparator<Transactions> vendorComparator = Comparator.comparing(Transactions::getVendor);
         sortedList.sort(vendorComparator);// sorting alphabetically
-        for (Transactions transaction : sortedList) {
-            transaction.print();
+        FileManager.printToReportFile("Custom Search Transactions Sorted Alphabetically");
+        for (Transactions x: sortedList) {
+            FileManager.printToReportFile(x);
+            x.print();
         }
     }
 
     public static void noSort(ArrayList<Transactions> listToBeSorted){
-        for (Transactions transaction : listToBeSorted) {
-            transaction.print();
+        FileManager.printToReportFile("Custom Search Transactions NOT Sorted");
+        for (Transactions x: listToBeSorted) {
+            FileManager.printToReportFile(x);
+            x.print();
         }
     }
 
