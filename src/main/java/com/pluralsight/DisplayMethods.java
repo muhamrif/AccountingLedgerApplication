@@ -12,7 +12,9 @@ public class DisplayMethods {
         int counter = 0;
         System.out.println(ConsoleColors.WHITE_UNDERLINED+ConsoleColors.WHITE_BOLD_BRIGHT+"DISPLAYING ALL OF YOUR RECORDED TRANSACTIONS: "+ConsoleColors.RESET);
         System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
+        FileManager.printToReportFile("All Transactions");
         for (Transactions x:Screen.transactions){
+            FileManager.printToReportFile(x);
             x.print();
             counter++;
         }
@@ -26,8 +28,10 @@ public class DisplayMethods {
         int counter =0;
         System.out.println(ConsoleColors.GREEN_UNDERLINED+ConsoleColors.GREEN_BOLD_BRIGHT+"DISPLAYING ALL OF YOUR RECORDED DEPOSITS: "+ConsoleColors.RESET);
         System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
+        FileManager.printToReportFile("Deposits Only");
         for (Transactions x:Screen.transactions){
             if(x.isDeposit()){
+                FileManager.printToReportFile(x);
                 x.print();
                 counter++;
             }
@@ -43,8 +47,10 @@ public class DisplayMethods {
         int counter = 0;
         System.out.println(ConsoleColors.RED_UNDERLINED+ConsoleColors.RED_BOLD_BRIGHT+"DISPLAYING ALL OF YOUR RECORDED PAYMENTS: "+ConsoleColors.RESET);
         System.out.println(ConsoleColors.WHITE_UNDERLINED+"                    "+ConsoleColors.RESET);
+        FileManager.printToReportFile("Deposits Only");
         for (Transactions x:Screen.transactions){
             if(x.isPayment()){
+                FileManager.printToReportFile(x);
                 x.print();
                 counter++;
             }

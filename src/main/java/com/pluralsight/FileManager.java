@@ -18,6 +18,52 @@ import java.util.*;
 public class FileManager {
 
     /**
+     * Loads transaction data from a file and populates the list of transactions.
+     *
+     * This method reads transaction data from a file with the specified file name and user's name, located
+     * in the "AllTransactions" directory. It parses each line of the file to create Transaction objects and
+     * adds them to the list of transactions in the "Screen" class.
+     *
+     * If the file does not exist, it creates an empty file and informs the user.
+     *
+     * @param fileName The name of the file containing transaction data.
+     * @param name The user's name to identify the user's transaction file.
+     */
+    public static void loadTransactions(String fileName, String name) {
+        try {
+            File myFile = new File("AllTransactions/"+(name+fileName).toLowerCase());
+            if (myFile.createNewFile()){
+                System.out.println("You have no transaction(s) on record!");
+            }else{
+                System.out.println("Loading your transaction(s)!");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader( "AllTransactions/"+((name+fileName).toLowerCase())))){
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] tokens = line.split("\\|");
+                LocalDate date = LocalDate.parse(tokens[0]);
+                LocalTime time = LocalTime.parse(tokens[1]);
+                String description = tokens[2];
+                String vendor = tokens[3];
+                double amount = Double.parseDouble(tokens[4]);
+                Transactions transaction = new Transactions(description,vendor,date, time, amount);
+                Screen.transactions.add(transaction);
+
+            }
+
+        } catch (IOException e) {
+            System.err.print(ConsoleColors.RED_BOLD_BRIGHT+"Something went wrong while loading your transactions! please try again"+ConsoleColors.RESET);
+        }
+
+
+    }
+
+    /**
      * Adds a financial transaction to the ledger. It prompts the user for transaction details like date, time,
      * vendor, description, and amount, and records the transaction in a CSV file.
      * @param scanner The Scanner object to read user input.
@@ -126,7 +172,7 @@ public class FileManager {
         try{
             BufferedWriter writer = new BufferedWriter(new FileWriter("Reports/Report.txt", true));
             String extraLine = "\n";
-            String outputLine ="******************************---"+ "END OF SESSION FOR" +Screen.NAME.toUpperCase()+"---******************************";
+            String outputLine ="******************************---"+ "END OF SESSION FOR " +Screen.NAME.toUpperCase()+"---******************************";
             writer.write(extraLine);
             writer.write(extraLine);
             writer.write(extraLine);
@@ -153,49 +199,4 @@ public class FileManager {
     }
 
 
-    /**
-     * Loads transaction data from a file and populates the list of transactions.
-     *
-     * This method reads transaction data from a file with the specified file name and user's name, located
-     * in the "AllTransactions" directory. It parses each line of the file to create Transaction objects and
-     * adds them to the list of transactions in the "Screen" class.
-     *
-     * If the file does not exist, it creates an empty file and informs the user.
-     *
-     * @param fileName The name of the file containing transaction data.
-     * @param name The user's name to identify the user's transaction file.
-     */
-    public static void loadTransactions(String fileName, String name) {
-        try {
-            File myFile = new File("AllTransactions/"+(name+fileName).toLowerCase());
-            if (myFile.createNewFile()){
-                System.out.println("You have no transaction(s) on record!");
-            }else{
-                System.out.println("Loading your transaction(s)!");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try (BufferedReader reader = new BufferedReader(new FileReader( "AllTransactions/"+((name+fileName).toLowerCase())))){
-
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] tokens = line.split("\\|");
-                LocalDate date = LocalDate.parse(tokens[0]);
-                LocalTime time = LocalTime.parse(tokens[1]);
-                String description = tokens[2];
-                String vendor = tokens[3];
-                double amount = Double.parseDouble(tokens[4]);
-                Transactions transaction = new Transactions(description,vendor,date, time, amount);
-                Screen.transactions.add(transaction);
-
-            }
-
-        } catch (IOException e) {
-            System.err.print(ConsoleColors.RED_BOLD_BRIGHT+"Something went wrong while loading your transactions! please try again"+ConsoleColors.RESET);
-        }
-
-
-    }
 }
