@@ -26,7 +26,7 @@ public class Menus {
             System.out.println("Choose an option:");
             System.out.println(ConsoleColors.GREEN_BRIGHT + "T) Add A Transaction 🤑" + ConsoleColors.RESET);
             System.out.println(ConsoleColors.BLUE + "L) Ledger 📓" + ConsoleColors.RESET);
-            System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "X) " + "Exit 🛑" + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "X) " + "Exit The Application 🛑" + ConsoleColors.RESET);
 
 
             System.out.print("Your Selection \uD83D\uDC49\uD83C\uDFFD");
@@ -80,7 +80,7 @@ public class Menus {
             System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"P) Payments💸"+ConsoleColors.RESET);
             System.out.println(ConsoleColors.BLUE_BOLD_BRIGHT+"R) Reports📘"+ConsoleColors.RESET);
             System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"H) Home🏠"+ConsoleColors.RESET);
-            System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "X) " + "Exit 🛑" + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "X) " + "Exit The Application 🛑" + ConsoleColors.RESET);
 
             System.out.print("Your Selection \uD83D\uDC49\uD83C\uDFFD");
             String input = scanner.next().trim();
@@ -155,7 +155,7 @@ public class Menus {
             System.out.println("5) 🔎Search by Vendor🚙");
             System.out.println("6) 🔎Custom Search🔍");
             System.out.println("0) Back👈🏽");
-            System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "X) " + "Exit 🛑" + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "X) " + "Exit The Application 🛑" + ConsoleColors.RESET);
 
             System.out.print("Your Selection \uD83D\uDC49\uD83C\uDFFD");
             String input = scanner.next().trim();
