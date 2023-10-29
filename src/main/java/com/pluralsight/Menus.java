@@ -72,8 +72,7 @@ public class Menus {
      * @param scanner The Scanner object for user input.
      */
     public static void ledgerMenu(Scanner scanner) {
-        boolean running = true;
-        while (running) {
+        while (Screen.runningLedger) {
             System.out.println("Here is your Account Ledger:");
             System.out.println("Choose an option to continue:");
             System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"A) All📝"+ConsoleColors.RESET);
@@ -81,6 +80,7 @@ public class Menus {
             System.out.println(ConsoleColors.RED_BOLD_BRIGHT+"P) Payments💸"+ConsoleColors.RESET);
             System.out.println(ConsoleColors.BLUE_BOLD_BRIGHT+"R) Reports📘"+ConsoleColors.RESET);
             System.out.println(ConsoleColors.WHITE_BOLD_BRIGHT+"H) Home🏠"+ConsoleColors.RESET);
+            System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "X) " + "Exit 🛑" + ConsoleColors.RESET);
 
             System.out.print("Your Selection \uD83D\uDC49\uD83C\uDFFD");
             String input = scanner.next().trim();
@@ -117,7 +117,18 @@ public class Menus {
                 case "H":
                     System.out.println("\n" + "👈🏽GOING BACK TO HOME!"+"\n");
                     Progress.progressLong();
-                    running = false;
+                    Screen.runningLedger = false;
+                case "X":
+                    FileManager.concludingReport();
+                    System.out.println(ConsoleColors.RED + ConsoleColors.RED_BACKGROUND + "-------------------------------------." + ConsoleColors.RESET);
+                    System.out.println(ConsoleColors.RED + ConsoleColors.RED_BACKGROUND + "--" + ConsoleColors.RESET + ConsoleColors.RED_BOLD_BRIGHT + "🚨🛑!YOU ARE NOW SIGNING OFF!🛑🚨" + ConsoleColors.RESET + ConsoleColors.RED + ConsoleColors.RED_BACKGROUND + "--" + ConsoleColors.RESET);
+                    System.out.println(ConsoleColors.RED + ConsoleColors.RED_BACKGROUND + "-------------------------------------." + ConsoleColors.RESET);
+                    Progress.progressSmall();
+                    System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "THANK YOU FOR CHOOSING MUHAMRIF ACCOUNTING LEDGER" + ConsoleColors.RESET);
+                    System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "HAVE A WONDERFUL DAY!☀️" + ConsoleColors.RESET);
+                    Screen.running = false;
+                    Screen.runningLedger = false;
+                    break;
                 default:
                     System.out.println("Invalid option");
                     break;
@@ -144,6 +155,7 @@ public class Menus {
             System.out.println("5) 🔎Search by Vendor🚙");
             System.out.println("6) 🔎Custom Search🔍");
             System.out.println("0) Back👈🏽");
+            System.out.println(ConsoleColors.RED_BOLD_BRIGHT + "X) " + "Exit 🛑" + ConsoleColors.RESET);
 
             System.out.print("Your Selection \uD83D\uDC49\uD83C\uDFFD");
             String input = scanner.next().trim();
@@ -194,6 +206,18 @@ public class Menus {
                     Progress.progressSmall();
                 case "0":
                     running = false;
+                case "X", "x":
+                    FileManager.concludingReport();
+                    System.out.println(ConsoleColors.RED + ConsoleColors.RED_BACKGROUND + "-------------------------------------." + ConsoleColors.RESET);
+                    System.out.println(ConsoleColors.RED + ConsoleColors.RED_BACKGROUND + "--" + ConsoleColors.RESET + ConsoleColors.RED_BOLD_BRIGHT + "🚨🛑!YOU ARE NOW SIGNING OFF!🛑🚨" + ConsoleColors.RESET + ConsoleColors.RED + ConsoleColors.RED_BACKGROUND + "--" + ConsoleColors.RESET);
+                    System.out.println(ConsoleColors.RED + ConsoleColors.RED_BACKGROUND + "-------------------------------------." + ConsoleColors.RESET);
+                    Progress.progressSmall();
+                    System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "THANK YOU FOR CHOOSING MUHAMRIF ACCOUNTING LEDGER" + ConsoleColors.RESET);
+                    System.out.println(ConsoleColors.GREEN_BOLD_BRIGHT + "HAVE A WONDERFUL DAY!☀️" + ConsoleColors.RESET);
+                    running = false;
+                    Screen.running = false;
+                    Screen.runningLedger=false;
+                    break;
                 default:
 //                    System.out.println("Invalid option");
                     break;

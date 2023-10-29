@@ -13,6 +13,7 @@ public class Screen {
     public static final ArrayList<Transactions> transactions = new ArrayList<Transactions>();
     public static String NAME = "";
     public static boolean running = true;
+    public static boolean runningLedger = true;
     public static final String FILE_NAME = "transactions.csv";
     public static final String DATE_FORMAT = "yyyy-MM-dd";
     public static final String TIME_FORMAT = "HH:mm:ss";

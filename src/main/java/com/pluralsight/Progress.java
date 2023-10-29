@@ -1,6 +1,5 @@
 package com.pluralsight;
 
-import java.util.Random;
 /**
  *
  * The Progress class provides methods to display progress indicators in the console, such as loading bars, spinners,
