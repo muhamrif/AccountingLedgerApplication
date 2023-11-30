@@ -3,18 +3,25 @@
 
 A Java based CLI application, where users can signup and login to securely record their transactions,including Deposits and Payments, in a Ledger. Along with the keeping the record, users can filter by specific dates and by vendors. After recording their transactions, users can view and filter the transactions by Deposits and/or Payments.
 
+## Technology Used
+<div align="center">
 
-## Tech Stack
-
-For this Project I used:
-- OS: Mac
-- CLI: Mac Terminal
-- IDE: Intellij IDEA
-- Language: Java
-- JAVADOC: documentation
-- JDK: 17SE
-- Git/GitHub: for version control and to manage source code
-- Maven: to manage Java project building process
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
+![IntelliJ IDEA](https://img.shields.io/badge/IntelliJIDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white)
+![Maven](https://img.shields.io/badge/maven-%23F24E1E.svg?style=for-the-badge&logo=maven&logoColor=white)
+![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
+![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
+![Markdown](https://img.shields.io/badge/markdown-%23F24E1E.svg?style=for-the-badge&logo=markdown&logoColor=white)
+![JUnit](https://img.shields.io/badge/junit-%23F24E1E.svg?style=for-the-badge&logo=junit&logoColor=white)
+![JavaDoc](https://img.shields.io/badge/javadoc-%23F24E1E.svg?style=for-the-badge&logo=javadoc&logoColor=white)
+![Stack Overflow](https://img.shields.io/badge/-Stackoverflow-FE7A16?style=for-the-badge&logo=stack-overflow&logoColor=white)
+![Google](https://img.shields.io/badge/google-4285F4?style=for-the-badge&logo=google&logoColor=white)
+![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white)
+![Zoom](https://img.shields.io/badge/Zoom-2D8CFF?style=for-the-badge&logo=zoom&logoColor=white)
+![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)
+![GeeksForGeeks](https://img.shields.io/badge/GeeksforGeeks-gray?style=for-the-badge&logo=geeksforgeeks&logoColor=35914c)
+![Pluralsight](https://img.shields.io/badge/Pluralsight-EE3057?style=for-the-badge&logo=pluralsight&logoColor=white)
+</div>
 
 
 
