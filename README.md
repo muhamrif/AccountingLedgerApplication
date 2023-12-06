@@ -155,9 +155,9 @@ Start the CLI program
 ```bash
   java Screen.Class
 ```
-## JavaDoc
+<!-- ## JavaDoc
 [👉🏽JavaDoc for Muhamrif AccountingLedgerApplication👈🏽](https://muhamrif.github.io/JavaDocAccountingLedgerApplication/com/pluralsight/package-summary.html)
-
+-->
 
 ## Authors
 
